@@ -1,5 +1,8 @@
 package g1.librairie_back.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import g1.librairie_back.view.Views;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
@@ -18,17 +21,19 @@ public abstract class Compte {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonView(Views.Common.class)
 	protected Integer id;
 	
 	@Column(name="nom", columnDefinition="VARCHAR(20)",nullable=false)
+	@JsonView(Views.Common.class)
 	protected String nom;
-	
+	@JsonView(Views.Common.class)
 	@Column(name="prenom", columnDefinition="VARCHAR(20)",nullable=false)
 	protected String prenom;
-	
+	@JsonView(Views.Common.class)
 	@Column(name="email", columnDefinition="VARCHAR(50)",nullable=false)
 	protected String email;
-	
+	@JsonView(Views.Common.class)
 	@Column(name="password", columnDefinition="VARCHAR(20)",nullable=false)
 	protected String password;
 	

@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import g1.librairie_back.dto.request.CreateAdminRequest;
 import g1.librairie_back.model.Admin;
 import g1.librairie_back.service.CompteService;
+import g1.librairie_back.view.Views;
 import jakarta.validation.Valid;
 
 @RestController

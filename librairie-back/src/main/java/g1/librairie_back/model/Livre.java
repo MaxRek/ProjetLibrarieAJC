@@ -2,6 +2,7 @@ package g1.librairie_back.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import g1.librairie_back.view.Views;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
