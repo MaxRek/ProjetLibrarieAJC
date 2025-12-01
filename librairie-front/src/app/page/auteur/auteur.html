@@ -1,1 +1,70 @@
-<p>auteur works!</p>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auteurs - Librairie</title>
+</head>
+<body>
+    <h1>Gestion des Auteurs</h1>
+    <section>
+        <h2>Liste des Auteurs</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let auteur of auteur$ | async; traclBy: trackAuteur" >
+                    <td>
+                        {{ auteur.nom }}
+                    </td>
+                    <td>
+                        {{ auteur.prenom }}
+                    </td>
+                    <td>
+                        <button (click)="editer(auteur)">Modifier</button>
+                        <button (click)="supprimer(auteur)">Supprimer</button>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+        
+    </section>
+
+    <hr>
+    
+    <button *ngIf="!showForm" (click)="showForm = true">Ajouter un Auteur</button>
+    <section *ngIf="showForm">
+        <h2>Formulaire d'ajout</h2>
+        <form (ngSubmit)="creerOuModifier()" [formGroup]="auteurForm">
+
+            <label for="nom">Nom:</label>
+            <input id="nom" formControlName="nom" type="text">
+                @if (nomCtrl.hasError('required')) {
+                    <span class="error">Le nom est requis.</span>
+                }
+            <br>
+
+            <label for="prenom">Prénom:</label>
+            <input id="prenom" formControlName="prenom" type="text">
+                @if (prenomCtrl.hasError('required')) {
+                    <span class="error">Le prénom est requis.</span>
+                }
+            <br>
+
+            <button type="submit">Enregistrer</button>
+            <button type="button" (click)="showForm = false">Annuler</button>
+            
+        </form>
+     </section>
+
+</body>
+</html>

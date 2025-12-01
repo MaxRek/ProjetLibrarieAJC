@@ -3,13 +3,13 @@ import { ArticleDto } from './article-dto';
 export class PapeterieDto extends ArticleDto {
     constructor(
         id: number,
-        quantiteStock: number,
+        stock: number,
         libelle: string,
         prix: number,
         private _type: string,
         private _marque: string
     ) {
-        super(id, quantiteStock, libelle, prix);
+        super(id, stock, libelle, prix);
     }
 
     public get type(): string {

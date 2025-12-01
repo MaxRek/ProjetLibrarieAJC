@@ -3,14 +3,14 @@ import { ArticleDto } from './article-dto';
 export class LivreDto extends ArticleDto {
     constructor(
         id: number,
-        quantiteStock: number,
+        stock: number,
         libelle: string,
         prix: number,
         private _annee: number,
         private _auteurId: number,
         private _genreId: number
     ) {
-        super(id, quantiteStock, libelle, prix);
+        super(id, stock, libelle, prix);
     }
 
     public get annee(): number {

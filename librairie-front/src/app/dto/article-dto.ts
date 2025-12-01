@@ -1,7 +1,7 @@
 export class ArticleDto {
     constructor(
         private _id : number,
-        private _quantiteStock: number,
+        private _stock: number,
         private _libelle: string,
         private _prix: number
     ) { }
@@ -10,8 +10,8 @@ export class ArticleDto {
         return this._id;
     }
 
-    public get quantiteStock(): number {
-        return this._quantiteStock;
+    public get stock(): number {
+        return this._stock;
     }
 
     public get libelle(): string {
@@ -26,8 +26,8 @@ export class ArticleDto {
         this._id = value;
     }
 
-    public set quantiteStock(value: number) {
-        this._quantiteStock = value;
+    public set stock(value: number) {
+        this._stock = value;
     }
 
     public set libelle(value: string) {
@@ -41,7 +41,7 @@ export class ArticleDto {
     public toJson(): any {
         return {
             id: this.id,
-            quantiteStock: this.quantiteStock,
+            Stock: this.stock,
             libelle: this.libelle,
             prix: this.prix
         };

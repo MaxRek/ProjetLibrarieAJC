@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,8 +8,8 @@ import { GenreDto } from '../../dto/genre-dto';
 import { GenreService } from '../../service/genre-service';
 
 @Component({
-  selector: 'app-genre',
-  imports: [ CommonModule, RouterLink, ReactiveFormsModule],
+  selector: 'genre',
+  imports: [ CommonModule,  ReactiveFormsModule],
   templateUrl: './genre.html',
   styleUrl: './genre.css',
 })

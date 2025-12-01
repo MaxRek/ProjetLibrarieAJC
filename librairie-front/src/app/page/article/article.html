@@ -1,1 +1,77 @@
-<p>article works!</p>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles - Librairie</title>
+</head>
+<body>
+    <h1>Gestion des Articles</h1>
+    <section>
+        <h2>Liste des Articles</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>titre</th>
+                    <th>prix</th>
+                    <th>stock</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let article of article$ | async; traclBy: trackArticle" >
+                    <td>
+                        {{ article.libelle }}
+                    </td>
+                    <td>
+                        {{ article.prix }}
+                    </td>
+                    <td>
+                        {{ article.stock }}
+                    </td>
+                    <td>
+                        <button (click)="editer(article)">Modifier</button>
+                        <button (click)="supprimer(article)">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <button *ngIf="!showForm" (click)="showForm = true">Ajouter un Article</button>
+
+    <section *ngIf="showForm">
+        <h2>Formulaire d'ajout</h2>
+        <form (ngSubmit)="creerOuModifier()" [formGroup]="articleForm">
+
+            <label for="libelle">libelle:</label>
+            <input id="libelle" formControlName="libelle" type="text">
+                @if (libelleCtrl.hasError('required')) {
+                    <span class="error">Le libelle est requis.</span>
+                }
+            <br>
+            <label for="prix">Prix:</label>
+            <input id="prix" formControlName="prix" type="number">
+                @if (prixCtrl.hasError('required')) {
+                    <span class="error">Le prix est requis.</span>
+                }
+            <br>
+            <label for="stock">Stock:</label>
+            <input id="stock" formControlName="stock" type="number">
+                @if (stockCtrl.hasError('required')) {
+                    <span class="error">Le stock est requis.</span>
+                }
+            <br>
+
+            <button type="submit">Enregistrer</button>
+            <button type="button" (click)="showForm = false">Annuler</button>
+
+        </form>
+    </section>
+
+</body>
+</html>
+

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -11,8 +10,8 @@ import { ArticleDto } from '../../dto/article-dto';
 import { ArticleService } from '../../service/article-service';
 
 @Component({
-  selector: 'app-livre',
-  imports: [ CommonModule, RouterLink, ReactiveFormsModule],
+  selector: 'livre',
+  imports: [ CommonModule,  ReactiveFormsModule],
   templateUrl: './livre.html',
   styleUrl: './livre.css',
 })
@@ -47,10 +46,10 @@ export class Livre implements OnInit {
 
   public creerOuModifier() {
     if (this.editingLivre) {
-      this.livreService.save(new LivreDto(this.editingLivre.id, this.editingLivre.quantiteStock, this.editingLivre.libelle, this.editingLivre.prix, this.anneeCtrl.value, this.auteurIdCtrl.value, this.genreIdCtrl.value));
+      this.livreService.save(new LivreDto(this.editingLivre.id, this.editingLivre.stock, this.editingLivre.libelle, this.editingLivre.prix, this.anneeCtrl.value, this.auteurIdCtrl.value, this.genreIdCtrl.value));
     } else {
       const newArticle = new ArticleDto(0, 0, '', 0);
-      this.livreService.save(new LivreDto(0, newArticle.quantiteStock, newArticle.libelle, newArticle.prix, this.anneeCtrl.value, this.auteurIdCtrl.value, this.genreIdCtrl.value));
+      this.livreService.save(new LivreDto(0, newArticle.stock, newArticle.libelle, newArticle.prix, this.anneeCtrl.value, this.auteurIdCtrl.value, this.genreIdCtrl.value));
     }
 
     this.showForm = false;

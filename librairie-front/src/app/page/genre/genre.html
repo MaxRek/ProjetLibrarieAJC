@@ -1,1 +1,56 @@
-<p>genre works!</p>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genres - Librairie</title>
+</head>
+<body>
+    <h1>Gestion des Genres</h1>
+    <section>
+        <h2>Liste des Genres</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Libelle</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let genre of genre$ | async; traclBy: trackGenre" >
+                    <td>
+                        {{ genre.libelle }}
+                    </td>
+                    <td>
+                        <button (click)="editer(genre)">Modifier</button>
+                        <button (click)="supprimer(genre)">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <button *ngIf="!showForm" (click)="showForm = true">Ajouter un Genre</button>
+
+    <section *ngIf="showForm">
+        <h2>Formulaire d'ajout</h2>
+        <form (ngSubmit)="creerOuModifier()" [formGroup]="genreForm">
+
+            <label for="libelle">Libellé:</label>
+            <input id="libelle" formControlName="libelle" type="text">
+                @if (libelleCtrl.hasError('required')) {
+                    <span class="error">Le libellé est requis.</span>
+                }
+            <br>
+
+            <button type="submit">Enregistrer</button>
+            <button type="button" (click)="showForm = false">Annuler</button>
+
+        </form>
+    </section>
+
+</body>
+</html>

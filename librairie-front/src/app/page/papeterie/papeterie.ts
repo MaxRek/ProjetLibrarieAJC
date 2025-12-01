@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -12,8 +11,8 @@ import { ArticleDto } from '../../dto/article-dto';
 import { ArticleService } from '../../service/article-service';
 
 @Component({
-  selector: 'app-papeterie',
-  imports: [ CommonModule, RouterLink, ReactiveFormsModule],
+  selector: 'papeterie',
+  imports: [ CommonModule, ReactiveFormsModule],
   templateUrl: './papeterie.html',
   styleUrl: './papeterie.css',
 })
@@ -47,10 +46,10 @@ export class Papeterie {
 
   public creerOuModifier() {
     if (this.editingPapeterie) {
-      this.papeterieService.save(new PapeterieDto(this.editingPapeterie.id, this.editingPapeterie.quantiteStock, this.editingPapeterie.libelle, this.editingPapeterie.prix, this.typeCtrl.value, this.marqueCtrl.value));
+      this.papeterieService.save(new PapeterieDto(this.editingPapeterie.id, this.editingPapeterie.stock, this.editingPapeterie.libelle, this.editingPapeterie.prix, this.typeCtrl.value, this.marqueCtrl.value));
     } else {
       const newArticle = new ArticleDto(0, 0, '', 0);
-      this.papeterieService.save(new PapeterieDto(0, newArticle.quantiteStock, newArticle.libelle, newArticle.prix, this.typeCtrl.value, this.marqueCtrl.value));
+      this.papeterieService.save(new PapeterieDto(0, newArticle.stock, newArticle.libelle, newArticle.prix, this.typeCtrl.value, this.marqueCtrl.value));
     }
 
     this.showForm = false;

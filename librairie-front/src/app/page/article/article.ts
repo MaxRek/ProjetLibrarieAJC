@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,8 +8,8 @@ import { ArticleDto } from '../../dto/article-dto';
 import { ArticleService } from '../../service/article-service';
 
 @Component({
-  selector: 'app-article',
-  imports: [ CommonModule, RouterLink, ReactiveFormsModule],
+  selector: 'article',
+  imports: [ CommonModule,  ReactiveFormsModule],
   templateUrl: './article.html',
   styleUrl: './article.css',
 })
@@ -19,7 +18,7 @@ export class Article implements OnInit {
 
   protected showForm: boolean = false;
   protected articleForm!: FormGroup
-  protected titreCtrl!: FormControl;
+  protected libelleCtrl!: FormControl;
   protected prixCtrl!: FormControl;
   protected stockCtrl!: FormControl;
 
@@ -30,12 +29,12 @@ export class Article implements OnInit {
   ngOnInit(): void {
     this.article$ = this.articleService.findAll();
     
-    this.titreCtrl = this.formBuilder.control('');
+    this.libelleCtrl = this.formBuilder.control('');
     this.prixCtrl = this.formBuilder.control(0);
     this.stockCtrl = this.formBuilder.control(0);
 
     this.articleForm = this.formBuilder.group({
-      titre: this.titreCtrl,
+      libelle: this.libelleCtrl,
       prix: this.prixCtrl,
       stock: this.stockCtrl
     });
@@ -47,9 +46,9 @@ export class Article implements OnInit {
 
   public creerOuModifier() {
     if (this.editingArticle) {
-      this.articleService.save(new ArticleDto(this.editingArticle.id, this.titreCtrl.value, this.prixCtrl.value, this.stockCtrl.value));
+      this.articleService.save(new ArticleDto(this.editingArticle.id, this.libelleCtrl.value, this.prixCtrl.value, this.stockCtrl.value));
     } else {
-      this.articleService.save(new ArticleDto(0, this.titreCtrl.value, this.prixCtrl.value, this.stockCtrl.value));
+      this.articleService.save(new ArticleDto(0, this.libelleCtrl.value, this.prixCtrl.value, this.stockCtrl.value));
     }
     this.showForm = false;
     this.editingArticle = null;
@@ -58,9 +57,9 @@ export class Article implements OnInit {
 
   public editer (article: ArticleDto) {
     this.editingArticle = article;
-    this.titreCtrl.setValue(article.libelle);
+    this.libelleCtrl.setValue(article.libelle);
     this.prixCtrl.setValue(article.prix);
-    this.stockCtrl.setValue(article.quantiteStock);
+    this.stockCtrl.setValue(article.stock);
     this.showForm = true;
   }
 
