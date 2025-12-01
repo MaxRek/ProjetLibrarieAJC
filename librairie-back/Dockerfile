@@ -1,7 +1,7 @@
 FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
-COPY ./target/*.war librairie-boot.war
+COPY ./target/*.jar librairie-boot.jar
 
 CMD [ "java", "-jar", "librairie-boot.jar" ]
 
