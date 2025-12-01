@@ -1,0 +1,44 @@
+pipeline {
+    
+    agent any
+
+    stages {
+        stage('Maven package') {
+            agent {
+                docker {
+                    image 'maven:3.9.11-eclipse-temurin-21'
+                    args '''
+                        -v $HOME/.m2:/root/.m2:z
+                        -u root
+                        --network devops
+                    '''
+                    reuseNode true // Sans ça, il y aura un 2eme workspace
+                }
+            }
+
+            steps {
+                dir('librairie-boot') {
+                    withSonarQubeEnv('SonarQube') {
+                        sh "mvn clean verify sonar:sonar -Dsonar.projectKey=projetLibrairie-boot -Dsonar.projectName='projetLibrairie-boot'"
+                    }
+                }
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                dir('bibliotek/bibliotek-boot') {
+                    sh 'docker build -t ajc/projetlibrairie:boot .'
+                }
+            }
+        }
+
+        stage('Docker Deploy') {
+            steps {
+                dir('./docker') {
+                    sh 'docker compose up -d --no-deps --build boot'
+                }
+            }
+        }
+    }
+}
