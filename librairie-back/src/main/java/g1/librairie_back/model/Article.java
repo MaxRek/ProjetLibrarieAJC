@@ -40,6 +40,23 @@ public abstract class Article {
 	@JsonView(Views.Common.class)
 	protected int stock;
 
+	/*
+	@OneToMany(mappedBy = "article")
+	@JsonView(Views.ArticleWithSuivis.class)
+	protected List<Suivi> suivis = new ArrayList<>();
+
+	@OneToMany(mappedBy = "article")
+	@JsonView(Views.ArticleWithReviews.class)
+	protected List<Review> reviews = new ArrayList<>();
+
+	@OneToMany(mappedBy = "article")
+	@JsonView(Views.ArticleWithAchats.class)
+	protected List<Achat> achats = new ArrayList<>();
+
+	@OneToMany(mappedBy = "article")
+	@JsonView(Views.ArticleWithPaniers.class)
+	protected List<Panier> paniers = new ArrayList<>();
+	*/
 
 	public Article() {}
 

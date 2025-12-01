@@ -10,8 +10,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "panier")
 public class Panier {
 
 	@Id
@@ -53,10 +55,28 @@ public class Panier {
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
 	}
+	
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public Article getArticle() {
+		return article;
+	}
+
+	public void setArticle(Article article) {
+		this.article = article;
+	}
 
 	@Override
 	public String toString() {
-		return "Panier [id=" + id + ", quantite=" + quantite + "]";
+		return "Panier [id=" + id + ", quantite=" + quantite + ", client=" + client + ", article=" + article + "]";
 	}
+
 	
 }

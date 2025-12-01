@@ -1,6 +1,11 @@
 package g1.librairie_back.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import g1.librairie_back.view.Views;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -11,6 +16,8 @@ import jakarta.persistence.Table;
 public class Suivi {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonView(Views.Common.class)
 	private int id;
 	
 	@ManyToOne
@@ -23,11 +30,13 @@ public class Suivi {
 	
 	public Suivi() {}
 
-	public Suivi(int id) {
+	public Suivi(int id, Client client, Article article) {
 		super();
 		this.id = id;
+		this.client = client;
+		this.article = article;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -36,9 +45,27 @@ public class Suivi {
 		this.id = id;
 	}
 
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public Article getArticle() {
+		return article;
+	}
+
+	public void setArticle(Article article) {
+		this.article = article;
+	}
+
 	@Override
 	public String toString() {
-		return "Suivi [id=" + id + "]";
+		return "Suivi [id=" + id + ", client=" + client + ", article=" + article + "]";
 	}
+
+	
 	
 }

@@ -5,77 +5,125 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import g1.librairie_back.view.Views;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
 @Entity
+@Table(name = "review")
 public class Review {
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@JsonView(Views.Common.class)
 	private Integer id;
-	
-	@JsonView(Views.Common.class)
-	private String review;
-	
-	@JsonView(Views.Common.class)
-	private int note;
-	
-	@JsonView(Views.Common.class)
-	private LocalDate dateReview;
+	@Column(name="review", columnDefinition="VARCHAR(300)", nullable = false)
+    @JsonView(Views.Common.class)
+    private String review;
 
-	@ManyToOne
-	@JoinColumn(name="client",nullable = false)
-	private Client client;
-	
-	@ManyToOne
-	@JoinColumn(name="article",nullable = false)
-	private Article article;
+    @Column(name="note", nullable = false)
+    @JsonView(Views.Common.class)
+    private int note;
+
+    @JsonView(Views.Common.class)
+    private LocalDate dateReview;
+
+    @ManyToOne
+    @JoinColumn(name="client", nullable = false)
+    @JsonView(Views.ReviewWithClient.class) 
+    private Client client;
+
+    @ManyToOne
+    @JoinColumn(name="article", nullable = false)
+    @JsonView(Views.ReviewWithArticle.class)
+    private Article article;
 	
 	
 	public Review() {}
-	
-	public Review(String review, int note, LocalDate dateReview) {
+
+
+	public Review(Integer id, String review, int note, LocalDate dateReview, Client client, Article article) {
 		super();
+		this.id = id;
 		this.review = review;
 		this.note = note;
 		this.dateReview = dateReview;
+		this.client = client;
+		this.article = article;
 	}
+
 
 	public Integer getId() {
 		return id;
 	}
 
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 
 	public String getReview() {
 		return review;
 	}
 
+
 	public void setReview(String review) {
 		this.review = review;
 	}
+
 
 	public int getNote() {
 		return note;
 	}
 
+
 	public void setNote(int note) {
 		this.note = note;
 	}
+
 
 	public LocalDate getDateReview() {
 		return dateReview;
 	}
 
+
 	public void setDateReview(LocalDate dateReview) {
 		this.dateReview = dateReview;
 	}
 
+
+	public Client getClient() {
+		return client;
+	}
+
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+
+	public Article getArticle() {
+		return article;
+	}
+
+
+	public void setArticle(Article article) {
+		this.article = article;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Panier [id=" + id + ", review=" + review + ", note=" + note + ", dateReview=" + dateReview + "]";
+		return "Review [id=" + id + ", review=" + review + ", note=" + note + ", dateReview=" + dateReview + ", client="
+				+ client + ", article=" + article + "]";
 	}
+	
+	
+
 	
 }

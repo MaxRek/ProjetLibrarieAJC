@@ -2,6 +2,8 @@ package g1.librairie_back.dto.request;
 
 import java.time.LocalDate;
 
+import g1.librairie_back.model.Article;
+import g1.librairie_back.model.Client;
 import jakarta.validation.constraints.NotBlank;
 
 public class CreateReviewRequest {
@@ -14,6 +16,10 @@ public class CreateReviewRequest {
 	private int note;
 	
 	private LocalDate dateReview;
+	
+	private Article article;
+	
+	private Client client;
 
 	public Integer getId() {
 		return id;
@@ -46,6 +52,23 @@ public class CreateReviewRequest {
 	public void setDateReview(LocalDate dateReview) {
 		this.dateReview = dateReview;
 	}
+
+	public Article getArticle() {
+		return article;
+	}
+
+	public void setArticle(Article article) {
+		this.article = article;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	
 	
 	
 }

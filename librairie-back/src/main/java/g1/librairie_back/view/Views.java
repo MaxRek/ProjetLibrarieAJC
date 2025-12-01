@@ -36,4 +36,9 @@ public class Common {}
 	
 	public class Review extends Common {}
 	
+	public class ReviewWithClient extends Review {}
+	
+	public class ReviewWithArticle extends Review {}
+
+	
 }

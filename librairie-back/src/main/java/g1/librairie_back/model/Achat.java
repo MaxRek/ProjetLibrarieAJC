@@ -2,14 +2,35 @@ package g1.librairie_back.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import g1.librairie_back.view.Views;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="achat")
 public class Achat {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonView(Views.Common.class)
 	private Integer id;
 	
+    @JsonView(Views.Common.class)
+    @Column(name="date_achat")
 	private LocalDate dateAchat;
-	
+    
+    @Column(name="prix")
+    @JsonView(Views.Common.class)
 	private Double prix;
-	
+    
+    @Column(name="quantite")
+    @JsonView(Views.Common.class)
 	private int quantiteAchat;
 
 	/*
