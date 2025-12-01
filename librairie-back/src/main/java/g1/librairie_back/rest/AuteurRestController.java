@@ -20,6 +20,7 @@ import g1.librairie_back.dto.request.CreateAuteurRequest;
 import g1.librairie_back.dto.response.AuteurResponse;
 import g1.librairie_back.model.Auteur;
 import g1.librairie_back.service.AuteurService;
+import g1.librairie_back.view.Views;
 
 @RestController
 @RequestMapping("/api/auteurs")

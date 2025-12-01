@@ -20,6 +20,7 @@ import g1.librairie_back.dto.request.CreatePapeterieRequest;
 import g1.librairie_back.dto.response.PapeterieResponse;
 import g1.librairie_back.model.Papeterie;
 import g1.librairie_back.service.PapeterieService;
+import g1.librairie_back.view.Views;
 
 @RestController
 @RequestMapping("/api/papeteries")

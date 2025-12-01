@@ -22,6 +22,7 @@ import g1.librairie_back.model.Auteur;
 import g1.librairie_back.model.Livre;
 import g1.librairie_back.service.AuteurService;
 import g1.librairie_back.service.LivreService;
+import g1.librairie_back.view.Views;
 
 @RestController
 @RequestMapping("/api/livres")
