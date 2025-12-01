@@ -20,7 +20,7 @@ pipeline {
             steps {
                 dir('librairie-back') {
                     withSonarQubeEnv('SonarQube') {
-                        sh "mvn clean verify sonar:sonar -Dsonar.projectKey=projetLibrairie-boot -Dsonar.projectName='librairie-back'"
+                        sh "mvn clean verify sonar:sonar -Dsonar.projectKey=librairie-back -Dsonar.projectName='librairie-back'"
                     }
                 }
             }
