@@ -40,21 +40,6 @@ public abstract class Article {
 	@JsonView(Views.Common.class)
 	protected int stock;
 
-	@OneToMany(mappedBy = "article")
-	@JsonView(Views.ArticleWithSuivis.class)
-	protected List<Suivi> suivis = new ArrayList<>();
-
-	@OneToMany(mappedBy = "article")
-	@JsonView(Views.ArticleWithReviews.class)
-	protected List<Review> reviews = new ArrayList<>();
-
-	@OneToMany(mappedBy = "article")
-	@JsonView(Views.ArticleWithAchats.class)
-	protected List<Achat> achats = new ArrayList<>();
-
-	@OneToMany(mappedBy = "article")
-	@JsonView(Views.ArticleWithPaniers.class)
-	protected List<Panier> paniers = new ArrayList<>();
 
 	public Article() {}
 
@@ -94,38 +79,6 @@ public abstract class Article {
 
 	public void setStock(int stock) {
 		this.stock = stock;
-	}
-
-	public List<Suivi> getSuivis() {
-		return suivis;
-	}
-
-	public void setSuivis(List<Suivi> suivis) {
-		this.suivis = suivis;
-	}
-
-	public List<Review> getReviews() {
-		return reviews;
-	}
-
-	public void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
-	}
-
-	public List<Achat> getAchats() {
-		return achats;
-	}
-
-	public void setAchats(List<Achat> achats) {
-		this.achats = achats;
-	}
-
-	public List<Panier> getPaniers() {
-		return paniers;
-	}
-
-	public void setPaniers(List<Panier> paniers) {
-		this.paniers = paniers;
 	}
 
 }

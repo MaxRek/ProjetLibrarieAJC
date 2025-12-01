@@ -2,14 +2,14 @@ name: bibliotek-compose
 
 services:
   boot:
-    image: ajc/projetlibrairie:boot
+    image: ajc/projetLibrairie:boot
     container_name: projetlibrairie-boot
     
     networks:
       - librairie-network
 
   angular:
-    image: ajc/projetlibrairie:angular
+    image: ajc/projetLibrairie:angular
     container_name: projetlibrairie-angular
 
     ports:
@@ -22,5 +22,5 @@ services:
       - librairie-network
 
 networks:
-  bibliotek:
-    name: projetlibrairie-network
+  librairie-network:
+    name: librairie-network

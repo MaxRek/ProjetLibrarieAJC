@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import g1.librairie_back.dao.IDAOAuteur;
 import g1.librairie_back.model.Auteur;
 
+@Service
 public class AuteurService {
 
     @Autowired
