@@ -10,6 +10,7 @@ import g1.librairie_back.dao.IDAOArticle;
 import g1.librairie_back.model.Article;
 import g1.librairie_back.model.Livre;
 
+@Service
 public class LivreService {
 
     @Autowired
