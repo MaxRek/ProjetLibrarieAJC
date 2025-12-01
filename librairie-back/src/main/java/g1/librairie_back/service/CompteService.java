@@ -47,8 +47,6 @@ public class CompteService {
 				throw new RuntimeException("L'id recu n'est pas celui d'un admin...");
 			}
 		}
-
-
 	}
 	
 

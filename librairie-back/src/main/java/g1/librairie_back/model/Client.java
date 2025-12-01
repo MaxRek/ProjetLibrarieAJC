@@ -35,9 +35,13 @@ public class Client extends Compte{
 	
 	public Client() {}
 	
+	public Client(String nom, String prenom, String email, String password) {
+		super(nom, prenom, email, password);
+	}
 
-	
-	
+
+
+
 	public Panier getPanier() {
 		return panier;
 	}

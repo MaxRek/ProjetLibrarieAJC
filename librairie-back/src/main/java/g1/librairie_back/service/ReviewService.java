@@ -17,9 +17,6 @@ public class ReviewService {
 	@Autowired
 	IDAOReview daoReview;
 	
-	@Autowired
-	PasswordEncoder passwordEncoder;
-	
 	public List<Review> getAll()
 	{
 		return daoReview.findAll();

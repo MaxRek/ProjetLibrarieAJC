@@ -40,5 +40,7 @@ public class Common {}
 	
 	public class ReviewWithArticle extends Review {}
 
+	public class Panier extends Common {}
+	
 	
 }
