@@ -4,7 +4,7 @@ pipeline {
 
     stages {
         stage('SCM') {
-            checkout scm
+            git --version
         }
 
         stage('Maven package') {
