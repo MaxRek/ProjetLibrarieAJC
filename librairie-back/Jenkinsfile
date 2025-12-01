@@ -28,7 +28,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 dir('librairie-back') {
-                    sh 'docker build -t ajc/projetLibrairie:back .'
+                    sh 'docker build -t ajc/projetlibrairie:back .'
                 }
             }
         }
