@@ -34,4 +34,6 @@ public class Common {}
 	
 	public class AuteurWithLivre extends Auteur {}
 	
+	public class Review extends Common {}
+	
 }
