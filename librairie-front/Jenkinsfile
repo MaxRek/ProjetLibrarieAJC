@@ -18,7 +18,7 @@ pipeline {
             stages {
                 stage('Installation dependances') {
                     steps {
-                        dir('librarie-front') {
+                        dir('librairie-front') {
                             sh 'npm install'
                         }
                     }
@@ -26,7 +26,7 @@ pipeline {
 
                 stage('Analyse Sonar') {
                     steps {
-                        dir('librarie-front') {
+                        dir('librairie-front') {
                             withSonarQubeEnv('SonarQube') {
                                 sh './node_modules/.bin/sonar-scanner -Dsonar.projectKey=librairie-front'
                             }
