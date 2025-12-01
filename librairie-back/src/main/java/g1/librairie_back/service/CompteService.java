@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import g1.librairie_back.dao.IDAOCompte;
@@ -18,9 +17,6 @@ public class CompteService {
 
 	@Autowired
 	IDAOCompte daoCompte;
-	
-	@Autowired
-	PasswordEncoder passwordEncoder;
 	
 	public Compte getById(Integer id)
 	{
@@ -77,8 +73,6 @@ public class CompteService {
 		{
 			throw new RuntimeException("Création impossible - id déjà existant");
 		}
-
-		Compte.setPassword(this.passwordEncoder.encode(Compte.getPassword()));
 		return daoCompte.save(Compte);
 	}
 
@@ -90,7 +84,7 @@ public class CompteService {
 		}
 
 		if (Compte.getPassword() != null) {
-			Compte.setPassword(this.passwordEncoder.encode(Compte.getPassword()));
+			Compte.setPassword(Compte.getPassword());
 		}
 
 		return daoCompte.save(Compte);
