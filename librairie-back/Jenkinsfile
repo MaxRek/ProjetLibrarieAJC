@@ -3,6 +3,10 @@ pipeline {
     agent any
 
     stages {
+        stage('SCM') {
+            checkout scm
+        }
+
         stage('Maven package') {
             agent {
                 docker {
@@ -27,8 +31,8 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                dir('bibliotek/bibliotek-boot') {
-                    sh 'docker build -t ajc/projetlibrairie:boot .'
+                dir('librairie-front') {
+                    sh 'docker build -t ajc/projetLibrairie:boot .'
                 }
             }
         }
