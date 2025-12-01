@@ -1,9 +1,7 @@
 pipeline {
-    
     agent any
 
     stages {
-
         stage('Maven package') {
             agent {
                 docker {
@@ -21,6 +19,7 @@ pipeline {
                 dir('librairie-back') {
                     withSonarQubeEnv('SonarQube') {
                         sh "mvn clean verify sonar:sonar -Dsonar.projectKey=librairie-back -Dsonar.projectName='librairie-back'"
+                        //sh "mvn clean verify sonar:sonar -Dsonar.projectKey=projetLibrairie-boot -Dsonar.projectName='projetLibrairie-boot'"
                     }
                 }
             }
@@ -29,14 +28,14 @@ pipeline {
         stage('Docker Build') {
             steps {
                 dir('librairie-back') {
-                    sh 'docker build -t ajc/projetLibrairie:boot .'
+                    sh 'docker build -t ajc/projetLibrairie:back .'
                 }
             }
         }
 
         //stage('Docker Deploy') {
         //    steps {
-        //        dir('./docker') {
+        //        dir('DOCKER/commandes/compose/quest') {
         //            sh 'docker compose up -d --no-deps --build boot'
         //        }
         //    }
