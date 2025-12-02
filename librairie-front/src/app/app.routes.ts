@@ -9,6 +9,10 @@ import { Home } from './page/user/home/home';
 import { Compte } from './page/administration/compte/compte';
 import { Client } from './page/administration/client/client';
 import { Administrateur } from './page/administration/administrateur/administrateur';
+import { Achat } from './page/administration/achat/achat';
+import { Suivi } from './page/administration/suivi/suivi';
+import { Panier } from './page/administration/panier/panier';
+import { Review } from './page/administration/review/review';
 
 export const routes: Routes = [
     { path: 'auteur', component: Auteur },
@@ -21,6 +25,9 @@ export const routes: Routes = [
     { path: 'compte', component: Compte },
     { path: 'client', component: Client },
     { path: 'administrateur', component: Administrateur },
-
+    { path: 'achat', component: Achat },
+    { path: 'suivi', component: Suivi },
+    { path: 'panier', component: Panier },
+    { path: 'review', component: Review }
 ];
 
