@@ -31,6 +31,7 @@ public class Auteur {
 
 	@OneToMany(mappedBy="auteur")
 	@JsonView(Views.AuteurWithLivre.class)
+	@Column(name="auteur", nullable=true)
 	private List<Livre> livres = new ArrayList<>();
 	
 	public Auteur() {}

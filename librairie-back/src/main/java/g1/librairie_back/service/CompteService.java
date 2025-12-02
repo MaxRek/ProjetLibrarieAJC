@@ -44,7 +44,7 @@ public class CompteService {
 			}
 			else
 			{
-				throw new RuntimeException("L'id recu n'est pas celui d'un admin...");
+				throw new RuntimeException("L'id recu n'est pas celui d'un admin.");
 			}
 		}
 	}
@@ -65,35 +65,35 @@ public class CompteService {
 		return daoCompte.findAll();
 	}
 
-	public Compte create(Compte Compte)
+	public Compte create(Compte compte)
 	{
-		if(Compte.getId()!=null)
+		if(compte.getId()!=null)
 		{
 			throw new RuntimeException("Création impossible - id déjà existant");
 		}
-		return daoCompte.save(Compte);
+		return daoCompte.save(compte);
 	}
 
-	public Compte update(Compte Compte)
+	public Compte update(Compte compte)
 	{
-		if(Compte.getId()==null)
+		if(compte.getId()==null)
 		{
 			throw new RuntimeException("Compte sans id - modification impossible");
 		}
 
-		if (Compte.getPassword() != null) {
-			Compte.setPassword(Compte.getPassword());
+		if (compte.getPassword() != null) {
+			compte.setPassword(compte.getPassword());
 		}
 
-		return daoCompte.save(Compte);
+		return daoCompte.save(compte);
 	}
 
 	public Compte updateInfosConnect(Integer id,String login,String password)
 	{
-		Compte Compte = daoCompte.findById(id).get();
-		Compte.setEmail(login);
-		Compte.setPassword(password);
-		return daoCompte.save(Compte);
+		Compte compte = daoCompte.findById(id).get();
+		compte.setEmail(login);
+		compte.setPassword(password);
+		return daoCompte.save(compte);
 	}
 
 	public void deleteById(Integer id)
@@ -101,9 +101,9 @@ public class CompteService {
 		daoCompte.deleteById(id);
 	}
 
-	public void delete(Compte Compte)
+	public void delete(Compte compte)
 	{
-		daoCompte.delete(Compte);
+		daoCompte.delete(compte);
 	}
 	
 	

@@ -25,7 +25,7 @@ import g1.librairie_back.service.LivreService;
 import g1.librairie_back.view.Views;
 
 @RestController
-@RequestMapping("/api/livres")
+@RequestMapping("/api/livre")
 @CrossOrigin(origins = "*")
 public class LivreRestController {
 

@@ -23,7 +23,7 @@ import g1.librairie_back.service.PapeterieService;
 import g1.librairie_back.view.Views;
 
 @RestController
-@RequestMapping("/api/papeteries")
+@RequestMapping("/api/papeterie")
 @CrossOrigin("*")
 public class PapeterieRestController {
 

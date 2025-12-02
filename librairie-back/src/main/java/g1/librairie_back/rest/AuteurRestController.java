@@ -1,5 +1,6 @@
 package g1.librairie_back.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,11 +20,12 @@ import com.fasterxml.jackson.annotation.JsonView;
 import g1.librairie_back.dto.request.CreateAuteurRequest;
 import g1.librairie_back.dto.response.AuteurResponse;
 import g1.librairie_back.model.Auteur;
+import g1.librairie_back.model.Livre;
 import g1.librairie_back.service.AuteurService;
 import g1.librairie_back.view.Views;
 
 @RestController
-@RequestMapping("/api/auteurs")
+@RequestMapping("/api/auteur")
 @CrossOrigin("*")
 public class AuteurRestController {
 
@@ -49,6 +51,8 @@ public class AuteurRestController {
     @JsonView(Views.Common.class)
     public AuteurResponse create(@RequestBody CreateAuteurRequest dto) {
         Auteur a = new Auteur(dto.getPrenom(), dto.getNom());
+       
+        a.setLivres(new ArrayList<Livre>());
         return AuteurResponse.convert(auteurService.create(a));
     }
 
