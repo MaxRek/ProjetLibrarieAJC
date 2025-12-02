@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papeterie - Librairie</title>
+</head>
+<body>
+    <h1>Gestion des Papeterie</h1>
+    <section>
+        <h2>Liste des Papeterie</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>titre</th>
+                    <th>prix</th>
+                    <th>stock</th>
+                    <th>type</th>
+                    <th>marque</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                                    <td>Cahier 96 pages</td>
+                                    <td>2.50 €</td>
+                                    <td>45</td>
+                                    <td>Cahier</td>
+                                    <td>Clairefontaine</td>
+                                                        <td>
+                        <button>Modifier</button>
+                        <button>Supprimer</button>
+                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Stylo bille bleu</td>
+                                    <td>1.20 €</td>
+                                    <td>120</td>
+                                    <td>Stylo</td>
+                                    <td>BIC</td>
+                                                        <td>
+                        <button>Modifier</button>
+                        <button>Supprimer</button>
+                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gomme blanche</td>
+                                    <td>0.80 €</td>
+                                    <td>200</td>
+                                    <td>Gomme</td>
+                                    <td>Maped</td>
+                                                                                            <td>
+                        <button>Modifier</button>
+                        <button>Supprimer</button>
+                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Règle 30cm</td>
+                                    <td>1.50 €</td>
+                                    <td>75</td>
+                                    <td>Règle</td>
+                                    <td>Maped</td>
+                                                        <td>
+                        <button>Modifier</button>
+                        <button>Supprimer</button>
+                    </td>
+                                    
+                                </tr>
+                <tr *ngFor="let papeterie of papeterie$ | async; traclBy: trackPapeterie" >
+                    <td>
+                        {{ papeterie.libelle }}
+                    </td>
+                    <td>
+                        {{ papeterie.prix }} €
+                    </td>
+                    <td>
+                        {{ papeterie.stock }}
+                    </td>
+                    <td>
+                        {{ papeterie.type }}
+                    </td>
+                    <td>
+                        {{ papeterie.marque }}
+                    </td>
+                    <td>
+                        <button (click)="editer(papeterie)">Modifier</button>
+                        <button (click)="supprimer(papeterie)">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <button *ngIf="!showForm" (click)="showForm = true">Ajouter un Papeterie</button>
+    <section *ngIf="showForm">
+        <h2>Formulaire d'ajout</h2>
+        <form (ngSubmit)="creerOuModifier()" [formGroup]="papeterieForm">
+
+            <label for="libelle">libelle:</label>
+            <input id="libelle" formControlName="libelle" type="text">
+                <!--@if (libelleCtrl.hasError('required')) {
+                    <span class="error">Le libelle est requis.</span>
+                }-->
+            <br>
+            <label for="prix">Prix:</label>
+            <input id="prix" formControlName="prix" type="number">
+                <!--@if (prixCtrl.hasError('required')) {
+                    <span class="error">Le prix est requis.</span>
+                }-->
+            <br>
+            <label for="stock">Stock:</label>
+            <input id="stock" formControlName="stock" type="number">
+                <!--@if (stockCtrl.hasError('required')) {
+                    <span class="error">Le stock est requis.</span>
+                }-->
+            <br>
+            <label for="type">Type:</label>
+            <input id="type" formControlName="type" type="text">
+                @if (typeCtrl.hasError('required')) {
+                    <span class="error">Le type est requis.</span>
+                }
+            <br>
+            <label for="marque">Marque:</label>
+            <input id="marque" formControlName="marque" type="text">
+                @if (marqueCtrl.hasError('required')) {
+                    <span class="error">La marque est requise.</span>
+                }
+            <br>
+
+            <button type="submit">Enregistrer</button>
+            <button type="button" (click)="showForm = false">Annuler</button>
+
+        </form>
+    </section>
+</body>
+</html>

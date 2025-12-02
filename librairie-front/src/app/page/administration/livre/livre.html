@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livre - Librairie</title>
+</head>
+<body>
+    <h1>Gestion des Livres</h1>
+    <section>
+        <h2>Liste des Livres</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>titre</th>
+                    <th>prix</th>
+                    <th>stock</th>
+                    <th>année</th>
+                    <th>nom auteur</th>
+                    <th>prénom auteur</th>
+                    <th>genre</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let livre of livre$ | async; traclBy: tracklivre" >
+                    <td>
+                        {{ livre.libelle }}
+                    </td>
+                    <td>
+                        {{ livre.prix }} €
+                    </td>
+                    <td>
+                        {{ livre.stock }}
+                    </td>
+                    <td>
+                        {{ livre.annee }}
+                    </td>
+                    <td>
+                        {{ livre.auteurNom }}
+                    </td>
+                    <td>
+                        {{ livre.auteurPrenom }}
+                    </td>
+                    <td>
+                        {{ livre.genrelibelle }}
+                    </td>
+                    <td>
+                        <button (click)="editer(livre)">Modifier</button>
+                        <button (click)="supprimer(livre)">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <button *ngIf="!showForm" (click)="showForm = true">Ajouter un Livre</button>
+    <section *ngIf="showForm">
+        <h2>Formulaire d'ajout</h2>
+        <form (ngSubmit)="creerOuModifier()" [formGroup]="livreForm">
+
+            <label for="libelle">libelle:</label>
+            <input id="libelle" formControlName="libelle" type="text">
+                <!--@if (libelleCtrl.hasError('required')) {
+                    <span class="error">Le libelle est requis.</span>
+                }-->
+            <br>
+            <label for="prix">Prix:</label>
+            <input id="prix" formControlName="prix" type="number">
+                <!--@if (prixCtrl.hasError('required')) {
+                    <span class="error">Le prix est requis.</span>
+                }-->
+            <br>
+            <label for="stock">Stock:</label>
+            <input id="stock" formControlName="stock" type="number">
+                <!--@if (stockCtrl.hasError('required')) {
+                    <span class="error">Le stock est requis.</span>
+                }-->
+            <br>
+            <label for="annee">Année:</label>
+            <input id="annee" formControlName="annee" type="number" >
+                @if (anneeCtrl.hasError('required')) {
+                    <span class="error">L'année est requise.</span>
+                }
+            <br>
+            <label for="auteurId">Auteur:</label>
+            <select id="auteurId" formControlName="auteurId">
+                <option *ngFor="let auteur of auteur$ | async" [value]="auteur.id">
+                    {{ auteur.nom }} {{ auteur.prenom }}
+                </option>
+            </select>
+                @if (auteurIdCtrl.hasError('required')) {
+                    <span class="error">L'auteur est requis.</span>
+                }
+            <br>
+            <label for="genreId">Genre:</label>
+            <select id="genreId" formControlName="genreId">
+                <option *ngFor="let genre of genre$ | async" [value]="genre.id">
+                    {{ genre.libelle }}
+                </option>
+            </select>
+                @if (genreIdCtrl.hasError('required')) {
+                    <span class="error">Le genre est requis.</span>
+                }
+            <br>
+            <button type="submit" [disabled]="livreForm.invalid">Enregistrer</button>
+            <button type="button" (click)="annulerEditer()">Annuler</button>
+        </form>
+    </section>
+
+
+
+</body>
+</html>
+                    

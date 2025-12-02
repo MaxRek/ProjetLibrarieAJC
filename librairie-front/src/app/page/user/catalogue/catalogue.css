@@ -1,0 +1,341 @@
+/* Style Vintage Carte de Librairie */
+body {
+    background: linear-gradient(135deg, #f5f2e8 0%, #ebe6d9 100%);
+    font-family: "Georgia", "Garamond", "Times New Roman", serif;
+    color: #2c1810;
+    margin: 0;
+    padding: 20px;
+    background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px);
+}
+
+/* En-tête style affiche ancienne */
+header {
+    background: linear-gradient(to bottom, #1a1a2e 0%, #16213e 100%);
+    border: 3px double #d4af37;
+    border-radius: 2px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+h1 {
+    color: #d4af37;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: normal;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-family: "Palatino", "Book Antiqua", Georgia, serif;
+}
+
+h2 {
+    color: #8b2500;
+    font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+    font-weight: normal;
+    margin: 20px 0 15px;
+    padding: 10px;
+    border-top: 2px solid #8b2500;
+    border-bottom: 2px solid #8b2500;
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+
+/* Sections style papier ancien */
+section {
+    background: #fefdfb;
+    border: 2px solid #4a3f35;
+    border-radius: 3px;
+    padding: clamp(15px, 4vw, 30px);
+    margin-bottom: 25px;
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        inset 0 0 100px rgba(250, 240, 220, 0.4);
+    position: relative;
+}
+
+section::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid rgba(74, 63, 53, 0.3);
+    pointer-events: none;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #8b2500, transparent);
+    margin: 30px 0;
+}
+
+/* Cartes de livres */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fefdfb;
+    border: 2px solid #4a3f35;
+}
+
+thead {
+    background: linear-gradient(to bottom, #e8dcc8 0%, #d4c4a8 100%);
+}
+
+th {
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: normal;
+    font-size: 0.95rem;
+    color: #2c1810;
+    border-bottom: 2px solid #8b2500;
+    border-right: 1px solid #d4c4a8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+th:last-child {
+    border-right: none;
+}
+
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e8dcc8;
+    border-right: 1px solid #f5f2e8;
+    vertical-align: middle;
+}
+
+td:last-child {
+    border-right: none;
+}
+
+tbody tr {
+    transition: background 0.3s ease;
+}
+
+tbody tr:hover {
+    background: linear-gradient(to right, #fff9f0, #fefdfb, #fff9f0);
+}
+
+tbody tr:nth-child(even) {
+    background: #faf8f5;
+}
+
+/* Formulaires style billet ancien */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: #fefdfb;
+    border: 2px dashed #8b2500;
+    padding: clamp(15px, 3vw, 25px);
+    border-radius: 3px;
+}
+
+label {
+    font-weight: bold;
+    color: #2c1810;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    padding: 10px 12px;
+    border: 2px solid #4a3f35;
+    border-radius: 2px;
+    background: #fff;
+    font-family: Georgia, serif;
+    font-size: 0.95rem;
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #8b2500;
+    box-shadow: 
+        inset 2px 2px 4px rgba(0, 0, 0, 0.08),
+        0 0 0 3px rgba(139, 37, 0, 0.1);
+}
+
+/* Boutons style tampon vintage */
+button {
+    background: linear-gradient(to bottom, #e8dcc8 0%, #d4c4a8 100%);
+    border: 2px solid #4a3f35;
+    border-radius: 3px;
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: #2c1810;
+    cursor: pointer;
+    font-family: Georgia, serif;
+    box-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    min-width: 100px;
+    transition: all 0.2s ease;
+    letter-spacing: 0.05em;
+}
+
+button:hover {
+    background: linear-gradient(to bottom, #f0e6d2 0%, #e0d4bc 100%);
+    border-color: #2c1810;
+    transform: translateY(-1px);
+    box-shadow: 
+        3px 3px 6px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 
+        1px 1px 2px rgba(0, 0, 0, 0.2),
+        inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:disabled {
+    background: #d4c4a8;
+    color: #8b7d6b;
+    cursor: not-allowed;
+    border-color: #a0927f;
+    opacity: 0.6;
+}
+
+button[type="submit"] {
+    background: linear-gradient(to bottom, #8b2500 0%, #6a1c00 100%);
+    color: #fefdfb;
+    border: 2px solid #4a1400;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(to bottom, #a02d00 0%, #8b2500 100%);
+    border-color: #2c1810;
+}
+
+button[type="submit"]:active {
+    background: linear-gradient(to bottom, #6a1c00 0%, #8b2500 100%);
+}
+
+button[type="submit"]:disabled {
+    background: #8b7d6b;
+    color: #d4c4a8;
+    border-color: #6a5f4f;
+}
+
+/* Espacement des boutons */
+td button {
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+td button:last-child {
+    margin-right: 0;
+}
+
+/* Message d'erreur style encre rouge */
+.error {
+    color: #8b2500;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+    font-style: italic;
+}
+
+/* Style "billet d'événement" */
+.event-card {
+    background: #fefdfb;
+    border: 2px solid #4a3f35;
+    border-left: 6px solid #8b2500;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    body {
+        padding: 15px;
+    }
+    
+    header {
+        padding: 20px;
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    select {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    table {
+        font-size: 0.85rem;
+        min-width: 500px;
+    }
+    
+    th, td {
+        padding: 6px 8px;
+    }
+    
+    button {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+        min-width: 70px;
+    }
+    
+    td button {
+        display: inline-block;
+        width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+    
+    table {
+        font-size: 0.75rem;
+        min-width: 400px;
+    }
+    
+    th, td {
+        padding: 4px 6px;
+    }
+    
+    button {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+        min-width: 60px;
+    }
+    
+    form {
+        gap: 10px;
+    }
+}

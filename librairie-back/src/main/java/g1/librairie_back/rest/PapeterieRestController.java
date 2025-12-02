@@ -1,9 +1,10 @@
 package g1.librairie_back.rest;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +20,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 import g1.librairie_back.dto.request.CreatePapeterieRequest;
 import g1.librairie_back.dto.response.PapeterieResponse;
 import g1.librairie_back.model.Papeterie;
-import g1.librairie_back.service.PapeterieService;
+import g1.librairie_back.service.ArticleService;
 import g1.librairie_back.view.Views;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/papeterie")
@@ -28,54 +30,64 @@ import g1.librairie_back.view.Views;
 public class PapeterieRestController {
 
     @Autowired
-    private PapeterieService papService;
+    private ArticleService articleService;
 
-    @GetMapping
     @JsonView(Views.Common.class)
+    @GetMapping
     public List<PapeterieResponse> getAll() {
-        return papService.getAll().stream()
+        return articleService.getAllPapeteries()
+                .stream()
                 .map(PapeterieResponse::convert)
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    @GetMapping("/{id}")
     @JsonView(Views.Common.class)
-    public PapeterieResponse getById(@PathVariable Integer id) {
-        Papeterie pap = papService.getById(id);
-        return PapeterieResponse.convert(pap);
+    @GetMapping("/{id}")
+    public ResponseEntity<PapeterieResponse> getById(@PathVariable Integer id) {
+
+        Papeterie papeterie = articleService.getPapeterieById(id);
+
+        if (papeterie == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(PapeterieResponse.convert(papeterie));
     }
 
     @PostMapping
-    @JsonView(Views.Common.class)
-    public PapeterieResponse create(@RequestBody CreatePapeterieRequest dto) {
-        Papeterie pap = new Papeterie(
-                dto.getLibelle(),
-                dto.getPrix(),
-                dto.getStock(),
-                dto.getMarque(),
-                dto.getType()
-        );
-        return PapeterieResponse.convert(papService.create(pap));
+    public ResponseEntity<Integer> create(@Valid @RequestBody CreatePapeterieRequest request) {
+
+        Papeterie papeterie = new Papeterie();
+        BeanUtils.copyProperties(request, papeterie);
+
+        Papeterie saved = (Papeterie) articleService.create(papeterie);
+
+        return ResponseEntity.ok(saved.getId());
     }
 
-    @PutMapping("/{id}")
     @JsonView(Views.Common.class)
-    public PapeterieResponse update(@PathVariable Integer id, @RequestBody CreatePapeterieRequest dto) {
+    @PutMapping("/{id}")
+    public ResponseEntity<PapeterieResponse> update(@PathVariable Integer id,
+                                                    @RequestBody CreatePapeterieRequest request) {
 
-        Papeterie pap = papService.getById(id);
-        if (pap == null) throw new RuntimeException("Papeterie introuvable");
+        Papeterie papeterie = articleService.getPapeterieById(id);
+        if (papeterie == null)
+            return ResponseEntity.notFound().build();
 
-        pap.setLibelle(dto.getLibelle());
-        pap.setPrix(dto.getPrix());
-        pap.setStock(dto.getStock());
-        pap.setMarque(dto.getMarque());
-        pap.setType(dto.getType());
+        BeanUtils.copyProperties(request, papeterie);
 
-        return PapeterieResponse.convert(papService.update(pap));
+        Papeterie updated = (Papeterie) articleService.update(papeterie);
+
+        return ResponseEntity.ok(PapeterieResponse.convert(updated));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
-        papService.deleteById(id);
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+
+        Papeterie papeterie = articleService.getPapeterieById(id);
+        if (papeterie == null)
+            return ResponseEntity.notFound().build();
+
+        articleService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }
