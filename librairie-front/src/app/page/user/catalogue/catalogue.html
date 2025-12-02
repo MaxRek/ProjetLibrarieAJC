@@ -8,8 +8,14 @@
 <body>
     <h1>Catalogue de la Librairie</h1>
     
+    <button *ngIf="!showLivre" (click)="showLivre = true" (click)="showPapeterie = false">Afficher Les livres en ventes</button>
+    <button *ngIf="showLivre" (click)="showLivre = false">Ne plus voir les Livres</button>
+    <button *ngIf="!showPapeterie" (click)="showPapeterie = true" (click)="showLivre = false" >Afficher les ventes de la Papeterie</button>
+    <button *ngIf="showPapeterie" (click)="showPapeterie = false">Ne plus voir la Papeterie</button>
+
+    <hr>
     <!-- Section Livres -->
-    <section>
+    <section *ngIf="showLivre">
         <h2>Liste des Livres</h2>
         <table>
             <thead>
@@ -33,12 +39,13 @@
                 </tr>
             </tbody>
         </table>
+        <hr>
     </section>
 
-    <hr>
+
 
     <!-- Section Papeterie -->
-    <section>
+    <section *ngIf="showPapeterie">
         <h2>Liste des Papeteries</h2>
         <table>
             <thead>
@@ -58,6 +65,9 @@
                 </tr>
             </tbody>
         </table>
+        <hr>
     </section>
+    
+
 </body>
 </html>

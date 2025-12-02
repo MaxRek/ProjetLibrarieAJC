@@ -13,7 +13,7 @@ import { ArticleService } from '../../../service/article-service';
   selector: 'livre',
   imports: [ CommonModule,  ReactiveFormsModule],
   templateUrl: './livre.html',
-  styleUrl: './livre.css',
+  styleUrl: '../admin.css',
 })
 export class Livre implements OnInit {
   protected livre$!: Observable<LivreDto[]>;

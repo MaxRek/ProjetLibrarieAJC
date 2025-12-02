@@ -4,14 +4,13 @@ import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule } from '@angul
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ArticleDto } from '../../../dto/article-dto';
-
 import { ArticleService } from '../../../service/article-service';
 
 @Component({
   selector: 'article',
   imports: [ CommonModule,  ReactiveFormsModule],
   templateUrl: './article.html',
-  styleUrl: './article.css',
+  styleUrl: '../admin.css',
 })
 export class Article implements OnInit {
   protected article$!: Observable<ArticleDto[]>;

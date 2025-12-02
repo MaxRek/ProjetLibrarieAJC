@@ -11,7 +11,7 @@ import { AuteurService } from '../../../service/auteur-service';
   selector: 'auteur', 
   imports: [ CommonModule, ReactiveFormsModule],
   templateUrl: './auteur.html',
-  styleUrl: './auteur.css',
+  styleUrl: '../admin.css',
 })
 
 export class Auteur implements OnInit {

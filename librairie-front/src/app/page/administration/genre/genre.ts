@@ -11,7 +11,7 @@ import { GenreService } from '../../../service/genre-service';
   selector: 'genre',
   imports: [ CommonModule,  ReactiveFormsModule],
   templateUrl: './genre.html',
-  styleUrl: './genre.css',
+  styleUrl: '../admin.css',
 })
 export class Genre implements OnInit {
   protected genre$!: Observable<GenreDto[]>;

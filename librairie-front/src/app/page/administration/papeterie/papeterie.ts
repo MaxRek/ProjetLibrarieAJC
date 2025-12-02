@@ -74,5 +74,4 @@ export class Papeterie {
     this.papeterieService.deleteById(papeterie.id);
   }
 
-
 }
