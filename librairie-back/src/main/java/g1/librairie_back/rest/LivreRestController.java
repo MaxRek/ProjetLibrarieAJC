@@ -39,17 +39,16 @@ public class LivreRestController {
 
     @GetMapping
     @JsonView(Views.Common.class)
-    public List<LivreResponse> findAll() {
-        return articleService.getAllLivres()
-                .stream()
-                .map(LivreResponse::convert)
-                .toList();
+    public List<Livre> findAll() {
+      
+        List<Livre> livres = articleService.getAllLivres();
+        return livres;
     }
 
     @GetMapping("/{id}")
     @JsonView(Views.Livre.class)
     public ResponseEntity<LivreResponse> getById(@PathVariable Integer id) {
-        Livre livre = articleService.getLivreById(id);
+        Livre livre =  (Livre) articleService.getById(id);
 
         if (livre == null)
             return ResponseEntity.notFound().build();
@@ -78,7 +77,7 @@ public class LivreRestController {
     public ResponseEntity<LivreResponse> update(@PathVariable Integer id,
                                                 @RequestBody CreateLivreRequest request) {
 
-        Livre livre = articleService.getLivreById(id);
+        Livre livre = (Livre) articleService.getById(id);
         if (livre == null)
             return ResponseEntity.notFound().build();
 
@@ -97,7 +96,7 @@ public class LivreRestController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
 
-        Livre livre = articleService.getLivreById(id);
+        Livre livre = (Livre) articleService.getById(id);
         if (livre == null)
             return ResponseEntity.notFound().build();
 

@@ -34,18 +34,17 @@ public class PapeterieRestController {
 
     @JsonView(Views.Common.class)
     @GetMapping
-    public List<PapeterieResponse> getAll() {
-        return articleService.getAllPapeteries()
-                .stream()
-                .map(PapeterieResponse::convert)
-                .toList();
+    public List<Papeterie> getAll() {
+        
+        List<Papeterie> papeteries = articleService.getAllPapeteries();
+		return papeteries;
     }
 
     @JsonView(Views.Common.class)
     @GetMapping("/{id}")
     public ResponseEntity<PapeterieResponse> getById(@PathVariable Integer id) {
 
-        Papeterie papeterie = articleService.getPapeterieById(id);
+        Papeterie papeterie = (Papeterie) articleService.getById(id);
 
         if (papeterie == null)
             return ResponseEntity.notFound().build();
@@ -69,7 +68,7 @@ public class PapeterieRestController {
     public ResponseEntity<PapeterieResponse> update(@PathVariable Integer id,
                                                     @RequestBody CreatePapeterieRequest request) {
 
-        Papeterie papeterie = articleService.getPapeterieById(id);
+        Papeterie papeterie = (Papeterie) articleService.getById(id);
         if (papeterie == null)
             return ResponseEntity.notFound().build();
 
@@ -83,7 +82,7 @@ public class PapeterieRestController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
 
-        Papeterie papeterie = articleService.getPapeterieById(id);
+        Papeterie papeterie = (Papeterie) articleService.getById(id);
         if (papeterie == null)
             return ResponseEntity.notFound().build();
 

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import g1.librairie_back.dao.IDAOReview;
@@ -16,9 +15,6 @@ public class ReviewService {
 
 	@Autowired
 	IDAOReview daoReview;
-	
-	@Autowired
-	PasswordEncoder passwordEncoder;
 	
 	public List<Review> getAll()
 	{

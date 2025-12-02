@@ -2,6 +2,9 @@ package g1.librairie_back.dto.response;
 
 import java.time.LocalDate;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import g1.librairie_back.dao.IDAOCompte;
 import g1.librairie_back.model.Article;
 import g1.librairie_back.model.Client;
 import g1.librairie_back.model.Review;
@@ -11,9 +14,10 @@ public class ReviewResponse {
 	private String review;
 	private int note;
 	private LocalDate dateReview;
-	private Client client;
-	private Article article;
+	private Integer clientId;
+	private Integer articleId;
 
+	
 	public Integer getId() {
 		return id;
 	}
@@ -46,20 +50,22 @@ public class ReviewResponse {
 		this.dateReview = dateReview;
 	}
 
-	public Client getClient() {
-		return client;
+	
+
+	public Integer getClientId() {
+		return clientId;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setClientId(Integer clientId) {
+		this.clientId = clientId;
 	}
 
-	public Article getArticle() {
-		return article;
+	public Integer getArticleId() {
+		return articleId;
 	}
 
-	public void setArticle(Article article) {
-		this.article = article;
+	public void setArticleId(Integer articleId) {
+		this.articleId = articleId;
 	}
 
 	public static ReviewResponse convert(Review review) {
@@ -69,8 +75,8 @@ public class ReviewResponse {
         resp.setNote(review.getNote());
         resp.setReview(review.getReview());
         resp.setDateReview(review.getDateReview());
-        resp.setArticle(review.getArticle());
-        
+        resp.setArticleId(review.getArticle().getId());
+        resp.setClientId(review.getClient().getId());
         return resp;
     }
 }

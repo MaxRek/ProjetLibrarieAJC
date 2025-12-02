@@ -6,62 +6,88 @@ import g1.librairie_back.model.Achat;
 
 public class AchatResponse {
 
-    private int id;
+    private Integer id;
     private LocalDate dateAchat;
     private double prix;
     private int quantiteAchat;
-    private int articleId;
-    private int clientId;
+    private Integer articleId;
+    private Integer clientId;
     
-    public int getId() {
-        return id;
-    }
+    
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public Integer getId() {
+		return id;
+	}
 
-    public LocalDate getDateAchat() {
-        return dateAchat;
-    }
 
-    public void setDateAchat(LocalDate dateAchat) {
-        this.dateAchat = dateAchat;
-    }
 
-    public double getPrix() {
-        return prix;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setPrix(double prix) {
-        this.prix = prix;
-    }
 
-    public int getQuantiteAchat() {
-        return quantiteAchat;
-    }
 
-    public void setQuantiteAchat(int quantiteAchat) {
-        this.quantiteAchat = quantiteAchat;
-    }
+	public LocalDate getDateAchat() {
+		return dateAchat;
+	}
 
-    public int getArticleId() {
-        return articleId;
-    }
 
-    public void setArticleId(int articleId) {
-        this.articleId = articleId;
-    }
 
-    public int getClientId() {
-        return clientId;
-    }
+	public void setDateAchat(LocalDate dateAchat) {
+		this.dateAchat = dateAchat;
+	}
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
-    }
 
-    public static AchatResponse convert(Achat achat) {
+
+	public double getPrix() {
+		return prix;
+	}
+
+
+
+	public void setPrix(double prix) {
+		this.prix = prix;
+	}
+
+
+
+	public int getQuantiteAchat() {
+		return quantiteAchat;
+	}
+
+
+
+	public void setQuantiteAchat(int quantiteAchat) {
+		this.quantiteAchat = quantiteAchat;
+	}
+
+
+
+	public Integer getArticleId() {
+		return articleId;
+	}
+
+
+
+	public void setArticleId(Integer articleId) {
+		this.articleId = articleId;
+	}
+
+
+
+	public Integer getClientId() {
+		return clientId;
+	}
+
+
+
+	public void setClientId(Integer clientId) {
+		this.clientId = clientId;
+	}
+
+
+
+	public static AchatResponse convert(Achat achat) {
         AchatResponse resp = new AchatResponse();
 
         resp.setId(achat.getId());

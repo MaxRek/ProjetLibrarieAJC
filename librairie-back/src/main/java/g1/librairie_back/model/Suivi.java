@@ -18,7 +18,7 @@ public class Suivi {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@JsonView(Views.Common.class)
-	private int id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name="client",nullable = false)
@@ -37,11 +37,11 @@ public class Suivi {
 		this.article = article;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

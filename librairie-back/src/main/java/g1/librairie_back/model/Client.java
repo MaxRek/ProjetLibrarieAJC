@@ -15,7 +15,7 @@ import jakarta.persistence.OneToOne;
 @DiscriminatorValue("Client")
 public class Client extends Compte{
 
-	/*
+
 	@JsonView(Views.Client.class)
 	@OneToOne(mappedBy="client")
 	protected Panier panier;
@@ -31,78 +31,47 @@ public class Client extends Compte{
 	@JsonView(Views.ClientWithAchat.class)
 	@OneToMany(mappedBy = "client")
 	protected List<Achat> achat = new ArrayList();
-	*/
+
 	
 	public Client() {}
 	
+	public Client(String nom, String prenom, String email, String password) {
+		super(nom, prenom, email, password);
+	}
 
-	
-	
 	public Panier getPanier() {
 		return panier;
 	}
-
-
-
-
 	public void setPanier(Panier panier) {
 		this.panier = panier;
 	}
-
-
-
 
 	public List<Suivi> getSuivi() {
 		return suivi;
 	}
 
-
-
-
 	public void setSuivi(List<Suivi> suivi) {
 		this.suivi = suivi;
 	}
-
-
-
 
 	public List<Review> getReview() {
 		return review;
 	}
 
-
-
-
 	public void setReview(List<Review> review) {
 		this.review = review;
 	}
-
-
-
 
 	public List<Achat> getAchat() {
 		return achat;
 	}
 
-
-
-
 	public void setAchat(List<Achat> achat) {
 		this.achat = achat;
 	}
-
-
-
 
 	@Override
 	public String toString() {
 		return "Client [panier=" + panier + ", suivi=" + suivi + ", review=" + review + ", achat=" + achat + "]";
 	}
-
-
-
-
-	
-
-	
 }

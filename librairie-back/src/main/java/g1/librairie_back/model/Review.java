@@ -2,6 +2,8 @@ package g1.librairie_back.model;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonView;
 
 import g1.librairie_back.view.Views;
@@ -30,6 +32,8 @@ public class Review {
     private int note;
 
     @JsonView(Views.Common.class)
+    @Column(name="date_review")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateReview;
 
     @ManyToOne
