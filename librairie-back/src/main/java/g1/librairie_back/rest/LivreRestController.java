@@ -1,9 +1,10 @@
 package g1.librairie_back.rest;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,17 +21,18 @@ import g1.librairie_back.dto.request.CreateLivreRequest;
 import g1.librairie_back.dto.response.LivreResponse;
 import g1.librairie_back.model.Auteur;
 import g1.librairie_back.model.Livre;
+import g1.librairie_back.service.ArticleService;
 import g1.librairie_back.service.AuteurService;
-import g1.librairie_back.service.LivreService;
 import g1.librairie_back.view.Views;
+import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/livres")
+@RequestMapping("/api/livre")
 @CrossOrigin(origins = "*")
 public class LivreRestController {
 
     @Autowired
-    private LivreService livreService;
+    private ArticleService articleService;
 
     @Autowired
     private AuteurService auteurService;
@@ -38,64 +40,68 @@ public class LivreRestController {
     @GetMapping
     @JsonView(Views.Common.class)
     public List<LivreResponse> findAll() {
-        return livreService.getAll()
+        return articleService.getAllLivres()
                 .stream()
                 .map(LivreResponse::convert)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @GetMapping("/{id}")
     @JsonView(Views.Livre.class)
-    public LivreResponse findById(@PathVariable Integer id) {
-        Livre livre = livreService.getById(id);
-        return LivreResponse.convert(livre);
+    public ResponseEntity<LivreResponse> getById(@PathVariable Integer id) {
+        Livre livre = articleService.getLivreById(id);
+
+        if (livre == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(LivreResponse.convert(livre));
     }
 
     @PostMapping
-    @JsonView(Views.Livre.class)
-    public LivreResponse create(@RequestBody CreateLivreRequest dto) {
+    public ResponseEntity<Integer> create(@Valid @RequestBody CreateLivreRequest request) {
 
-        Auteur auteur = auteurService.getById(dto.getAuteurId());
-        if (auteur == null) {
-            throw new RuntimeException("Auteur introuvable");
-        }
+        Auteur auteur = auteurService.getById(request.getAuteurId());
+        if (auteur == null)
+            return ResponseEntity.badRequest().build();
 
-        Livre livre = new Livre(
-                dto.getLibelle(),
-                dto.getPrix(),
-                dto.getStock(),
-                dto.getAnnee(),
-                auteur,
-                dto.getGenre()
-        );
+        Livre livre = new Livre();
+        BeanUtils.copyProperties(request, livre);
+        livre.setAuteur(auteur);
 
-        Livre saved = livreService.create(livre);
-        return LivreResponse.convert(saved);
+        Livre saved = (Livre) articleService.create(livre);
+
+        return ResponseEntity.ok(saved.getId());
     }
 
-    @PutMapping("/{id}")
     @JsonView(Views.Livre.class)
-    public LivreResponse update(@PathVariable Integer id, @RequestBody CreateLivreRequest dto) {
+    @PutMapping("/{id}")
+    public ResponseEntity<LivreResponse> update(@PathVariable Integer id,
+                                                @RequestBody CreateLivreRequest request) {
 
-        Livre livre = livreService.getById(id);
-        if (livre == null) { throw new RuntimeException("Livre introuvable"); }
+        Livre livre = articleService.getLivreById(id);
+        if (livre == null)
+            return ResponseEntity.notFound().build();
 
-        Auteur auteur = auteurService.getById(dto.getAuteurId());
-        if (auteur == null) { throw new RuntimeException("Auteur introuvable"); }
+        Auteur auteur = auteurService.getById(request.getAuteurId());
+        if (auteur == null)
+            return ResponseEntity.badRequest().build();
 
-        livre.setLibelle(dto.getLibelle());
-        livre.setPrix(dto.getPrix());
-        livre.setStock(dto.getStock());
-        livre.setAnnee(dto.getAnnee());
+        BeanUtils.copyProperties(request, livre);
         livre.setAuteur(auteur);
-        livre.setGenre(dto.getGenre());
 
-        Livre updated = livreService.update(livre);
-        return LivreResponse.convert(updated);
+        Livre updated = (Livre) articleService.update(livre);
+
+        return ResponseEntity.ok(LivreResponse.convert(updated));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
-        livreService.deleteById(id);
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+
+        Livre livre = articleService.getLivreById(id);
+        if (livre == null)
+            return ResponseEntity.notFound().build();
+
+        articleService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }

@@ -14,9 +14,9 @@ import g1.librairie_back.model.Papeterie;
 public interface IDAOArticle extends JpaRepository<Article,Integer>{
 	
     @Query("from Livre")
-	public List<Livre> findAllLivre();
+	public List<Livre> findAllLivres();
 	
 	@Query("from Papeterie")
-	public List<Papeterie> findAllPapeterie();
+	public List<Papeterie> findAllPapeteries();
 
 }
