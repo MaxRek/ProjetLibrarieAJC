@@ -28,7 +28,7 @@ export const routes: Routes = [
     { path: 'achat', component: Achat },
     { path: 'suivi', component: Suivi },
     { path: 'panier', component: Panier },
-    { path: 'review', component: Review }
+    { path: 'review', component: Review },
     // Redirection par défaut vers la page d'accueil
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**', redirectTo: '/home' }
