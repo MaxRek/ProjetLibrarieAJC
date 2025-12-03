@@ -9,7 +9,7 @@ import { AchatDto } from '../dto/achat-dto';
   providedIn: 'root',
 })
 export class AchatService {
-  private apiUrl = '/achat';
+  private apiUrl = 'http://localhost:8080/api/achat';
   private refresh$: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) { }
@@ -31,6 +31,10 @@ export class AchatService {
     return this.http.get<AchatDto>(`${this.apiUrl}/${id}`);
   }
 
+  public findByClient(idClient: number): Observable<AchatDto[]> {
+    return this.http.get<AchatDto[]>(`${this.apiUrl}/client/${idClient}`);
+  }
+  
   public save(achatDto: AchatDto): void {
     const payload = achatDto.toJson();
 

@@ -9,7 +9,7 @@ import { SuiviDto } from '../dto/suivi-dto';
   providedIn: 'root',
 })
 export class SuiviService {
-  private apiUrl = '/suivi';
+  private apiUrl = 'http://localhost:8080/api/suivi';
   private refresh$: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) { }
@@ -29,6 +29,10 @@ export class SuiviService {
 
   public findById(id: number): Observable<SuiviDto> {
     return this.http.get<SuiviDto>(`${this.apiUrl}/${id}`);
+  }
+
+  public findByClient(idClient: number): Observable<SuiviDto[]> {
+    return this.http.get<SuiviDto[]>(`${this.apiUrl}/client/${idClient}`);
   }
 
   public save(suiviDto: SuiviDto): void {

@@ -23,6 +23,9 @@ export class Papeterie implements OnInit {
 
   protected showForm: boolean = false;
   protected papeterieForm!: FormGroup;
+  protected libelleCtrl!: FormControl;
+  protected prixCtrl!: FormControl;
+  protected stockCtrl!: FormControl;
   protected typeCtrl!: FormControl;
   protected marqueCtrl!: FormControl;
 
@@ -32,13 +35,19 @@ export class Papeterie implements OnInit {
 
   ngOnInit(): void {
     this.papeterie$ = this.papeterieService.findAll();
-    
+    this.libelleCtrl = this.formBuilder.control('');
+    this.prixCtrl = this.formBuilder.control(0);
+    this.stockCtrl = this.formBuilder.control(0);
     this.typeCtrl = this.formBuilder.control('');
     this.marqueCtrl = this.formBuilder.control('');
     
     this.papeterieForm = this.formBuilder.group({
+      libelle: this.libelleCtrl,
+      prix: this.prixCtrl,
+      stock: this.stockCtrl,
       type: this.typeCtrl,
-      marque: this.marqueCtrl
+      marque: this.marqueCtrl,
+
     });
   }
 
@@ -48,10 +57,27 @@ export class Papeterie implements OnInit {
 
   public creerOuModifier() {
     if (this.editingPapeterie) {
-      this.papeterieService.save(new PapeterieDto(this.editingPapeterie.id, this.editingPapeterie.stock, this.editingPapeterie.libelle, this.editingPapeterie.prix, this.typeCtrl.value, this.marqueCtrl.value));
+      this.papeterieService.save(
+        new PapeterieDto(
+          this.editingPapeterie.id, 
+          this.stockCtrl.value, 
+          this.libelleCtrl.value, 
+          this.prixCtrl.value, 
+          this.typeCtrl.value, 
+          this.marqueCtrl.value
+        )
+      );
     } else {
-      const newArticle = new ArticleDto(0, 0, '', 0);
-      this.papeterieService.save(new PapeterieDto(0, newArticle.stock, newArticle.libelle, newArticle.prix, this.typeCtrl.value, this.marqueCtrl.value));
+      this.papeterieService.save(
+        new PapeterieDto(
+          0, 
+          this.stockCtrl.value, 
+          this.libelleCtrl.value, 
+          this.prixCtrl.value, 
+          this.typeCtrl.value, 
+          this.marqueCtrl.value
+        )
+      );
     }
 
     this.showForm = false;
@@ -61,6 +87,9 @@ export class Papeterie implements OnInit {
 
   public editer (papeterie: PapeterieDto) {
     this.editingPapeterie = papeterie;
+    this.libelleCtrl.setValue(papeterie.libelle);
+    this.prixCtrl.setValue(papeterie.prix);
+    this.stockCtrl.setValue(papeterie.stock);
     this.typeCtrl.setValue(papeterie.type);
     this.marqueCtrl.setValue(papeterie.marque);
     this.showForm = true;

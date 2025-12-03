@@ -36,6 +36,8 @@ public class SecurityConfig {
         http.httpBasic(Customizer.withDefaults());
 
         // Désactiver la protection CSRF
+        http.csrf().disable();      
+        
         http.cors(cors -> {
             CorsConfigurationSource source = request -> {
                 CorsConfiguration config = new CorsConfiguration();

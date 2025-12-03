@@ -9,7 +9,7 @@ import { PanierDto } from '../dto/panier-dto';
   providedIn: 'root',
 })
 export class PanierService {
-  private apiUrl = '/panier';
+  private apiUrl = 'http://localhost:8080/api/panier';
   private refresh$: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) { }
@@ -29,6 +29,10 @@ export class PanierService {
 
   public findById(id: number): Observable<PanierDto> {
     return this.http.get<PanierDto>(`${this.apiUrl}/${id}`);
+  }
+
+  public findByClient(idClient: number): Observable<PanierDto[]> {
+    return this.http.get<PanierDto[]>(`${this.apiUrl}/client/${idClient}`);
   }
 
   public save(panierDto: PanierDto): void {

@@ -9,7 +9,7 @@ import { ReviewDto } from '../dto/review-dto';
   providedIn: 'root',
 })
 export class ReviewService {
-  private apiUrl = '/review';
+  private apiUrl = 'http://localhost:8080/api/review';
   private refresh$: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) { }
@@ -31,6 +31,10 @@ export class ReviewService {
     return this.http.get<ReviewDto>(`${this.apiUrl}/${id}`);
   }
 
+  public findByClient(idClient: number): Observable<ReviewDto[]> {
+    return this.http.get<ReviewDto[]>(`${this.apiUrl}/client/${idClient}`);
+  }
+  
   public save(reviewDto: ReviewDto): void {
     const payload = reviewDto.toJson();
 

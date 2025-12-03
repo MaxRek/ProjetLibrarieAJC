@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivis - Librairie</title>
+</head>
+<body>
+    <h1>Gestion des Suivis</h1>
+    <section>
+        <h2>Liste des Suivis</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Article</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let suivi of suivi$ | async; traclBy: trackSuivi" >
+                    <td>{{ suivi.articleId }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</body>
+</html>
