@@ -31,6 +31,10 @@ export class SuiviService {
     return this.http.get<SuiviDto>(`${this.apiUrl}/${id}`);
   }
 
+  public findByClient(idClient: number): Observable<SuiviDto[]> {
+    return this.http.get<SuiviDto[]>(`${this.apiUrl}/client/${idClient}`);
+  }
+
   public save(suiviDto: SuiviDto): void {
     const payload = suiviDto.toJson();
 

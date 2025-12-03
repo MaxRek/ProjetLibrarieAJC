@@ -14,7 +14,6 @@
             <thead>
                 <tr>
                     <th>Article</th>
-                    <th>Client</th>
                     <th>Quantité</th>
                     <th></th>
                 </tr>
@@ -22,7 +21,6 @@
             <tbody>
                 <tr *ngFor="let panier of panier$ | async; traclBy: trackPanier" >
                     <td>{{ panier.articleId }}</td>
-                    <td>{{ panier.clientId }}</td>
                     <td>{{ panier.quantite }}</td>
                     <td>
                         <button (click)="editer(panier)">Modifier</button>
@@ -35,39 +33,18 @@
 
     <hr>
 
-    <button *ngIf="!showForm" (click)="showForm = true">Ajouter un Panier</button>
-
     <section *ngIf="showForm">
-        <h2>Formulaire d'ajout</h2>
-        <form (ngSubmit)="creerOuModifier()" [formGroup]="panierForm">
-
-            <label for="articleId">Id Article :</label>
-            <input id="articleId" formControlName="articleId" type="number"/>
-                @if (articleIdCtrl.hasError('required')) {
-                    <span class="error">L'id de l'acrticle est requis.</span>
-                }
-
-            <br/>
-
-            <label for="clientId">Id Client :</label>
-            <input id="clientId" formControlName="clientId" type="number"/>
-                @if (clientIdCtrl.hasError('required')) {
-                    <span class="error">L'id du client est requis.</span>
-                }
-
-            <br/>
+        <h2>Modifier mes paniers</h2>
+        <form (ngSubmit)="valider()" [formGroup]="panierForm">
 
             <label for="quantite">Quantité :</label>
-            <input id="quantite" formControlName="quantite" type="number">
+            <input id="quantite" formControlName="quantite" type="number"/>
                 @if (quantiteCtrl.hasError('required')) {
                     <span class="error">Le quantite est requise.</span>
                 }
-                
-            <br/>
 
             <button type="submit">Enregistrer</button>
-            <button type="button" (click)="showForm = false">Annuler</button>
-
+            <button type="button" (click)="annuler()">Annuler</button>
         </form>
     </section>
 

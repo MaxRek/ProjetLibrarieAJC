@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achats - Librairie</title>
+</head>
+<body>
+    <h1>Gestion des Achats</h1>
+    <section>
+        <h2>Liste des Achats</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Article</th>
+                    <th>Quantité</th>
+                    <th>Prix</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let achat of achat$ | async; traclBy: trackAchat" >
+                    <td>{{ achat.dateAchat }}</td>
+                    <td>{{ achat.articleId }}</td>
+                    <td>{{ achat.quantiteAchat }}</td>
+                    <td>{{ achat.prix }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</body>
+</html>

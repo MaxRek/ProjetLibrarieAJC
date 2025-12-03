@@ -31,6 +31,10 @@ export class ReviewService {
     return this.http.get<ReviewDto>(`${this.apiUrl}/${id}`);
   }
 
+  public findByClient(idClient: number): Observable<ReviewDto[]> {
+    return this.http.get<ReviewDto[]>(`${this.apiUrl}/client/${idClient}`);
+  }
+  
   public save(reviewDto: ReviewDto): void {
     const payload = reviewDto.toJson();
 

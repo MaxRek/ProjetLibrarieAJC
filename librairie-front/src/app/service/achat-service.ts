@@ -31,6 +31,10 @@ export class AchatService {
     return this.http.get<AchatDto>(`${this.apiUrl}/${id}`);
   }
 
+  public findByClient(idClient: number): Observable<AchatDto[]> {
+    return this.http.get<AchatDto[]>(`${this.apiUrl}/client/${idClient}`);
+  }
+  
   public save(achatDto: AchatDto): void {
     const payload = achatDto.toJson();
 
