@@ -95,26 +95,35 @@ public class AchatService {
     }
     
     @Transactional
-    public void achatPanier(Integer clientId) {
+    public String achatPanier(Integer clientId) {
     	List<Panier> panier = panierService.getPanierByIdClient(clientId);
 
         for (Panier p : panier) {
 
             Achat achat = new Achat();
+            
+            int stock = p.getArticle().getStock() - p.getQuantite();
+            if(stock>0) {
+            p.getArticle().setStock(stock);
+            articleService.update(p.getArticle());
+            
             achat.setDateAchat(LocalDate.now());
             achat.setQuantiteAchat(p.getQuantite());
             achat.setPrix(p.getArticle().getPrix());
             achat.setArticle(p.getArticle());
             achat.setClient(p.getClient());
-
-            daoAchat.save(achat);
-
+            
             p.getArticle().setStock(p.getArticle().getStock() - p.getQuantite());
             articleService.update(p.getArticle());
-            //peut être rajouter une vérif pour voir si il reste assez d'article
-            
+           
+            daoAchat.save(achat);
             panierService.deleteById(p.getId());
+            }
+            else {
+            	throw new RuntimeException(p.getArticle().getLibelle()+" n'est plus en stock, il en reste "+p.getArticle().getStock());
+            }
         }
+        return "ok";
     }
     
 }

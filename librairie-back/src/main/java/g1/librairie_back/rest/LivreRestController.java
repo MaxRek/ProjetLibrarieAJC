@@ -38,7 +38,7 @@ public class LivreRestController {
     private AuteurService auteurService;
 
     @GetMapping
-    @JsonView(Views.Common.class)
+    @JsonView(Views.Livre.class)
     public List<Livre> findAll() {
       
         List<Livre> livres = articleService.getAllLivres();
