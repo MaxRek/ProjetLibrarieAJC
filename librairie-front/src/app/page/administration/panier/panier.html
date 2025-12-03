@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paniers - Librairie</title>
+</head>
+<body>
+    <h1>Gestion des Paniers</h1>
+    <section>
+        <h2>Liste des Paniers</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Article</th>
+                    <th>Client</th>
+                    <th>Quantité</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let panier of panier$ | async; traclBy: trackPanier" >
+                    <td>{{ panier.articleId }}</td>
+                    <td>{{ panier.clientId }}</td>
+                    <td>{{ panier.quantite }}</td>
+                    <td>
+                        <button (click)="editer(panier)">Modifier</button>
+                        <button (click)="supprimer(panier)">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <button *ngIf="!showForm" (click)="showForm = true">Ajouter un Panier</button>
+
+    <section *ngIf="showForm">
+        <h2>Formulaire d'ajout</h2>
+        <form (ngSubmit)="creerOuModifier()" [formGroup]="panierForm">
+
+            <label for="articleId">Id Article :</label>
+            <input id="articleId" formControlName="articleId" type="number"/>
+                @if (articleIdCtrl.hasError('required')) {
+                    <span class="error">L'id de l'acrticle est requis.</span>
+                }
+
+            <br/>
+
+            <label for="clientId">Id Client :</label>
+            <input id="clientId" formControlName="clientId" type="number"/>
+                @if (clientIdCtrl.hasError('required')) {
+                    <span class="error">L'id du client est requis.</span>
+                }
+
+            <br/>
+
+            <label for="quantite">Quantité :</label>
+            <input id="quantite" formControlName="quantite" type="number">
+                @if (quantiteCtrl.hasError('required')) {
+                    <span class="error">Le quantite est requis.</span>
+                }
+                
+            <br/>
+
+            <button type="submit">Enregistrer</button>
+            <button type="button" (click)="showForm = false">Annuler</button>
+
+        </form>
+    </section>
+
+</body>
+</html>

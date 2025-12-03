@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achats - Librairie</title>
+</head>
+<body>
+    <h1>Gestion des Achats</h1>
+    <section>
+        <h2>Liste des Achats</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Article</th>
+                    <th>Client</th>
+                    <th>Quantité</th>
+                    <th>Prix</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let achat of achat$ | async; traclBy: trackAchat" >
+                    <td>{{ achat.dateAchat }}</td>
+                    <td>{{ achat.articleId }}</td>
+                    <td>{{ achat.clientId }}</td>
+                    <td>{{ achat.quantiteAchat }}</td>
+                    <td>{{ achat.prix }}</td>
+                    <td>
+                        <button (click)="editer(achat)">Modifier</button>
+                        <button (click)="supprimer(achat)">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <button *ngIf="!showForm" (click)="showForm = true">Ajouter un achat</button>
+
+    <section *ngIf="showForm">
+        <h2>Formulaire d'ajout</h2>
+        <form (ngSubmit)="creerOuModifier()" [formGroup]="achatForm">
+
+            <label for="dateAchat">Date :</label>
+            <input id="dateAchat" formControlName="dateAchat" type="date"/>
+                @if (dateAchatCtrl.hasError('required')) {
+                    <span class="error">La date d'achat est requise.</span>
+                }
+            
+            <br/>
+            
+            <label for="articleId">Id Article :</label>
+            <input id="articleId" formControlName="articleId" type="number"/>
+                @if (articleIdCtrl.hasError('required')) {
+                    <span class="error">L'id de l'acrticle est requis.</span>
+                }
+
+            <br/>
+
+            <label for="clientId">Id Client :</label>
+            <input id="clientId" formControlName="clientId" type="number"/>
+                @if (clientIdCtrl.hasError('required')) {
+                    <span class="error">L'id du client est requis.</span>
+                }
+
+            <br/>
+
+            <label for="quantiteAchat">Quantité :</label>
+            <input id="quantiteAchat" formControlName="quantiteAchat" type="number"/>
+                @if (quantiteAchatCtrl.hasError('required')) {
+                    <span class="error">La quantité achetée est requise.</span>
+                }
+                
+            <br/>
+
+            <label for="prix">Prix:</label>
+            <input id="prix" formControlName="prix" type="number"/>
+                @if (prixCtrl.hasError('required')) {
+                    <span class="error">Le prix est requis.</span>
+                }
+
+            <br/>
+
+            <button type="submit">Enregistrer</button>
+            <button type="button" (click)="showForm = false">Annuler</button>
+
+        </form>
+    </section>
+
+</body>
+</html>

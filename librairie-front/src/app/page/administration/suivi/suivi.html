@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivis - Librairie</title>
+</head>
+<body>
+    <h1>Gestion des Suivis</h1>
+    <section>
+        <h2>Liste des Suivis</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Article</th>
+                    <th>Client</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let suivi of suivi$ | async; traclBy: trackSuivi" >
+                    <td>{{ suivi.articleId }}</td>
+                    <td>{{ suivi.clientId }}</td>
+                    <td>
+                        <button (click)="editer(suivi)">Modifier</button>
+                        <button (click)="supprimer(suivi)">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <button *ngIf="!showForm" (click)="showForm = true">Ajouter un Suivi</button>
+
+    <section *ngIf="showForm">
+        <h2>Formulaire d'ajout</h2>
+        <form (ngSubmit)="creerOuModifier()" [formGroup]="suiviForm">
+            
+            <label for="articleId">Id Article :</label>
+            <input id="articleId" formControlName="articleId" type="number"/>
+                @if (articleIdCtrl.hasError('required')) {
+                    <span class="error">L'id de l'acrticle est requis.</span>
+                }
+
+            <br/>
+
+            <label for="clientId">Id Client :</label>
+            <input id="clientId" formControlName="clientId" type="number"/>
+                @if (clientIdCtrl.hasError('required')) {
+                    <span class="error">L'id du client est requis.</span>
+                }
+
+
+            <br/>
+
+            <button type="submit">Enregistrer</button>
+            <button type="button" (click)="showForm = false">Annuler</button>
+
+        </form>
+    </section>
+
+</body>
+</html>

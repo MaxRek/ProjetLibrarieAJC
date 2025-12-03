@@ -16,7 +16,7 @@ import { ArticleService } from '../../../service/article-service';
   templateUrl: './papeterie.html',
   styleUrl: '../admin.css',
 })
-export class Papeterie {
+export class Papeterie implements OnInit {
   protected papeterie$!: Observable<PapeterieDto[]>;
 
   protected showForm: boolean = false;

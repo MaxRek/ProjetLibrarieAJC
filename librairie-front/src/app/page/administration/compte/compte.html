@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compte - Librairie</title>
+</head>
+<body>
+    <h1>Gestion des Comptes</h1>
+    <section>
+        <h2>Liste des Comptes</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let compte of compte$ | async; traclBy: trackCompte" >
+                    <td>
+                        {{ compte.nom }}
+                    </td>
+                    <td>
+                        {{ compte.prenom }}
+                    </td>
+                    <td>
+                        {{ compte.email }}
+                    </td>
+                    <td>
+                        {{ compte.password }}
+                    </td>
+                    <td>
+                        <button (click)="editer(compte)">Modifier</button>
+                        <button (click)="supprimer(compte)">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <button *ngIf="!showForm" (click)="showForm = true">Ajouter un Compte</button>
+
+    <section *ngIf="showForm">
+        <h2>Formulaire d'ajout</h2>
+        <form (ngSubmit)="creerOuModifier()" [formGroup]="compteForm">
+
+            <label for="nom">nom:</label>
+            <input id="nom" formControlName="nom" type="text">
+                @if (nomCtrl.hasError('required')) {
+                    <span class="error">Le nom est requis.</span>
+                }
+            <br>
+
+            <label for="prenom">prenom:</label>
+            <input id="prenom" formControlName="prenom" type="text">
+                @if (prenomCtrl.hasError('required')) {
+                    <span class="error">Le prénom est requis.</span>
+                }
+            <br>
+
+            <label for="email">email:</label>
+            <input id="email" formControlName="email" type="email">
+                @if (emailCtrl.hasError('required')) {
+                    <span class="error">L'email est requis.</span>
+                }
+            <br>
+
+            <label for="password">password:</label>
+            <input id="password" formControlName="password" type="password">
+                @if (passwordCtrl.hasError('required')) {
+                    <span class="error">Le mot de passe est requis.</span>
+                }
+            <br>
+                        
+            <button type="submit">Enregistrer</button>
+            <button type="button" (click)="showForm = false">Annuler</button>
+
+        </form>
+    </section>
+
+</body>
+</html>

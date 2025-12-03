@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrateur - Librairie</title>
+</head>
+<body>
+    <h1>Gestion des Administrateurs</h1>
+    <section>
+        <h2>Liste des Administrateurs</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let administrateur of administrateur$ | async; traclBy: trackAdministrateur" >
+                    <td>
+                        {{ administrateur.nom }}
+                    </td>
+                    <td>
+                        {{ administrateur.prenom }}
+                    </td>
+                    <td>
+                        {{ administrateur.email }}
+                    </td>
+                    <td>
+                        {{ administrateur.password }}
+                    </td>
+                    <td>
+                        <button (click)="editer(administrateur)">Modifier</button>
+                        <button (click)="supprimer(administrateur)">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <button *ngIf="!showForm" (click)="showForm = true">Ajouter un Administrateur</button>
+
+    <section *ngIf="showForm">
+        <h2>Formulaire d'ajout</h2>
+        <form (ngSubmit)="creerOuModifier()" [formGroup]="administrateurForm">
+
+            <label for="nom">nom:</label>
+            <input id="nom" formControlName="nom" type="text">
+                <!--@if (nomCtrl.hasError('required')) {
+                    <span class="error">Le nom est requis.</span>
+                }-->
+            <br>
+
+            <label for="prenom">prenom:</label>
+            <input id="prenom" formControlName="prenom" type="text">
+                <!--@if (prenomCtrl.hasError('required')) {
+                    <span class="error">Le prénom est requis.</span>
+                }-->
+            <br>
+            <label for="email">email:</label>
+            <input id="email" formControlName="email" type="email">
+                <!--@if (emailCtrl.hasError('required')) {
+                    <span class="error">L'email est requis.</span>
+                }-->
+            <br>
+            <label for="password">password:</label>
+            <input id="password" formControlName="password" type="password">
+                <!--@if (passwordCtrl.hasError('required')) {
+                    <span class="error">Le password est requis.</span>
+                }-->
+            <br>
+
+            <button type="submit">Enregistrer</button>
+        </form>
+    </section>
+</body>
+</html>
