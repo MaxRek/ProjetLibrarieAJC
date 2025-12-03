@@ -18,40 +18,8 @@ public class ArticleService {
     private IDAOArticle daoArticle;
 
     public Article getById(Integer id) {
-        Optional<Article> opt = daoArticle.findById(id);
-        if (opt.isEmpty()) {
-            return null;
-        } else {
-            return opt.get();
-        }
-    }
-
-    public Livre getLivreById(Integer id) {
-        Optional<Article> opt = daoArticle.findById(id);
-        if (opt.isEmpty()) {
-            return null;
-        } else {
-            Article article = opt.get();
-            if (article instanceof Livre) {
-                return (Livre) article;
-            } else {
-                throw new RuntimeException("L'id reçu ne correspond pas");
-            }
-        }
-    }
-
-    public Papeterie getPapeterieById(Integer id) {
-        Optional<Article> opt = daoArticle.findById(id);
-        if (opt.isEmpty()) {
-            return null;
-        } else {
-            Article article = opt.get();
-            if (article instanceof Papeterie) {
-                return (Papeterie) article;
-            } else {
-                throw new RuntimeException("L'id reçu ne correspond pas");
-            }
-        }
+    	return daoArticle.findById(id).orElse(null);
+        
     }
 
     public List<Article> getAll() {

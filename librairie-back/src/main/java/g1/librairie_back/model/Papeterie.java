@@ -11,11 +11,11 @@ import jakarta.persistence.Entity;
 @DiscriminatorValue("Papeterie")
 public class Papeterie extends Article {
 
-	@Column(name = "type", columnDefinition = "VARCHAR(50)", nullable = false)
+	@Column(name = "type", columnDefinition = "VARCHAR(50)")
 	@JsonView(Views.Common.class)
 	private String type;
 
-	@Column(name = "marque", columnDefinition = "VARCHAR(50)", nullable = false)
+	@Column(name = "marque", columnDefinition = "VARCHAR(50)")
 	@JsonView(Views.Common.class)
 	private String marque;
 

@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -24,11 +25,11 @@ public class Panier {
 	@Column(name="quantite",nullable=false)
 	private int quantite;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="client",nullable = false)
 	private Client client;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="article",nullable = false)
 	private Article article;
 	

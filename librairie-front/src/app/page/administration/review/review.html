@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews - Librairie</title>
+</head>
+<body>
+    <h1>Gestion des Reviews</h1>
+    <section>
+        <h2>Liste des Reviews</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Article</th>
+                    <th>Client</th>
+                    <th>Note</th>
+                    <th>Review</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let review of review$ | async; traclBy: trackReview" >
+                    <td>{{ review.dateReview }}</td>
+                    <td>{{ review.articleId }}</td>
+                    <td>{{ review.clientId }}</td>
+                    <td>{{ review.note }}</td>
+                    <td>{{ review.review }}</td>
+                    <td>
+                        <button (click)="editer(review)">Modifier</button>
+                        <button (click)="supprimer(review)">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <button *ngIf="!showForm" (click)="showForm = true">Ajouter une review</button>
+
+    <section *ngIf="showForm">
+        <h2>Formulaire d'ajout</h2>
+        <form (ngSubmit)="creerOuModifier()" [formGroup]="reviewForm">
+
+            <label for="dateReview">Date :</label>
+            <input id="dateReview" formControlName="dateReview" type="date">
+                @if (dateReviewCtrl.hasError('required')) {
+                    <span class="error">La date de la review est requise.</span>
+                }
+            
+            <br/>
+            
+            <label for="articleId">Id Article :</label>
+            <input id="articleId" formControlName="articleId" type="number"/>
+                @if (articleIdCtrl.hasError('required')) {
+                    <span class="error">L'id de l'acrticle est requis.</span>
+                }
+
+            <br/>
+
+            <label for="clientId">Id Client :</label>
+            <input id="clientId" formControlName="clientId" type="number"/>
+                @if (clientIdCtrl.hasError('required')) {
+                    <span class="error">L'id du client est requis.</span>
+                }
+
+            <br/>
+
+            <label for="note">Note :</label>
+            <input id="note" formControlName="note" type="number">
+                @if (noteCtrl.hasError('required')) {
+                    <span class="error">La note est requise.</span>
+                }
+                
+            <br/>
+
+            <label for="review">Review :</label>
+            <input id="review" formControlName="review" type="text">
+                @if (noteCtrl.hasError('required')) {
+                    <span class="error">La review est requise.</span>
+                }
+
+            <br/>
+
+            <button type="submit">Enregistrer</button>
+            <button type="button" (click)="showForm = false">Annuler</button>
+
+        </form>
+    </section>
+
+</body>
+</html>

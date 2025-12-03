@@ -15,17 +15,16 @@ import jakarta.persistence.ManyToOne;
 @DiscriminatorValue("Livre")
 public class Livre extends Article {
 
-	@Column(name = "annee", columnDefinition = "int default 4", nullable = false)
+	@Column(name = "annee")
 	@JsonView(Views.Common.class)
 	private int annee;
 
 	@ManyToOne
-	@JoinColumn(name = "auteur", nullable = false)
+	@JoinColumn(name = "auteur")
 	@JsonView(Views.Livre.class)
 	private Auteur auteur;
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
     @JsonView(Views.Common.class)
 	private Genre genre;
 	
