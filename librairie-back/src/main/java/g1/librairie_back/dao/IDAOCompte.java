@@ -1,6 +1,7 @@
 package g1.librairie_back.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +19,5 @@ public interface IDAOCompte extends JpaRepository<Compte,Integer>{
 	@Query("from Admin")
 	public List<Admin> findAllAdmin();
 	
+	public Optional<Compte> findByEmail(String email);
 }

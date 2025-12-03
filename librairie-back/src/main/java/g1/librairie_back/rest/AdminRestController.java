@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,14 +34,18 @@ public class AdminRestController {
 	@Autowired
 	CompteService CompteSrv;
 
+	@Autowired
+    private PasswordEncoder passwordEncoder;
+
 	@JsonView(Views.Admin.class)
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public List<Admin> allAdmins() {
-		log.info("GET /api/Admin - allAdmins() called");
+		log.info("GET /api/admin - allAdmins() called");
 
 		List<Admin> Admins = CompteSrv.getAllAdmins();
 
-		log.info("GET /api/Admin - allAdmins() returned {} admins", Admins != null ? Admins.size() : 0);
+		log.info("GET /api/admin - allAdmins() returned {} admins", Admins != null ? Admins.size() : 0);
 
 		return Admins;
 	}
@@ -47,40 +53,42 @@ public class AdminRestController {
 	@JsonView(Views.Admin.class)
 	@GetMapping("/{id}")
 	public ResponseEntity<Admin> ficheAdmin(@PathVariable Integer id, Admin Admin) {
-		log.info("GET /api/Admin/{} - ficheAdmin() called", id);
+		log.info("GET /api/admin/{} - ficheAdmin() called", id);
 		Admin f = CompteSrv.getAdminById(id);
 
 		if (f == null) {
-			log.info("GET /api/Admin/{} - ficheAdmin() - admin not found", id);
+			log.info("GET /api/admin/{} - ficheAdmin() - admin not found", id);
 			return ResponseEntity.notFound().build();
 		}
 
-		log.info("GET /api/Admin/{} - ficheAdmin() - admin found", id);
+		log.info("GET /api/admin/{} - ficheAdmin() - admin found", id);
 		return ResponseEntity.ok(f);
 	}
 
 	@PostMapping
 	public Integer ajoutAdmin(@Valid @RequestBody CreateAdminRequest request) {
-		log.info("POST /api/Admin - ajoutAdmin() called with request: {}", request);
+		log.info("POST /api/admin - ajoutAdmin() called with request: {}", request);
 
-		Admin Admin = new Admin();
-		BeanUtils.copyProperties(request, Admin);
+		String encodedPassword = this.passwordEncoder.encode(request.getPassword());
+		Admin admin = new Admin();
+		BeanUtils.copyProperties(request, admin);
+		admin.setPassword(encodedPassword);
 
-		CompteSrv.create(Admin);
+		CompteSrv.create(admin);
 
-		log.info("POST /api/Admin - ajoutAdmin() created admin with id: {}", Admin.getId());
+		log.info("POST /api/admin - ajoutAdmin() created admin with id: {}", admin.getId());
 
-		return Admin.getId();
+		return admin.getId();
 	}
 
 	@JsonView(Views.Admin.class)
 	@PutMapping("/{id}")
 	public Admin modifierAdmin(@PathVariable Integer id, @RequestBody Admin Admin) {
-		log.info("PUT /api/Admin/{} - modifierAdmin() called with admin: {}", id, Admin);
+		log.info("PUT /api/admin/{} - modifierAdmin() called with admin: {}", id, Admin);
 
 		Admin.setId(id);
 
-		log.info("PUT /api/Admin/{} - modifierAdmin() updating admin", id);
+		log.info("PUT /api/admin/{} - modifierAdmin() updating admin", id);
 
 		return (Admin) CompteSrv.update(Admin);
 	}
@@ -88,8 +96,8 @@ public class AdminRestController {
 	@JsonView(Views.Admin.class)
 	@DeleteMapping("/{id}")
 	public void supprimerAdmin(@PathVariable Integer id) {
-		log.info("DELETE /api/Admin/{} - supprimerAdmin() called", id);
+		log.info("DELETE /api/admin/{} - supprimerAdmin() called", id);
 		CompteSrv.deleteById(id);
-		log.info("DELETE /api/Admin/{} - supprimerAdmin() completed", id);
+		log.info("DELETE /api/admin/{} - supprimerAdmin() completed", id);
 	}
 }

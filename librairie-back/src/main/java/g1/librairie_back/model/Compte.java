@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="Compte")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="type_compte",columnDefinition = "ENUM('Client','Admin','Abonne')")
+@DiscriminatorColumn(name="type_compte",columnDefinition = "ENUM('Client','Admin')")
 public abstract class Compte {
 
 	@Id
@@ -34,7 +34,7 @@ public abstract class Compte {
 	@Column(name="email", columnDefinition="VARCHAR(50)",nullable=false)
 	protected String email;
 	@JsonView(Views.Common.class)
-	@Column(name="password", columnDefinition="VARCHAR(20)",nullable=false)
+	@Column(name="password", columnDefinition="VARCHAR(200)",nullable=false)
 	protected String password;
 	
 	public Compte() {}

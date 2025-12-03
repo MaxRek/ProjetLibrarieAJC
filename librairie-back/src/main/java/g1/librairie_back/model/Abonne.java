@@ -6,30 +6,30 @@ import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
-@Entity
-@DiscriminatorValue("Abonne")
-public class Abonne extends Client{
+//@Entity
+//@DiscriminatorValue("Abonne")
+public class Abonne {// extends Client{
 
-	@Column(name="reduction",columnDefinition="DECIMAL(4,2)",nullable=false)
-	private double reduc;
+	//@Column(name="reduction",columnDefinition="DECIMAL(4,2)")
+	//private double reduc;
 	
-	@Column(name="debut_abo", columnDefinition="VARCHAR(20)",nullable=false)
-	private LocalDate debut;
+	//@Column(name="debut_abo", columnDefinition="VARCHAR(20)")
+	//private LocalDate debut;
 	
-	@Column(name="fin_abo",nullable=false)
-	private LocalDate fin;
+	//@Column(name="fin_abo",nullable=false)
+	//private LocalDate fin;
 	
 	public Abonne() {}
 
-	public Abonne(String nom, String prenom, String email, String password, double reduc, LocalDate debut,
+	/*public Abonne(String nom, String prenom, String email, String password, double reduc, LocalDate debut,
 			LocalDate fin) {
-		super(nom, prenom, email, password);
+		//super(nom, prenom, email, password);
 		this.reduc = reduc;
 		this.debut = debut;
 		this.fin = fin;
-	}
+	}*/
 
-	public double getReduc() {
+	/*public double getReduc() {
 		return reduc;
 	}
 
@@ -52,13 +52,8 @@ public class Abonne extends Client{
 	public void setFin(LocalDate fin) {
 		this.fin = fin;
 	}
-
 	
 	public String toString() {
 		return "Abonne [reduc=" + reduc + ", debut=" + debut + ", fin=" + fin + "]";
-	}
-
-
-
-	
+	}*/
 }

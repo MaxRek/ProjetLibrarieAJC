@@ -35,7 +35,7 @@ public class Client extends Compte{
 	
 	public Client() {}
 	
-
+/* 
 	
 	
 	public Panier getPanier() {
@@ -102,7 +102,7 @@ public class Client extends Compte{
 
 
 
-	
+	*/
 
 	
 }

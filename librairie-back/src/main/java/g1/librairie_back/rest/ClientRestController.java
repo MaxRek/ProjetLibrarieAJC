@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,8 +34,12 @@ public class ClientRestController {
 	@Autowired
 	CompteService CompteSrv;
 
+	@Autowired
+    private PasswordEncoder passwordEncoder;
+
 	@JsonView(Views.Client.class)
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public List<Client> allClients() {
 		log.info("GET /api/Client - allClients() called");
 
@@ -63,14 +69,16 @@ public class ClientRestController {
 	public Integer ajoutClient(@Valid @RequestBody CreateClientRequest request) {
 		log.info("POST /api/Client - ajoutClient() called with request: {}", request);
 
-		Client Client = new Client();
-		BeanUtils.copyProperties(request, Client);
+		String encodedPassword = this.passwordEncoder.encode(request.getPassword());
+		Client client = new Client();
+		BeanUtils.copyProperties(request, client);
+		client.setPassword(encodedPassword);
 
-		CompteSrv.create(Client);
+		CompteSrv.create(client);
 
-		log.info("POST /api/Client - ajoutClient() created client with id: {}", Client.getId());
+		log.info("POST /api/Client - ajoutClient() created client with id: {}", client.getId());
 
-		return Client.getId();
+		return client.getId();
 	}
 
 	@JsonView(Views.Client.class)
