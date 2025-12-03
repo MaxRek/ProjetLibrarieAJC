@@ -15,6 +15,7 @@ import { Panier } from './page/administration/panier/panier';
 import { Review } from './page/administration/review/review';
 import { PanierUser } from './page/user/panier/panier';
 import { AchatUser } from './page/user/achat/achat';
+import { SuiviUser } from './page/user/suivi/suivi';
 
 export const routes: Routes = [
     { path: 'auteur', component: Auteur },
@@ -33,6 +34,7 @@ export const routes: Routes = [
     { path: 'review', component: Review },
     { path: 'user/panier', component: PanierUser },
     { path: 'user/achat', component: AchatUser },
+    { path: 'user/suivi', component: SuiviUser },
     // Redirection par défaut vers la page d'accueil
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**', redirectTo: '/home' }
