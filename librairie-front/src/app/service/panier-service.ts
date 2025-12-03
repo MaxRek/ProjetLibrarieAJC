@@ -31,6 +31,10 @@ export class PanierService {
     return this.http.get<PanierDto>(`${this.apiUrl}/${id}`);
   }
 
+  public findByClient(idClient: number): Observable<PanierDto[]> {
+    return this.http.get<PanierDto[]>(`${this.apiUrl}/client/${idClient}`);
+  }
+
   public save(panierDto: PanierDto): void {
     const payload = panierDto.toJson();
 
