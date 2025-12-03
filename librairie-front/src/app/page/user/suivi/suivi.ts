@@ -10,7 +10,7 @@ import { SuiviService } from '../../../service/suivi-service';
   selector: 'suivi-user',
   imports: [ CommonModule,  ReactiveFormsModule],
   templateUrl: './suivi.html',
-  styleUrl: '../admin.css',
+  styleUrl: '../user.css',
 })
 export class SuiviUser implements OnInit {
   protected suivi$!: Observable<SuiviDto[]>;

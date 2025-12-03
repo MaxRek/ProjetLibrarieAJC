@@ -10,7 +10,7 @@ import { ReviewService } from '../../../service/review-service';
   selector: 'review-user',
   imports: [ CommonModule,  ReactiveFormsModule],
   templateUrl: './review.html',
-  styleUrl: '../admin.css',
+  styleUrl: '../user.css',
 })
 export class ReviewUser implements OnInit {
   protected review$!: Observable<ReviewDto[]>;

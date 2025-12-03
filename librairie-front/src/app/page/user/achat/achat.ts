@@ -10,7 +10,7 @@ import { AchatService } from '../../../service/achat-service';
   selector: 'achat-user',
   imports: [ CommonModule,  ReactiveFormsModule],
   templateUrl: './achat.html',
-  styleUrl: '../admin.css',
+  styleUrl: '../user.css',
 })
 export class AchatUser implements OnInit {
   protected achat$!: Observable<AchatDto[]>;
