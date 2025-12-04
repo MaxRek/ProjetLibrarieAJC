@@ -11,16 +11,16 @@
   >
 </div>
 
-<button *ngIf="!showLivre" (click)="showLivre = true; showPapeterie = false">
+<button *ngIf="!showLivre" (click)="showLivre = true; showPapeterie = false; annulerRecherche()">
   Afficher Les livres en ventes
 </button>
-<button *ngIf="showLivre" (click)="showLivre = false">
+<button *ngIf="showLivre" (click)="showLivre = false; annulerRecherche()">
   Ne plus voir les Livres
 </button>
-<button *ngIf="!showPapeterie" (click)="showPapeterie = true; showLivre = false">
+<button *ngIf="!showPapeterie" (click)="showPapeterie = true; showLivre = false; annulerRecherche()">
   Afficher les ventes de la Papeterie
 </button>
-<button *ngIf="showPapeterie" (click)="showPapeterie = false">
+<button *ngIf="showPapeterie" (click)="showPapeterie = false; annulerRecherche()">
   Ne plus voir la Papeterie
 </button>
 
@@ -35,8 +35,8 @@
         <th>Titre</th>
         <th>Prix</th>
         <th>Année</th>
-        <th>Nom Auteur</th>
-        <th>Prénom Auteur</th>
+        <th>Nom de l'auteur</th>
+        <th>Prénom de l'auteur</th>
         <th>Genre</th>
         <th></th>
       </tr>
@@ -51,6 +51,8 @@
         <td>{{ livre.genre }}</td>
         <td>
           <button>Ajouter au panier</button>
+          <button>Ajouter aux favoris</button>
+          <button>Retirer des favoris</button>
         </td>
       </tr>
     </tbody>
@@ -64,7 +66,7 @@
   <table>
     <thead>
       <tr>
-        <th>Titre</th>
+        <th>Objet</th>
         <th>Prix</th>
         <th>Type</th>
         <th>Marque</th>
@@ -79,6 +81,8 @@
         <td>{{ papeterie.marque }}</td>
         <td>
           <button>Ajouter au panier</button>
+          <button>Ajouter aux favoris</button>
+          <button>Retirer des favoris</button>
         </td>
       </tr>
     </tbody>

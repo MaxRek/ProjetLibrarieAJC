@@ -73,4 +73,8 @@ export class Catalogue implements OnInit {
   trackByCatalogueId(index: number, item: LivreDto | PapeterieDto): number {
     return item.id;
   }
+
+  annulerRecherche(): void {
+    this.searchCtrl.setValue('');
+  }
 }
