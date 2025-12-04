@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +50,6 @@ public class AchatRestController {
 
     @GetMapping("/{id}")
     @JsonView(Views.Achat.class)
-    @CrossOrigin("http://localhost:4200")
     public AchatResponse getById(@PathVariable Integer id) {
         Achat achat = achatSrv.getById(id);
         return AchatResponse.convert(achat);
@@ -57,7 +57,6 @@ public class AchatRestController {
 
     @PostMapping
     @JsonView(Views.Achat.class)
-    @CrossOrigin("http://localhost:4200")
     public AchatResponse create(@RequestBody CreateAchatRequest request) {
 
     	Article article = articleSrv.getById(request.getArticleId());
@@ -79,13 +78,11 @@ public class AchatRestController {
     }
     
     
-    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         achatSrv.deleteById(id);
     }
     
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/acheter/{id}")
     public void acheter(@PathVariable Integer id) {
         achatSrv.achatPanier(id);
