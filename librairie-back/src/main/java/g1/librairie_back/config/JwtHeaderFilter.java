@@ -37,12 +37,9 @@ public class JwtHeaderFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         String token = request.getHeader("Authorization");
-        System.out.println(" le token = "+token);
 
         if (token != null) {
             token = token.substring(7);
-            log.info(token);
-
 
             Optional<String> optEmail = JwtUtil.getEmail(token);
 

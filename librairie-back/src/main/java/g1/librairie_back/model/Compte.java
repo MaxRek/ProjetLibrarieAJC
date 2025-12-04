@@ -31,7 +31,7 @@ public abstract class Compte {
 	@Column(name="prenom", columnDefinition="VARCHAR(20)",nullable=false)
 	protected String prenom;
 	@JsonView(Views.Common.class)
-	@Column(name="email", columnDefinition="VARCHAR(50)",nullable=false)
+	@Column(name="email", columnDefinition="VARCHAR(50)",nullable=false,unique=true)
 	protected String email;
 	@JsonView(Views.Common.class)
 	@Column(name="password", columnDefinition="VARCHAR(200)",nullable=false)

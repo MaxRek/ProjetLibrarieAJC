@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -27,10 +28,14 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers("/api/compte/**").permitAll();
             auth.requestMatchers("/api/papeterie/**").permitAll();
-            auth.requestMatchers("/api/livre").hasAnyRole("CLIENT","ADMIN");
-            auth.requestMatchers("/api/client").hasRole("ADMIN");
+            auth.requestMatchers("/api/livre/**").permitAll();
+            auth.requestMatchers("/api/client/**").permitAll();
             auth.requestMatchers("/api/auteur/**").permitAll();
             auth.requestMatchers("/api/achat/**").permitAll();
+            auth.requestMatchers("/api/panier/**").permitAll();
+            auth.requestMatchers("/api/suivi/**").permitAll();
+            auth.requestMatchers("/api/review/**").permitAll();
+            auth.requestMatchers("/api/admin/**").permitAll();
         });
 
         // Désactiver la protection CSRF

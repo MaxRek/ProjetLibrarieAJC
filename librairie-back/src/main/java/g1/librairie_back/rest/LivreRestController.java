@@ -39,13 +39,10 @@ public class LivreRestController {
     private AuteurService auteurService;
 
     @GetMapping
-    @JsonView(Views.Common.class)
-	@PreAuthorize("hasRole('CLIENT')")
-    public List<LivreResponse> findAll() {
-        return articleService.getAllLivres()
-                .stream()
-                .map(LivreResponse::convert)
-                .toList();
+    @JsonView(Views.Livre.class)
+    public List<Livre> findAll() {
+        List<Livre> livres = articleService.getAllLivres();
+        return livres;
     }
 
     @GetMapping("/{id}")

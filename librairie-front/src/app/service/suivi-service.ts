@@ -9,7 +9,7 @@ import { SuiviDto } from '../dto/suivi-dto';
   providedIn: 'root',
 })
 export class SuiviService {
-  private apiUrl = 'http://localhost:8080/api/suivi';
+  private apiUrl = '/suivi';
   private refresh$: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) { }

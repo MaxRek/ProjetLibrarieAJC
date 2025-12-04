@@ -31,7 +31,6 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/panier")
-@CrossOrigin("*")
 public class PanierRestController {
 	private static final Logger log = LoggerFactory.getLogger(PanierRestController.class);
 

@@ -32,6 +32,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/suivi")
 @CrossOrigin("*")
+
 public class SuiviRestController {
 	private static final Logger log = LoggerFactory.getLogger(SuiviRestController.class);
 

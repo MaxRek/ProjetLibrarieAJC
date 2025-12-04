@@ -8,7 +8,7 @@ import { AdministrateurDto } from '../dto/administrateur-dto';
   providedIn: 'root',
 })
 export class AdministrateurService {
-  private apiUrl = 'http://localhost:8080/api/admin';
+  private apiUrl = '/admin';
   private refresh$: Subject<void> = new Subject<void>();
   constructor(private http: HttpClient) {}
 
