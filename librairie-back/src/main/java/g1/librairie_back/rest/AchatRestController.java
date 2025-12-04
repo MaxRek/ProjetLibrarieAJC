@@ -40,7 +40,7 @@ public class AchatRestController {
 	CompteService compteSrv;
 
     @GetMapping
-    @JsonView(Views.Common.class)
+    @JsonView(Views.Achat.class)
     public List<Achat> getAll() {
        
         List<Achat> achats = achatSrv.getAll();
