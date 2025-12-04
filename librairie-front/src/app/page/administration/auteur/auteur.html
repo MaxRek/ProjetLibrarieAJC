@@ -20,7 +20,7 @@
             </thead>
 
             <tbody>
-                <tr *ngFor="let auteur of auteur$ | async; traclBy: trackAuteur" >
+                <tr *ngFor="let auteur of auteur$ | async; trackBy: trackAuteur" >
                     <td>
                         {{ auteur.nom }}
                     </td>
