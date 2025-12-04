@@ -1,6 +1,7 @@
 package g1.librairie_back.dto.response;
 
 import g1.librairie_back.model.Auteur;
+import g1.librairie_back.model.Livre;
 
 public class AuteurResponse {
 
@@ -40,7 +41,9 @@ public class AuteurResponse {
         this.nom = nom;
     }
 
-    public static AuteurResponse convert(Auteur auteur) {
+	
+
+	public static AuteurResponse convert(Auteur auteur) {
         AuteurResponse resp = new AuteurResponse();
 
         resp.setId(auteur.getId());

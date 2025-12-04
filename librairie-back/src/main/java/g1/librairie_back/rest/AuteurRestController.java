@@ -2,7 +2,6 @@ package g1.librairie_back.rest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,7 +20,6 @@ import g1.librairie_back.dto.request.CreateAuteurRequest;
 import g1.librairie_back.dto.response.AuteurResponse;
 import g1.librairie_back.model.Auteur;
 import g1.librairie_back.model.Livre;
-import g1.librairie_back.model.Suivi;
 import g1.librairie_back.service.AuteurService;
 import g1.librairie_back.view.Views;
 
@@ -34,7 +32,7 @@ public class AuteurRestController {
     private AuteurService auteurService;
 
     @GetMapping
-    @JsonView(Views.Common.class)
+    @JsonView(Views.Auteur.class)
     public List<Auteur> getAll() {
        
 		List<Auteur> auteurs = auteurService.getAll();
@@ -43,14 +41,14 @@ public class AuteurRestController {
     }
 
     @GetMapping("/{id}")
-    @JsonView(Views.Common.class)
+    @JsonView(Views.Auteur.class)
     public AuteurResponse getById(@PathVariable Integer id) {
         Auteur a = auteurService.getById(id);
         return AuteurResponse.convert(a);
     }
 
     @PostMapping
-    @JsonView(Views.Common.class)
+    @JsonView(Views.Auteur.class)
     public AuteurResponse create(@RequestBody CreateAuteurRequest dto) {
         Auteur a = new Auteur(dto.getPrenom(), dto.getNom());
         a.setLivres(new ArrayList<Livre>());
@@ -58,7 +56,7 @@ public class AuteurRestController {
     }
 
     @PutMapping("/{id}")
-    @JsonView(Views.Common.class)
+    @JsonView(Views.Auteur.class)
     public AuteurResponse update(@PathVariable Integer id, @RequestBody CreateAuteurRequest dto) {
         Auteur a = auteurService.getById(id);
         if (a == null) throw new RuntimeException("Auteur introuvable");

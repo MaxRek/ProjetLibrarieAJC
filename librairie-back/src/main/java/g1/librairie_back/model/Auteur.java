@@ -30,7 +30,7 @@ public class Auteur {
 	private String nom;
 
 	@OneToMany(mappedBy="auteur")
-	@JsonView(Views.AuteurWithLivre.class)
+	@JsonView(Views.Auteur.class)
 	@Column(name="auteur", nullable=true)
 	private List<Livre> livres = new ArrayList<>();
 	

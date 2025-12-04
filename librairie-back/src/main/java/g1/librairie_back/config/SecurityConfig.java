@@ -27,17 +27,14 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers("/api/compte/**").permitAll();
             auth.requestMatchers("/api/papeterie/**").permitAll();
-            auth.requestMatchers("/api/livre").permitAll();
-            auth.requestMatchers("/api/client").permitAll();
+            auth.requestMatchers("/api/livre/**").permitAll();
+            auth.requestMatchers("/api/client/**").permitAll();
             auth.requestMatchers("/api/auteur/**").permitAll();
             auth.requestMatchers("/api/achat/**").permitAll();
             auth.requestMatchers("/api/panier/**").permitAll();
             auth.requestMatchers("/api/suivi/**").permitAll();
             auth.requestMatchers("/api/review/**").permitAll();
             auth.requestMatchers("/api/admin/**").permitAll();
-
-
-
         });
 
         // Désactiver la protection CSRF

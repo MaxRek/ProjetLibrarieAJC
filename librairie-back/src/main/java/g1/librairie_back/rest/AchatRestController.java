@@ -40,8 +40,7 @@ public class AchatRestController {
 	CompteService compteSrv;
 
     @GetMapping
-    @JsonView(Views.Common.class)
-    @CrossOrigin("http://localhost:4200")
+    @JsonView(Views.Achat.class)
     public List<Achat> getAll() {
        
         List<Achat> achats = achatSrv.getAll();

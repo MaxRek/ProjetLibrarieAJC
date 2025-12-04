@@ -1,12 +1,9 @@
 import { Routes } from '@angular/router';
 import { Auteur } from './page/administration/auteur/auteur';
 import { Livre } from './page/administration/livre/livre';
-import { Genre} from './page/administration/genre/genre';
 import { Papeterie } from './page/administration/papeterie/papeterie';
-import { Article } from './page/administration/article/article';
 import { Catalogue } from './page/user/catalogue/catalogue';
 import { Home } from './page/user/home/home';
-import { Compte } from './page/administration/compte/compte';
 import { Client } from './page/administration/client/client';
 import { Administrateur } from './page/administration/administrateur/administrateur';
 import { Achat } from './page/administration/achat/achat';
@@ -24,12 +21,9 @@ import { AuthClientGuard } from './guard/auth-client-guard';
 export const routes: Routes = [
     { path: 'auteur', component: Auteur, canActivate: [AuthAdminGuard] },
     { path: 'livre', component: Livre, canActivate: [AuthAdminGuard] },
-    { path: 'genre', component: Genre, canActivate: [AuthAdminGuard] },
     { path: 'papeterie', component: Papeterie, canActivate: [AuthAdminGuard] },
-    { path: 'article', component: Article, canActivate: [AuthAdminGuard] },
     { path: 'home', component: Home},
     { path: 'catalogue', component: Catalogue },
-    { path: 'compte', component: Compte, canActivate: [AuthAdminGuard] },
     { path: 'client', component: Client, canActivate: [AuthAdminGuard] },
     { path: 'administrateur', component: Administrateur, canActivate: [AuthAdminGuard] },
     { path: 'achat', component: Achat, canActivate: [AuthAdminGuard] },

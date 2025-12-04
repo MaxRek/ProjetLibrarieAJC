@@ -38,13 +38,13 @@
                         {{ livre.annee }}
                     </td>
                     <td>
-                        {{ livre.auteurNom }}
+                        {{ livre.auteur?.nom }}
                     </td>
                     <td>
-                        {{ livre.auteurPrenom }}
+                        {{ livre.auteur?.prenom }}
                     </td>
                     <td>
-                        {{ livre.genrelibelle }}
+                        {{ livre.genre }}
                     </td>
                     <td>
                         <button (click)="editer(livre)">Modifier</button>
@@ -64,21 +64,21 @@
 
             <label for="libelle">libelle:</label>
             <input id="libelle" formControlName="libelle" type="text">
-                <!--@if (libelleCtrl.hasError('required')) {
+                @if (libelleCtrl.hasError('required')) {
                     <span class="error">Le libelle est requis.</span>
-                }-->
+                }
             <br>
             <label for="prix">Prix:</label>
             <input id="prix" formControlName="prix" type="number">
-                <!--@if (prixCtrl.hasError('required')) {
+                @if (prixCtrl.hasError('required')) {
                     <span class="error">Le prix est requis.</span>
-                }-->
+                }
             <br>
             <label for="stock">Stock:</label>
             <input id="stock" formControlName="stock" type="number">
-                <!--@if (stockCtrl.hasError('required')) {
+                @if (stockCtrl.hasError('required')) {
                     <span class="error">Le stock est requis.</span>
-                }-->
+                }
             <br>
             <label for="annee">Année:</label>
             <input id="annee" formControlName="annee" type="number" >
@@ -96,13 +96,14 @@
                     <span class="error">L'auteur est requis.</span>
                 }
             <br>
-            <label for="genreId">Genre:</label>
-            <select id="genreId" formControlName="genreId">
-                <option *ngFor="let genre of genre$ | async" [value]="genre.id">
-                    {{ genre.libelle }}
-                </option>
+            <label for="genre">Genre:</label>
+            <select id="genre" formControlName="genre">
+            <option [ngValue]="null">-- Choisir un genre --</option>
+            <option *ngFor="let g of genres" [ngValue]="g">
+                {{ g }}
+            </option>
             </select>
-                @if (genreIdCtrl.hasError('required')) {
+                @if (genreCtrl.hasError('required')) {
                     <span class="error">Le genre est requis.</span>
                 }
             <br>

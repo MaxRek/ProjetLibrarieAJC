@@ -1,5 +1,7 @@
 package g1.librairie_back.dto.request;
 
+import g1.librairie_back.model.Livre;
+
 public class CreateAuteurRequest {
 
     private String prenom;
@@ -22,4 +24,5 @@ public class CreateAuteurRequest {
     public void setNom(String nom) {
         this.nom = nom;
     }
+    
 }

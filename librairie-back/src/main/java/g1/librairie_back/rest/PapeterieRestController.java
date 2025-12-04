@@ -32,7 +32,7 @@ public class PapeterieRestController {
     @Autowired
     private ArticleService articleService;
 
-    @JsonView(Views.Common.class)
+    @JsonView(Views.Papeterie.class)
     @GetMapping
     public List<Papeterie> getAll() {
         
@@ -40,7 +40,7 @@ public class PapeterieRestController {
 		return papeteries;
     }
 
-    @JsonView(Views.Common.class)
+    @JsonView(Views.Papeterie.class)
     @GetMapping("/{id}")
     public ResponseEntity<PapeterieResponse> getById(@PathVariable Integer id) {
 

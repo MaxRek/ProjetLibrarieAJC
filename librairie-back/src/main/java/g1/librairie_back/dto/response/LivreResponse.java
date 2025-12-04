@@ -1,6 +1,5 @@
 package g1.librairie_back.dto.response;
 
-import g1.librairie_back.model.Auteur;
 import g1.librairie_back.model.Genre;
 import g1.librairie_back.model.Livre;
 
@@ -12,7 +11,7 @@ private Integer id;
     private int stock;
     private int annee;
     private Genre genre;
-    private AuteurResponse auteur;
+    private Integer auteurId;
 
     public LivreResponse() {}
 
@@ -64,15 +63,16 @@ private Integer id;
         this.genre = genre;
     }
 
-    public AuteurResponse getAuteur() {
-        return auteur;
-    }
+    
+    public Integer getAuteurId() {
+		return auteurId;
+	}
 
-    public void setAuteur(AuteurResponse auteur) {
-        this.auteur = auteur;
-    }
+	public void setAuteurId(Integer auteurId) {
+		this.auteurId = auteurId;
+	}
 
-    public static LivreResponse convert(Livre livre) {
+	public static LivreResponse convert(Livre livre) {
         LivreResponse resp = new LivreResponse();
 
         resp.setId(livre.getId());
@@ -81,9 +81,7 @@ private Integer id;
         resp.setStock(livre.getStock());
         resp.setAnnee(livre.getAnnee());
         resp.setGenre(livre.getGenre());
-
-        Auteur auteur = livre.getAuteur();
-        resp.setAuteur(AuteurResponse.convert(auteur));
+        resp.setAuteurId(livre.getAuteur().getId());
 
         return resp;
     }

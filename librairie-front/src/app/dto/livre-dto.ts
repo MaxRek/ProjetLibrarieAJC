@@ -1,6 +1,6 @@
+import { GenreEnum } from '../enumerator/genre-enum';
 import { ArticleDto } from './article-dto';
 import { AuteurDto } from './auteur-dto';
-import { GenreDto } from './genre-dto';
 
 export class LivreDto extends ArticleDto {
     constructor(
@@ -9,8 +9,9 @@ export class LivreDto extends ArticleDto {
         libelle: string,
         prix: number,
         private _annee: number,
-        private _auteur: AuteurDto,
-        private _genre : GenreDto
+        private _auteurId: number,
+        private _genre?: GenreEnum,
+        public auteur?: AuteurDto,
     ) {
         super(id, stock, libelle, prix);
     }
@@ -20,23 +21,7 @@ export class LivreDto extends ArticleDto {
     }
 
     public get auteurId(): number {
-        return this._auteur.id;
-    }
-
-    public get auteurNom(): String {
-        return this._auteur.nom;
-    }
-
-    public get auteurPrenom(): String {
-        return this._auteur.prenom;
-    }
-
-    public get genreId(): number {
-        return this._genre.id;
-    }
-
-    public get genrelibelle(): String {
-        return this._genre.libelle;
+        return this._auteurId;
     }
 
     public set annee(value: number) {
@@ -44,31 +29,32 @@ export class LivreDto extends ArticleDto {
     }
 
     public set auteurId(value: number) {
-        this._auteur.id = value;
+        this._auteurId = value;
     }
 
-    public set auteurNom(value: String) {
-        this._auteur.nom = value;
+    public get genre(): GenreEnum {
+        return this._genre as GenreEnum ?? '';
     }
 
-    public set auteurPrenom(value: String) {
-        this._auteur.prenom = value;
+    public set genre(value: GenreEnum) {
+        this._genre = value;
+    }
+    
+    public get auteurNom(): string {
+        return this.auteur?.nom as string ?? '';
+    }
+    public get auteurPrenom(): string {
+        return this.auteur?.prenom as string ?? '';
     }
 
-    public set genreId(value: number) {
-        this._genre.id = value;
-    }
 
-    public set genrelibelle(value: String) {
-        this._genre.libelle = value;
-    }
 
     public override toJson(): any {
         return {
             ...super.toJson(),
             annee: this.annee,
             auteurId: this.auteurId,
-            genreId: this.genreId
+            genre: this.genre,
         };
     }
 }

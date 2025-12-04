@@ -1,3 +1,6 @@
+import { ArticleDto} from "./article-dto";
+import { ClientDto } from "./client-dto";
+
 export class ReviewDto {
     constructor(
         private _id: number, 
@@ -5,7 +8,9 @@ export class ReviewDto {
         private _note: number,
         private _dateReview: String,
         private _articleId: number,
-        private _clientId: number
+        private _clientId: number,
+        public article?: ArticleDto,
+        public client?: ClientDto,
         ) { }
 
     public get id(): number {
@@ -56,9 +61,16 @@ export class ReviewDto {
         this._clientId = value;
     }
 
+    public get ArticleLibelle() : string {
+        return this.article?.libelle as string ?? '';
+    }
+
+    public get ClientNom() : string {
+        return this.client?.nom as string ?? '';
+    }
+
     public toJson(): any {
         return {
-            id: this.id,
             review: this.review,
             note: this.note,
             dateReview: this.dateReview,
