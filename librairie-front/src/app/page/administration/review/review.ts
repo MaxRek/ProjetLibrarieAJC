@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ReviewDto } from '../../../dto/review-dto';
@@ -33,10 +33,10 @@ export class Review implements OnInit {
     this.review$ = this.reviewService.findAll();
     
     this.dateReviewCtrl = this.formBuilder.control('');
-    this.noteCtrl = this.formBuilder.control(0);
-    this.reviewCtrl = this.formBuilder.control(0);
-    this.articleIdCtrl = this.formBuilder.control(0);
-    this.clientIdCtrl = this.formBuilder.control(0);
+    this.noteCtrl = this.formBuilder.control(0, Validators.required);
+    this.reviewCtrl = this.formBuilder.control(0, Validators.required);
+    this.articleIdCtrl = this.formBuilder.control(0, Validators.required);
+    this.clientIdCtrl = this.formBuilder.control(0, Validators.required);
 
     this.reviewForm = this.formBuilder.group({
       dateReview: this.dateReviewCtrl,

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SuiviDto } from '../../../dto/suivi-dto';
@@ -29,8 +29,8 @@ export class Suivi implements OnInit {
   ngOnInit(): void {
     this.suivi$ = this.suiviService.findAll();
     
-    this.articleIdCtrl = this.formBuilder.control(0);
-    this.clientIdCtrl = this.formBuilder.control(0);
+    this.articleIdCtrl = this.formBuilder.control(0, Validators.required);
+    this.clientIdCtrl = this.formBuilder.control(0, Validators.required);
 
     this.suiviForm = this.formBuilder.group({
       articleId: this.articleIdCtrl,

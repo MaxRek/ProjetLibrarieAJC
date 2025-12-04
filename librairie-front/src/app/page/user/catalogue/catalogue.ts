@@ -18,8 +18,8 @@ import { RouterModule } from '@angular/router';
 export class Catalogue {
   protected livre$!: Observable<LivreDto[]>;
   protected papeterie$!: Observable<PapeterieDto[]>;
-  auteur$!: Observable<any[]>;
-  genre$!: Observable<any[]>;
+  
+  
   protected showLivre: boolean = false;
   protected showPapeterie: boolean = false;
 

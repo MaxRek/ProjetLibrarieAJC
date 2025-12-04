@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuteurDto } from '../../../dto/auteur-dto';
@@ -30,8 +30,8 @@ export class Auteur implements OnInit {
   ngOnInit(): void {
     this.auteur$ = this.auteurService.findAll();
 
-    this.prenomCtrl = this.formBuilder.control('');
-    this.nomCtrl = this.formBuilder.control('');
+    this.prenomCtrl = this.formBuilder.control('', Validators.required);
+    this.nomCtrl = this.formBuilder.control('', Validators.required);
 
     this.auteurForm = this.formBuilder.group({
       prenom: this.prenomCtrl,

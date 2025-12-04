@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AchatDto } from '../../../dto/achat-dto';
@@ -32,11 +32,11 @@ export class Achat implements OnInit {
   ngOnInit(): void {
     this.achat$ = this.achatService.findAll();
     
-    this.dateAchatCtrl = this.formBuilder.control('');
-    this.prixCtrl = this.formBuilder.control(0);
-    this.quantiteAchatCtrl = this.formBuilder.control(0);
-    this.articleIdCtrl = this.formBuilder.control(0);
-    this.clientIdCtrl = this.formBuilder.control(0);
+    this.dateAchatCtrl = this.formBuilder.control('', Validators.required);
+    this.prixCtrl = this.formBuilder.control(0, Validators.required);
+    this.quantiteAchatCtrl = this.formBuilder.control(0, Validators.required);
+    this.articleIdCtrl = this.formBuilder.control(0, Validators.required);
+    this.clientIdCtrl = this.formBuilder.control(0, Validators.required);
 
     this.achatForm = this.formBuilder.group({
       dateAchat: this.dateAchatCtrl,

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CompteDto } from '../../../dto/compte-dto';
@@ -33,10 +33,10 @@ export class Compte implements OnInit {
   ngOnInit(): void {
     this.compte$ = this.compteService.findAll();
 
-    this.nomCtrl = new FormControl('');
-    this.prenomCtrl = new FormControl('');
-    this.emailCtrl = new FormControl('');
-    this.passwordCtrl = new FormControl('');
+    this.nomCtrl = new FormControl('', Validators.required);
+    this.prenomCtrl = new FormControl('', Validators.required);
+    this.emailCtrl = new FormControl('', Validators.required);
+    this.passwordCtrl = new FormControl('', Validators.required);
 
     this.compteForm = this.formBuilder.group({
       nom: this.nomCtrl,

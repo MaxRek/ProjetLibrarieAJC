@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ArticleDto } from '../../../dto/article-dto';
@@ -29,9 +29,9 @@ export class Article implements OnInit {
   ngOnInit(): void {
     this.article$ = this.articleService.findAll();
     
-    this.libelleCtrl = this.formBuilder.control('');
-    this.prixCtrl = this.formBuilder.control(0);
-    this.stockCtrl = this.formBuilder.control(0);
+    this.libelleCtrl = this.formBuilder.control('', Validators.required);
+    this.prixCtrl = this.formBuilder.control(0, Validators.required);
+    this.stockCtrl = this.formBuilder.control(0, Validators.required);
 
     this.articleForm = this.formBuilder.group({
       libelle: this.libelleCtrl,
