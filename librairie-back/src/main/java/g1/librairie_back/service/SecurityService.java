@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import g1.librairie_back.config.JwtUtil;
+import g1.librairie_back.dao.IDAOCompte;
 import g1.librairie_back.dto.request.AuthCompteRequest;
 import g1.librairie_back.dto.response.AuthCompteResponse;
 
@@ -17,9 +18,11 @@ import g1.librairie_back.dto.response.AuthCompteResponse;
 public class SecurityService {
     private final static Logger log = LoggerFactory.getLogger(SecurityService.class);
     private final AuthenticationManager authenticationManager;
+    private final IDAOCompte dao;
 
-    public SecurityService(AuthenticationManager authenticationManager) {
+    public SecurityService(AuthenticationManager authenticationManager, IDAOCompte dao) {
         this.authenticationManager = authenticationManager;
+        this.dao = dao;
     }
 
     public AuthCompteResponse auth(AuthCompteRequest authRequest) {
@@ -27,11 +30,14 @@ public class SecurityService {
             log.info("Trying to authenticate ...");
 
             Authentication authentication = this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+            
+            log.info("pre getting context authenticate ...");
+
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             log.info("Successfuly authenticated!" + authentication.getAuthorities());
 
-            return new AuthCompteResponse(true, JwtUtil.generate(authentication));
+            return new AuthCompteResponse(true, JwtUtil.generate(authentication),authentication.getAuthorities().toString(),dao.findByEmail(authRequest.getEmail()).get().getId().toString());
         }
 
         catch (BadCredentialsException ex) {
@@ -42,6 +48,6 @@ public class SecurityService {
             log.error("Can't authenticate : unknown error ({}).", ex.getClass().getSimpleName());
         }
 
-        return new AuthCompteResponse(false, "");
+        return new AuthCompteResponse(false, "", "", "");
     }
 }

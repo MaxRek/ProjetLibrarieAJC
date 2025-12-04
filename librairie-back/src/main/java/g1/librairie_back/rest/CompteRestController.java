@@ -43,6 +43,7 @@ public class CompteRestController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public Compte enregistrerCompte(@RequestBody CreateClientRequest request) {
         String encodedPassword = this.passwordEncoder.encode(request.getPassword());

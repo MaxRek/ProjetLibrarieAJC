@@ -8,10 +8,14 @@ import { AuthResponseDto } from '../dto/auth-response-dto';
 })
 export class AuthService {
     private _token: string = "";
+    private _role: string = "";
+    private _idClient: string = "";
   
     constructor(private http: HttpClient) {
       // On récupère le token de la sessionStorage, si ce token n'existe pas, on met un token vide
       this._token = sessionStorage.getItem("token") ?? "";
+      this._idClient = sessionStorage.getItem("idClient") ?? "";
+      this._role = sessionStorage.getItem("role") ?? "";
     }
   
     public get token(): string {
@@ -24,9 +28,14 @@ export class AuthService {
           // next => si la réponse est OK
           next: resp => {
             this._token = resp.token;
+            this._idClient = resp.idClient;
+            this._role = resp.role;
+
   
             // Stocker le jeton dans le navigateur, dans le sessionStorage, avec la clé "token"
             sessionStorage.setItem("token", this._token);
+            sessionStorage.setItem("idClient", this._idClient);
+            sessionStorage.setItem("role", this._role);
   
             // Quand le resolve va s'exécuter ... côté appelant, on pourra savoir quand c'est terminé
             resolve();
