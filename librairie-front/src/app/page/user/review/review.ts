@@ -5,6 +5,7 @@ import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ReviewDto } from '../../../dto/review-dto';
 import { ReviewService } from '../../../service/review-service';
+import { AuthService } from '../../../service/auth-service';
 
 @Component({
   selector: 'review-user',
@@ -27,9 +28,11 @@ export class ReviewUser implements OnInit {
 
   protected editingReview!: ReviewDto | null;
 
-  constructor(private reviewService: ReviewService, private formBuilder: FormBuilder) { }
+  constructor(private reviewService: ReviewService, private formBuilder: FormBuilder, private authService: AuthService) { }
+
 
   ngOnInit(): void {
+    this.clientId = parseInt(this.authService.idClient);
     this.review$ = this.reviewService.findByClient(this.clientId);
     
     this.noteCtrl = this.formBuilder.control('');
