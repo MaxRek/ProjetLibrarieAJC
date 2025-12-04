@@ -47,13 +47,10 @@ public class LivreRestController {
 
     @GetMapping("/{id}")
     @JsonView(Views.Livre.class)
-    public ResponseEntity<LivreResponse> getById(@PathVariable Integer id) {
+    public Livre getById(@PathVariable Integer id) {
         Livre livre =  (Livre) articleService.getById(id);
 
-        if (livre == null)
-            return ResponseEntity.notFound().build();
-
-        return ResponseEntity.ok(LivreResponse.convert(livre));
+       return livre;
     }
 
     @PostMapping

@@ -1,1 +1,10 @@
-<p>fiche-papeterie works!</p>
+<div *ngIf="papeterie$ | async as papeterie">
+<h1>{{ papeterie.libelle }}</h1>
+
+<p>Prix : {{ papeterie.prix }} €</p>
+<p>Marque : {{ papeterie.marque }} €</p>
+<p>Type : {{ papeterie.type }} €</p>
+
+</div>
+
+<button routerLink="catalogue" routerLinkActive="active">Retour</button>

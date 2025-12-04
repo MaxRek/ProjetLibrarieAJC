@@ -43,7 +43,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let livre of filteredLivres$ | async; trackBy: trackByCatalogueId">
-        <td>{{ livre.libelle }}</td>
+        <td><a [routerLink]="[ '/ficheLivre', livre.id ]" routerLinkActive="active">{{ livre.libelle }}</a></td>
         <td>{{ livre.prix }} €</td>
         <td>{{ livre.annee }}</td>
         <td>{{ livre.auteur?.nom }}</td>
@@ -75,7 +75,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let papeterie of filteredPapeteries$ | async; trackBy: trackByCatalogueId">
-        <td>{{ papeterie.libelle }}</td>
+        <td><a [routerLink]="[ '/fichePapeterie', papeterie.id ]" routerLinkActive="active">{{ papeterie.libelle }}</a></td>
         <td>{{ papeterie.prix }} €</td>
         <td>{{ papeterie.type }}</td>
         <td>{{ papeterie.marque }}</td>
