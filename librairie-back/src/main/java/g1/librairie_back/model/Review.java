@@ -38,12 +38,12 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name="client", nullable = false)
-    @JsonView(Views.ReviewWithClient.class) 
+    @JsonView(Views.Review.class) 
     private Client client;
 
     @ManyToOne
     @JoinColumn(name="article", nullable = false)
-    @JsonView(Views.ReviewWithArticle.class)
+    @JsonView(Views.Review.class)
     private Article article;
 	
 	

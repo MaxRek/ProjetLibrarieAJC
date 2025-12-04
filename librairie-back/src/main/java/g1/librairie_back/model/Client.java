@@ -19,15 +19,15 @@ public class Client extends Compte{
 	@OneToMany(mappedBy="client")
 	protected List<Panier> panier = new ArrayList();
 	
-	@JsonView(Views.ClientWithSuivi.class)
+	@JsonView(Views.Client.class)
 	@OneToMany(mappedBy = "client")
 	protected List<Suivi> suivi = new ArrayList();
 	
-	@JsonView(Views.ClientWithReview.class)
+	@JsonView(Views.Client.class)
 	@OneToMany(mappedBy = "client")
 	protected List<Review> review = new ArrayList();
 	
-	@JsonView(Views.ClientWithAchat.class)
+	@JsonView(Views.Client.class)
 	@OneToMany(mappedBy = "client")
 	protected List<Achat> achat = new ArrayList();
 

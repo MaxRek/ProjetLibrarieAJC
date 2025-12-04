@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let genre of genre$ | async; traclBy: trackGenre" >
+                <tr *ngFor="let genre of genre$ | async; trackBy: trackGenre" >
                     <td>
                         {{ genre.libelle }}
                     </td>

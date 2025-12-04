@@ -37,12 +37,12 @@ public class Achat {
 
 	@ManyToOne
 	@JoinColumn(name = "client",nullable = false)
-	@JsonView(Views.AchatWithClient.class)
+	@JsonView(Views.Achat.class)
 	private Client client;
 	
 	@ManyToOne
 	@JoinColumn(name = "article",nullable = false)
-	@JsonView(Views.AchatWithArticle.class)
+	@JsonView(Views.Achat.class)
 	private Article article;
 	
 	public Achat() {}

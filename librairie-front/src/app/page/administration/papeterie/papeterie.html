@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papeterie - Librairie</title>
+    <title>Papeteries - Librairie</title>
 </head>
 <body>
-    <h1>Gestion des Papeterie</h1>
+    <h1>Gestion des Papeteries</h1>
     <section>
-        <h2>Liste des Papeterie</h2>
+        <h2>Liste des Papeteries</h2>
 
         <table>
             <thead>
@@ -22,52 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                                    <td>Cahier 96 pages</td>
-                                    <td>2.50 €</td>
-                                    <td>45</td>
-                                    <td>Cahier</td>
-                                    <td>Clairefontaine</td>
-                                                        <td>
-                        <button>Modifier</button>
-                        <button>Supprimer</button>
-                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Stylo bille bleu</td>
-                                    <td>1.20 €</td>
-                                    <td>120</td>
-                                    <td>Stylo</td>
-                                    <td>BIC</td>
-                                                        <td>
-                        <button>Modifier</button>
-                        <button>Supprimer</button>
-                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Gomme blanche</td>
-                                    <td>0.80 €</td>
-                                    <td>200</td>
-                                    <td>Gomme</td>
-                                    <td>Maped</td>
-                                                                                            <td>
-                        <button>Modifier</button>
-                        <button>Supprimer</button>
-                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Règle 30cm</td>
-                                    <td>1.50 €</td>
-                                    <td>75</td>
-                                    <td>Règle</td>
-                                    <td>Maped</td>
-                                                        <td>
-                        <button>Modifier</button>
-                        <button>Supprimer</button>
-                    </td>
-                                    
-                                </tr>
-                <tr *ngFor="let papeterie of papeterie$ | async; traclBy: trackPapeterie" >
+                <tr *ngFor="let papeterie of papeterie$ | async; trackBy: trackPapeterie" >
                     <td>
                         {{ papeterie.libelle }}
                     </td>
@@ -101,21 +56,21 @@
 
             <label for="libelle">libelle:</label>
             <input id="libelle" formControlName="libelle" type="text">
-                <!--@if (libelleCtrl.hasError('required')) {
+                @if (libelleCtrl.hasError('required')) {
                     <span class="error">Le libelle est requis.</span>
-                }-->
+                }
             <br>
             <label for="prix">Prix:</label>
             <input id="prix" formControlName="prix" type="number">
-                <!--@if (prixCtrl.hasError('required')) {
+                @if (prixCtrl.hasError('required')) {
                     <span class="error">Le prix est requis.</span>
-                }-->
+                }
             <br>
             <label for="stock">Stock:</label>
             <input id="stock" formControlName="stock" type="number">
-                <!--@if (stockCtrl.hasError('required')) {
+                @if (stockCtrl.hasError('required')) {
                     <span class="error">Le stock est requis.</span>
-                }-->
+                }
             <br>
             <label for="type">Type:</label>
             <input id="type" formControlName="type" type="text">

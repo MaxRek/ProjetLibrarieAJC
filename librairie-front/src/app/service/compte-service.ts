@@ -8,7 +8,7 @@ import { CompteDto } from '../dto/compte-dto';
   providedIn: 'root',
 })
 export class CompteService {
-  private apiUrl = '/compte';
+  private apiUrl = 'http://localhost:8080/api/compte';
   private refresh$: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) {}

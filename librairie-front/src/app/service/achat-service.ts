@@ -9,7 +9,7 @@ import { AchatDto } from '../dto/achat-dto';
   providedIn: 'root',
 })
 export class AchatService {
-  private apiUrl = '/achat';
+  private apiUrl = 'http://localhost:8080/api/achat';
   private refresh$: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) { }

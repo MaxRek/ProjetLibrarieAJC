@@ -9,7 +9,7 @@ import { AuteurDto } from '../dto/auteur-dto';
   providedIn: 'root',
 })
 export class AuteurService {
-  private apiUrl = '/auteur';
+  private apiUrl = 'http://localhost:8080/api/auteur';
   private refresh$: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) { }
