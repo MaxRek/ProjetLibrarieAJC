@@ -13,14 +13,20 @@
         <table>
             <thead>
                 <tr>
+                    <th>Article (id)</th>
                     <th>Article</th>
+                    <th>Prix</th>
+                    <th>Stock</th>
                     <th>Quantité</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let panier of panier$ | async; traclBy: trackPanier" >
-                    <td>{{ panier.articleId }}</td>
+                <tr *ngFor="let panier of panier$ | async; trackBy: trackPanier" >
+                    <td>{{ panier.article?.id }}</td>
+                    <td>{{ panier.article?.libelle }}</td>
+                    <td>{{ panier.article?.prix }}</td>
+                    <td>{{ panier.article?.stock }}</td>
                     <td>{{ panier.quantite }}</td>
                     <td>
                         <button (click)="editer(panier)">Modifier</button>
