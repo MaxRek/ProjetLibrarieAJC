@@ -25,8 +25,8 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http, JwtHeaderFilter jwtFilter) throws Exception {
         // Configurer ici les accès généraux
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/api/compte/**").anonymous();
-            auth.requestMatchers("/api/papeterie/**").authenticated();
+            auth.requestMatchers("/api/compte/**").permitAll();
+            auth.requestMatchers("/api/papeterie/**").permitAll();
             auth.requestMatchers("/api/livre").hasAnyRole("CLIENT","ADMIN");
             auth.requestMatchers("/api/client").hasRole("ADMIN");
         });
