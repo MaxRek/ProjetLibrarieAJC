@@ -2,10 +2,8 @@ import { Routes } from '@angular/router';
 import { Auteur } from './page/administration/auteur/auteur';
 import { Livre } from './page/administration/livre/livre';
 import { Papeterie } from './page/administration/papeterie/papeterie';
-import { Article } from './page/administration/article/article';
 import { Catalogue } from './page/user/catalogue/catalogue';
 import { Home } from './page/user/home/home';
-import { Compte } from './page/administration/compte/compte';
 import { Client } from './page/administration/client/client';
 import { Administrateur } from './page/administration/administrateur/administrateur';
 import { Achat } from './page/administration/achat/achat';
@@ -21,10 +19,8 @@ export const routes: Routes = [
     { path: 'auteur', component: Auteur },
     { path: 'livre', component: Livre },
     { path: 'papeterie', component: Papeterie },
-    { path: 'article', component: Article },
     { path: 'home', component: Home},
     { path: 'catalogue', component: Catalogue },
-    { path: 'compte', component: Compte },
     { path: 'client', component: Client },
     { path: 'administrateur', component: Administrateur },
     { path: 'achat', component: Achat },

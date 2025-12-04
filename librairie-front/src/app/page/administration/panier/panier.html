@@ -45,18 +45,26 @@
         <h2>Formulaire d'ajout</h2>
         <form (ngSubmit)="creerOuModifier()" [formGroup]="panierForm">
 
-            <label for="articleId">Id Article :</label>
-            <input id="articleId" formControlName="articleId" type="number"/>
+            <label for="articleId">Article :</label>
+            <select id="articleId" formControlName="articleId">
+                <option *ngFor="let article of article$ | async" [value]="article.id">
+                    (id: {{ article.id }}) {{ article.libelle }}
+                </option>
+            </select>
                 @if (articleIdCtrl.hasError('required')) {
-                    <span class="error">L'id de l'acrticle est requis.</span>
+                    <span class="error">L'article est requis.</span>
                 }
 
             <br/>
 
             <label for="clientId">Id Client :</label>
-            <input id="clientId" formControlName="clientId" type="number"/>
+            <select id="clientId" formControlName="clientId">
+                <option *ngFor="let client of client$ | async" [value]="client.id">
+                    (id: {{ client.id }}) {{ client.nom }}
+                </option>
+            </select>
                 @if (clientIdCtrl.hasError('required')) {
-                    <span class="error">L'id du client est requis.</span>
+                    <span class="error">Le client est requis.</span>
                 }
 
             <br/>

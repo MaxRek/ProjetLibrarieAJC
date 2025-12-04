@@ -2,9 +2,14 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { PanierDto } from '../../../dto/panier-dto';
 import { PanierService } from '../../../service/panier-service';
+import { ClientService } from '../../../service/client-service';
+import { ArticleDto } from '../../../dto/article-dto';
+import { LivreService } from '../../../service/livre-service';
+import { PapeterieService } from '../../../service/papeterie-service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'panier',
@@ -14,6 +19,8 @@ import { PanierService } from '../../../service/panier-service';
 })
 export class Panier implements OnInit {
   protected panier$!: Observable<PanierDto[]>;
+  client$!: Observable<any[]>;
+  article$!: Observable<ArticleDto[]>;
 
   protected showForm: boolean = false;
 
@@ -27,11 +34,26 @@ export class Panier implements OnInit {
 
   protected editingPanier!: PanierDto | null;
 
-  constructor(private panierService: PanierService, private formBuilder: FormBuilder) { }
+  constructor(private panierService: PanierService,
+    private clientService: ClientService, 
+    private livreService: LivreService,
+    private papeterieService: PapeterieService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.panier$ = this.panierService.findAll();
+    this.client$ = this.clientService.findAll();
     
+    this.article$ = combineLatest([
+      this.livreService.findAll(),
+      this.papeterieService.findAll()
+    ]).pipe(
+      map(([livres, papeteries]) => {
+        const all: ArticleDto[] = [...livres, ...papeteries];
+        return all;
+      })
+    );
+
     this.quantiteCtrl = this.formBuilder.control(0, Validators.required);
     this.articleIdCtrl = this.formBuilder.control(0, Validators.required);
     this.clientIdCtrl = this.formBuilder.control(0, Validators.required);
