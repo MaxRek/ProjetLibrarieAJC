@@ -46,15 +46,24 @@ public class PanierService {
         daoPanier.deleteById(id);
     }
     
-    public List<Panier> getPanierByIdClient(Integer id){
-    	
-    	List<Panier> panier = daoPanier.findByClientId(id);
-    	return panier;
+    public List<Panier> getByClient(Integer clientId){
+
+        List<Panier> all = daoPanier.findAll();
+
+        System.out.println("DEBUG getByClient(" + clientId + ")");
+        all.forEach(p -> System.out.println(
+            " panier id=" + p.getId() +
+            " client=" + (p.getClient() != null ? p.getClient().getId() : null) +
+            " quantite=" + p.getQuantite()
+        ));
+
+        return all.stream()
+            .filter(p -> p.getClient() != null && clientId.equals(p.getClient().getId()))
+            .toList();
     }
     
-  public void deletePanierByIdClient(Integer id){
-    	
+    public void deletePanierByIdClient(Integer id){
 	  	daoPanier.deleteByClientId(id);
-  }
+    }
     
 }

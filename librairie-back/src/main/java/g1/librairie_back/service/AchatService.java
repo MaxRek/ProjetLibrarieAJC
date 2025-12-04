@@ -96,7 +96,7 @@ public class AchatService {
     
     @Transactional
     public String achatPanier(Integer clientId) {
-    	List<Panier> panier = panierService.getPanierByIdClient(clientId);
+    	List<Panier> panier = panierService.getByClient(clientId);
 
         for (Panier p : panier) {
 

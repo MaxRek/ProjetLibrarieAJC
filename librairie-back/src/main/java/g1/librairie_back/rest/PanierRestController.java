@@ -67,6 +67,15 @@ public class PanierRestController {
 		return ResponseEntity.ok(r);
 	}
 
+	@JsonView(Views.Panier.class)
+	@GetMapping("/client/{idClient}")
+	public List<Panier> getPaniersByClient(@PathVariable Integer idClient) {
+
+		List<Panier> paniers = panierSrv.getByClient(idClient);
+
+		return paniers;
+	}
+
 	@PostMapping
 	public Integer ajoutPanier(@Valid @RequestBody CreatePanierRequest request) {
 		log.info("POST /api/Panier - ajoutPanier() called with request: {}", request);
