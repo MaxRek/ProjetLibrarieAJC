@@ -15,7 +15,9 @@
                 <tr>
                     <th>Date</th>
                     <th>Article</th>
+                    <th>Article Libelle</th>
                     <th>Client</th>
+                    <th>Cleint Nom</th>
                     <th>Note</th>
                     <th>Review</th>
                     <th></th>
@@ -24,12 +26,13 @@
             <tbody>
                 <tr *ngFor="let review of review$ | async; trackBy: trackReview" >
                     <td>{{ review.dateReview }}</td>
-                    <td>{{ review.articleId }}</td>
-                    <td>{{ review.clientId }}</td>
+                    <td>{{ review.article?.id }}</td>
+                    <td>{{ review.article?.libelle }}</td>
+                    <td>{{ review.client?.id }}</td>
+                    <td>{{ review.client?.nom }}</td>
                     <td>{{ review.note }}</td>
                     <td>{{ review.review }}</td>
                     <td>
-                        <button (click)="editer(review)">Modifier</button>
                         <button (click)="supprimer(review)">Supprimer</button>
                     </td>
                 </tr>
@@ -53,18 +56,26 @@
             
             <br/>
             
-            <label for="articleId">Id Article :</label>
-            <input id="articleId" formControlName="articleId" type="number"/>
+            <label for="articleId">Article :</label>
+            <select id="articleId" formControlName="articleId">
+                <option *ngFor="let article of article$ | async" [value]="article.id">
+                    (id: {{ article.id }}) {{ article.libelle }}
+                </option>
+            </select>
                 @if (articleIdCtrl.hasError('required')) {
-                    <span class="error">L'id de l'acrticle est requis.</span>
+                    <span class="error">L'article est requis.</span>
                 }
 
             <br/>
 
             <label for="clientId">Id Client :</label>
-            <input id="clientId" formControlName="clientId" type="number"/>
+            <select id="clientId" formControlName="clientId">
+                <option *ngFor="let client of client$ | async" [value]="client.id">
+                    (id: {{ client.id }}) {{ client.nom }}
+                </option>
+            </select>
                 @if (clientIdCtrl.hasError('required')) {
-                    <span class="error">L'id du client est requis.</span>
+                    <span class="error">Le client est requis.</span>
                 }
 
             <br/>
@@ -86,7 +97,7 @@
             <br/>
 
             <button type="submit">Enregistrer</button>
-            <button type="button" (click)="showForm = false">Annuler</button>
+            <button type="button" (click)="annulerEditer()">Annuler</button>
 
         </form>
     </section>

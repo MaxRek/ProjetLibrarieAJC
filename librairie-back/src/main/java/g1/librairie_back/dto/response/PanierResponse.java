@@ -1,7 +1,5 @@
 package g1.librairie_back.dto.response;
 
-import g1.librairie_back.model.Article;
-import g1.librairie_back.model.Client;
 import g1.librairie_back.model.Panier;
 
 public class PanierResponse {
@@ -28,9 +26,6 @@ private Integer id;
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
 	}
-
-	
-	
 
 	public Integer getClientId() {
 		return clientId;

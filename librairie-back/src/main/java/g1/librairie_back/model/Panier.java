@@ -22,14 +22,20 @@ public class Panier {
 	@JsonView(Views.Common.class)
 	private Integer id;
 	
+	@JsonView(Views.Panier.class)
+
 	@Column(name="quantite",nullable=false)
 	private int quantite;
 	
 	@ManyToOne
+	@JsonView(Views.Panier.class)
+
 	@JoinColumn(name="client",nullable = false)
 	private Client client;
 	
 	@ManyToOne
+	@JsonView(Views.Panier.class)
+
 	@JoinColumn(name="article",nullable = false)
 	private Article article;
 	

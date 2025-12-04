@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { ReviewDto } from '../../../dto/review-dto';
 import { ReviewService } from '../../../service/review-service';
+import { ClientService } from '../../../service/client-service';
+import { ArticleDto } from '../../../dto/article-dto';
+import { LivreService } from '../../../service/livre-service';
+import { PapeterieService } from '../../../service/papeterie-service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'review',
@@ -14,6 +19,8 @@ import { ReviewService } from '../../../service/review-service';
 })
 export class Review implements OnInit {
   protected review$!: Observable<ReviewDto[]>;
+  client$!: Observable<any[]>;
+  article$!: Observable<ArticleDto[]>;
 
   protected showForm: boolean = false;
 
@@ -27,16 +34,31 @@ export class Review implements OnInit {
 
   protected editingReview!: ReviewDto | null;
 
-  constructor(private reviewService: ReviewService, private formBuilder: FormBuilder) { }
+  constructor(private reviewService: ReviewService,
+    private clientService: ClientService,
+    private livreService: LivreService,
+    private papeterieService: PapeterieService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.review$ = this.reviewService.findAll();
+    this.client$ = this.clientService.findAll();
     
+    this.article$ = combineLatest([
+      this.livreService.findAll(),
+      this.papeterieService.findAll()
+    ]).pipe(
+      map(([livres, papeteries]) => {
+        const all: ArticleDto[] = [...livres, ...papeteries];
+        return all;
+      })
+    );
+
     this.dateReviewCtrl = this.formBuilder.control('');
-    this.noteCtrl = this.formBuilder.control(0);
-    this.reviewCtrl = this.formBuilder.control(0);
-    this.articleIdCtrl = this.formBuilder.control(0);
-    this.clientIdCtrl = this.formBuilder.control(0);
+    this.noteCtrl = this.formBuilder.control(0, Validators.required);
+    this.reviewCtrl = this.formBuilder.control(0, Validators.required);
+    this.articleIdCtrl = this.formBuilder.control(0, Validators.required);
+    this.clientIdCtrl = this.formBuilder.control(0, Validators.required);
 
     this.reviewForm = this.formBuilder.group({
       dateReview: this.dateReviewCtrl,
@@ -77,14 +99,10 @@ export class Review implements OnInit {
     this.reviewForm.reset();
   }
 
-  public editer (review: ReviewDto) {
-    this.editingReview = review;
-    this.dateReviewCtrl.setValue(review.dateReview);
-    this.noteCtrl.setValue(review.note);
-    this.reviewCtrl.setValue(review.review);
-    this.articleIdCtrl.setValue(review.articleId);
-    this.clientIdCtrl.setValue(review.clientId);
-    this.showForm = true;
+    public annulerEditer() {
+    this.editingReview = null;
+    this.showForm = false;
+    this.reviewForm.reset();
   }
 
   public supprimer (review: ReviewDto) {

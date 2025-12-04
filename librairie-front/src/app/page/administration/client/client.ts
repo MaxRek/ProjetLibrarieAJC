@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -8,7 +8,6 @@ import { ClientDto } from '../../../dto/client-dto';
 import { ClientService } from '../../../service/client-service';
 
 import { CompteDto } from '../../../dto/compte-dto';
-import { CompteService } from '../../../service/compte-service';
 
 
 import { RouterModule } from '@angular/router';
@@ -37,10 +36,10 @@ export class Client implements OnInit {
 
   ngOnInit(): void {
     this.client$ = this.clientService.findAll();
-    this.nomCtrl = this.formBuilder.control('');
-    this.prenomCtrl = this.formBuilder.control('');
-    this.emailCtrl = this.formBuilder.control('');
-    this.passwordCtrl = this.formBuilder.control('');
+    this.nomCtrl = this.formBuilder.control('', Validators.required);
+    this.prenomCtrl = this.formBuilder.control('', Validators.required);
+    this.emailCtrl = this.formBuilder.control('', Validators.required);
+    this.passwordCtrl = this.formBuilder.control('', Validators.required);
 
     this.clientForm = this.formBuilder.group({
       nom: this.nomCtrl,

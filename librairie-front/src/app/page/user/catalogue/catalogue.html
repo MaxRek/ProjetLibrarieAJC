@@ -1,81 +1,91 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogue - Librairie</title>
-</head>
-<body>
-    <h1>Catalogue de la Librairie</h1>
-    
-    <button *ngIf="!showLivre" (click)="showLivre = true" (click)="showPapeterie = false">Afficher Les livres en ventes</button>
-    <button *ngIf="showLivre" (click)="showLivre = false">Ne plus voir les Livres</button>
-    <button *ngIf="!showPapeterie" (click)="showPapeterie = true" (click)="showLivre = false" >Afficher les ventes de la Papeterie</button>
-    <button *ngIf="showPapeterie" (click)="showPapeterie = false">Ne plus voir la Papeterie</button>
+<h1>Catalogue de la Librairie</h1>
 
-    <hr>
-    <!-- Section Livres -->
-    <section *ngIf="showLivre">
-        <h2>Liste des Livres</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Titre</th>
-                    <th>Prix</th>
-                    <th>Année</th>
-                    <th>Nom Auteur</th>
-                    <th>Prénom Auteur</th>
-                    <th>Genre</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let livre of livre$ | async; trackBy: trackByCatalogueId">
-                    <td>{{ livre.libelle }}</td>
-                    <td>{{ livre.prix }} €</td>
-                    <td>{{ livre.annee }}</td>
-                    <td>{{ livre.auteurNom }}</td>
-                    <td>{{ livre.auteurPrenom }}</td>
-                    <td>{{ livre.genrelibelle }}</td>
-                    <td>
-                        <button><!--(click)="achat(Article)"-->Ajouter au panier</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <hr>
-    </section>
+<!-- Barre de recherche -->
+<div class="search-bar">
+  <label for="search">Recherche :</label>
+  <input
+    id="search"
+    type="text"
+    placeholder="Titre, auteur, genre, type, marque..."
+    [formControl]="searchCtrl"
+  >
+</div>
 
+<button *ngIf="!showLivre" (click)="showLivre = true; showPapeterie = false; annulerRecherche()">
+  Afficher Les livres en ventes
+</button>
+<button *ngIf="showLivre" (click)="showLivre = false; annulerRecherche()">
+  Ne plus voir les Livres
+</button>
+<button *ngIf="!showPapeterie" (click)="showPapeterie = true; showLivre = false; annulerRecherche()">
+  Afficher les ventes de la Papeterie
+</button>
+<button *ngIf="showPapeterie" (click)="showPapeterie = false; annulerRecherche()">
+  Ne plus voir la Papeterie
+</button>
 
+<hr>
 
-    <!-- Section Papeterie -->
-    <section *ngIf="showPapeterie">
-        <h2>Liste des Papeteries</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Titre</th>
-                    <th>Prix</th>
-                    <th>Type</th>
-                    <th>Marque</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let papeterie of papeterie$ | async; trackBy: trackByCatalogueId">
-                    <td>{{ papeterie.libelle }}</td>
-                    <td>{{ papeterie.prix }} €</td>
-                    <td>{{ papeterie.type }}</td>
-                    <td>{{ papeterie.marque }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <hr>
-    </section>
-    
-    <div id="responsive" style="display: none;">
-        <span>
-        <p>Cet écran ne respecte pas les standards d'affichages</p>
-        <button routerLink="home" routerLinkActive="active">Retour à l'accueil</button>
-        </span>
-    </div>
-</body>
-</html>
+<!-- Section Livres -->
+<section *ngIf="showLivre">
+  <h2>Liste des Livres</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Titre</th>
+        <th>Prix</th>
+        <th>Année</th>
+        <th>Nom de l'auteur</th>
+        <th>Prénom de l'auteur</th>
+        <th>Genre</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let livre of filteredLivres$ | async; trackBy: trackByCatalogueId">
+        <td>{{ livre.libelle }}</td>
+        <td>{{ livre.prix }} €</td>
+        <td>{{ livre.annee }}</td>
+        <td>{{ livre.auteur?.nom }}</td>
+        <td>{{ livre.auteur?.prenom }}</td>
+        <td>{{ livre.genre }}</td>
+        <td>
+          <button>Ajouter au panier</button>
+          <button>Ajouter aux favoris</button>
+          <button>Retirer des favoris</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+</section>
+
+<!-- Section Papeterie -->
+<section *ngIf="showPapeterie">
+  <h2>Liste des Papeteries</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Objet</th>
+        <th>Prix</th>
+        <th>Type</th>
+        <th>Marque</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let papeterie of filteredPapeteries$ | async; trackBy: trackByCatalogueId">
+        <td>{{ papeterie.libelle }}</td>
+        <td>{{ papeterie.prix }} €</td>
+        <td>{{ papeterie.type }}</td>
+        <td>{{ papeterie.marque }}</td>
+        <td>
+          <button>Ajouter au panier</button>
+          <button>Ajouter aux favoris</button>
+          <button>Retirer des favoris</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+</section>

@@ -14,15 +14,19 @@
             <thead>
                 <tr>
                     <th>Article</th>
+                    <th>Article Libelle</th>
                     <th>Client</th>
+                    <th>Client Nom</th>
                     <th>Quantité</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let panier of panier$ | async; trackBy: trackPanier" >
-                    <td>{{ panier.articleId }}</td>
-                    <td>{{ panier.clientId }}</td>
+                    <td>{{ panier.article?.id }}</td>
+                    <td>{{ panier.article?.libelle }}</td>
+                    <td>{{ panier.client?.id }}</td>
+                    <td>{{ panier.client?.nom }}</td>
                     <td>{{ panier.quantite }}</td>
                     <td>
                         <button (click)="editer(panier)">Modifier</button>
@@ -41,18 +45,26 @@
         <h2>Formulaire d'ajout</h2>
         <form (ngSubmit)="creerOuModifier()" [formGroup]="panierForm">
 
-            <label for="articleId">Id Article :</label>
-            <input id="articleId" formControlName="articleId" type="number"/>
+            <label for="articleId">Article :</label>
+            <select id="articleId" formControlName="articleId">
+                <option *ngFor="let article of article$ | async" [value]="article.id">
+                    (id: {{ article.id }}) {{ article.libelle }}
+                </option>
+            </select>
                 @if (articleIdCtrl.hasError('required')) {
-                    <span class="error">L'id de l'acrticle est requis.</span>
+                    <span class="error">L'article est requis.</span>
                 }
 
             <br/>
 
             <label for="clientId">Id Client :</label>
-            <input id="clientId" formControlName="clientId" type="number"/>
+            <select id="clientId" formControlName="clientId">
+                <option *ngFor="let client of client$ | async" [value]="client.id">
+                    (id: {{ client.id }}) {{ client.nom }}
+                </option>
+            </select>
                 @if (clientIdCtrl.hasError('required')) {
-                    <span class="error">L'id du client est requis.</span>
+                    <span class="error">Le client est requis.</span>
                 }
 
             <br/>
@@ -66,7 +78,7 @@
             <br/>
 
             <button type="submit">Enregistrer</button>
-            <button type="button" (click)="showForm = false">Annuler</button>
+            <button type="button" (click)="annulerEditer()">Annuler</button>
 
         </form>
     </section>

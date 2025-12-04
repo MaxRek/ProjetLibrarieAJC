@@ -1,3 +1,6 @@
+import { ArticleDto} from "./article-dto";
+import { ClientDto } from "./client-dto";
+
 export class AchatDto {
 
     constructor(
@@ -6,7 +9,9 @@ export class AchatDto {
         private _dateAchat: String,
         private _quantiteAchat: number,
         private _articleId: number,
-        private _clientId: number
+        private _clientId: number,
+        public article?: ArticleDto,
+        public client?: ClientDto,
     ) { }
 
     public get id(): number {
@@ -57,9 +62,17 @@ export class AchatDto {
         this._clientId = value;
     }
 
+    public get ArticleLibelle() : string {
+        return this.article?.libelle as string ?? '';
+    }
+
+    public get ClientNom() : string {
+        return this.client?.nom as string ?? '';
+    }
+
+
     public toJson(): any {
         return {
-            id: this.id,
             prix: this.prix,
             dateAchat: this.dateAchat,
             quantiteAchat: this.quantiteAchat,

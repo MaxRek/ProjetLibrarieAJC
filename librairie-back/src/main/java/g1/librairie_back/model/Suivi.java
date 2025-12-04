@@ -21,10 +21,14 @@ public class Suivi {
 	private Integer id;
 	
 	@ManyToOne
+	@JsonView(Views.Suivi.class)
+
 	@JoinColumn(name="client",nullable = false)
 	private Client client;
 	
 	@ManyToOne
+	@JsonView(Views.Suivi.class)
+
 	@JoinColumn(name="article",nullable = false)
 	private Article article;
 	
