@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let review of review$ | async; traclBy: trackReview" >
+                <tr *ngFor="let review of review$ | async; trackBy: trackReview" >
                     <td>{{ review.dateReview }}</td>
                     <td>{{ review.articleId }}</td>
                     <td>{{ review.clientId }}</td>

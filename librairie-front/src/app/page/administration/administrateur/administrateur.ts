@@ -23,6 +23,10 @@ export class Administrateur implements OnInit {
 
   protected showForm: boolean = false;
   protected administrateurForm!: FormGroup;
+  protected nomCtrl!: FormControl;
+  protected prenomCtrl!: FormControl;
+  protected emailCtrl!: FormControl;
+  protected passwordCtrl!: FormControl;
 
   protected editingAdministrateur!: AdministrateurDto | null;
 
@@ -33,8 +37,16 @@ export class Administrateur implements OnInit {
 
   ngOnInit(): void {
     this.administrateur$ = this.administrateurService.findAll();
+    this.nomCtrl = this.formBuilder.control('');
+    this.prenomCtrl = this.formBuilder.control('');
+    this.emailCtrl = this.formBuilder.control('');
+    this.passwordCtrl = this.formBuilder.control('');
 
     this.administrateurForm = this.formBuilder.group({
+      nom: this.nomCtrl,
+      prenom: this.prenomCtrl,
+      email: this.emailCtrl,
+      password: this.passwordCtrl,
     
     });
   }
@@ -45,21 +57,22 @@ export class Administrateur implements OnInit {
 
   public creerOuModifier() {
     if (this.editingAdministrateur) {
-      this.administrateurService.save(new AdministrateurDto(
-        this.editingAdministrateur.id,
-        this.editingAdministrateur.nom,
-        this.editingAdministrateur.prenom,
-        this.editingAdministrateur.email,
-        this.editingAdministrateur.password
+      this.administrateurService.save(
+        new AdministrateurDto(
+          this.editingAdministrateur.id,
+          this.nomCtrl.value,
+          this.prenomCtrl.value,
+          this.emailCtrl.value,
+          this.passwordCtrl.value
       ));
     } else {
-      const newCompte = this.administrateurForm.value;
-      this.administrateurService.save(new AdministrateurDto(
-        0,
-        newCompte.nom,
-        newCompte.prenom,
-        newCompte.email,
-        newCompte.password
+      this.administrateurService.save(
+        new AdministrateurDto(
+          0,
+          this.nomCtrl.value,
+          this.prenomCtrl.value,
+          this.emailCtrl.value,
+          this.passwordCtrl.value
       ));
     }
     this.showForm = false;
@@ -69,6 +82,10 @@ export class Administrateur implements OnInit {
 
   public editer (administrateur: AdministrateurDto) {
     this.editingAdministrateur = administrateur;
+    this.nomCtrl.setValue(administrateur.nom);
+    this.prenomCtrl.setValue(administrateur.prenom);
+    this.emailCtrl.setValue(administrateur.email);
+    this.passwordCtrl.setValue(administrateur.password);
     this.showForm = true;
   }
 

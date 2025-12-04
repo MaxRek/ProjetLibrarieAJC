@@ -7,9 +7,10 @@ import { AuteurDto } from '../../../dto/auteur-dto';
 
 import { AuteurService } from '../../../service/auteur-service';
 
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'auteur', 
-  imports: [ CommonModule, ReactiveFormsModule],
+  imports: [ CommonModule, ReactiveFormsModule,RouterModule],
   templateUrl: './auteur.html',
   styleUrl: '../admin.css',
 })

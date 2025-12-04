@@ -14,6 +14,8 @@ import g1.librairie_back.model.Achat;
 import g1.librairie_back.model.Article;
 import g1.librairie_back.model.Client;
 import g1.librairie_back.model.Compte;
+import g1.librairie_back.model.Panier;
+import jakarta.transaction.Transactional;
 
 @Service
 public class AchatService {
@@ -26,6 +28,12 @@ public class AchatService {
 
     @Autowired
     private IDAOCompte daoCompte;
+    
+    @Autowired
+    private ArticleService articleService;
+    
+    @Autowired
+    private PanierService panierService;
 
     public Achat getById(Integer id) {
         Optional<Achat> opt = daoAchat.findById(id);
@@ -85,4 +93,28 @@ public class AchatService {
 
         return daoAchat.save(achat);
     }
+    
+    @Transactional
+    public void achatPanier(Integer clientId) {
+    	List<Panier> panier = panierService.getPanierByIdClient(clientId);
+
+        for (Panier p : panier) {
+
+            Achat achat = new Achat();
+            achat.setDateAchat(LocalDate.now());
+            achat.setQuantiteAchat(p.getQuantite());
+            achat.setPrix(p.getArticle().getPrix());
+            achat.setArticle(p.getArticle());
+            achat.setClient(p.getClient());
+
+            daoAchat.save(achat);
+
+            p.getArticle().setStock(p.getArticle().getStock() - p.getQuantite());
+            articleService.update(p.getArticle());
+            //peut être rajouter une vérif pour voir si il reste assez d'article
+            
+            panierService.deleteById(p.getId());
+        }
+    }
+    
 }

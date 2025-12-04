@@ -5,11 +5,12 @@ import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GenreDto } from '../../../dto/genre-dto';
 
+import { RouterModule } from '@angular/router';
 import { GenreService } from '../../../service/genre-service';
 
 @Component({
   selector: 'genre',
-  imports: [ CommonModule,  ReactiveFormsModule],
+  imports: [ CommonModule,  ReactiveFormsModule,RouterModule],
   templateUrl: './genre.html',
   styleUrl: '../admin.css',
 })

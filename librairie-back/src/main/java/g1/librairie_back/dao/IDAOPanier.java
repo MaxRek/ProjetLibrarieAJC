@@ -9,6 +9,8 @@ import g1.librairie_back.model.Panier;
 @Repository
 
 public interface IDAOPanier extends JpaRepository<Panier,Integer>{
-    List<Panier> findByClientId(Integer clientId);	
+		
+	List<Panier> findByClientId(Integer clientId);	
 	public void deleteByClientId(Integer id);
+	
 }

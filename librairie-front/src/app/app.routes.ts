@@ -6,15 +6,43 @@ import { Papeterie } from './page/administration/papeterie/papeterie';
 import { Article } from './page/administration/article/article';
 import { Catalogue } from './page/user/catalogue/catalogue';
 import { Home } from './page/user/home/home';
+import { Compte } from './page/administration/compte/compte';
+import { Client } from './page/administration/client/client';
+import { Administrateur } from './page/administration/administrateur/administrateur';
+import { Achat } from './page/administration/achat/achat';
+import { Suivi } from './page/administration/suivi/suivi';
+import { Panier } from './page/administration/panier/panier';
+import { Review } from './page/administration/review/review';
+import { PanierUser } from './page/user/panier/panier';
+import { AchatUser } from './page/user/achat/achat';
+import { SuiviUser } from './page/user/suivi/suivi';
+import { ReviewUser } from './page/user/review/review';
+import { LoginPage } from './page/user/login/login';
+import { AuthAdminGuard } from './guard/auth-admin-guard';
+import { AuthClientGuard } from './guard/auth-client-guard';
 
 export const routes: Routes = [
-    { path: 'auteur', component: Auteur },
+    { path: 'auteur', component: Auteur, canActivate: [AuthAdminGuard] },
     { path: 'livre', component: Livre },
     { path: 'genre', component: Genre },
     { path: 'papeterie', component: Papeterie },
     { path: 'article', component: Article },
     { path: 'home', component: Home},
-    { path: 'catalogue', component: Catalogue }
-
+    { path: 'catalogue', component: Catalogue },
+    { path: 'compte', component: Compte },
+    { path: 'client', component: Client },
+    { path: 'administrateur', component: Administrateur },
+    { path: 'achat', component: Achat },
+    { path: 'suivi', component: Suivi, canActivate: [AuthClientGuard] },
+    { path: 'panier', component: Panier },
+    { path: 'review', component: Review },
+    { path: 'user/panier', component: PanierUser },
+    { path: 'user/achat', component: AchatUser },
+    { path: 'user/suivi', component: SuiviUser },
+    { path: 'user/review', component: ReviewUser },
+    { path: 'connexion', component: LoginPage },
+    // Redirection par défaut vers la page d'accueil
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '**', redirectTo: '/home' }
 ];
 

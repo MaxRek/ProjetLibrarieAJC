@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    background: linear-gradient(135deg, #f5f2e8 0%, #f5dc9c 100%);
+    font-family: "Georgia", "Garamond", "Times New Roman", serif;
+    color: #2c1810;
+    padding: 20px;
+    margin : 0;
+    background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.02) 2px, rgba(0, 0, 0, 0.02) 4px);
+    min-height: 100vh;
+
+}

@@ -7,10 +7,11 @@ import { LivreService } from '../../../service/livre-service';
 import { PapeterieDto } from '../../../dto/papeterie-dto';
 import { PapeterieService } from '../../../service/papeterie-service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'catalogue',
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './catalogue.html',
   styleUrl: './catalogue.css',
 })

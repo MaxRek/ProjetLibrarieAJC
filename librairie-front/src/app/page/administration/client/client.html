@@ -21,7 +21,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let client of client$ | async; traclBy: trackClient" >
+                <tr *ngFor="let client of client$ | async; trackBy: trackClient" >
                     <td>
                         {{ client.nom }}
                     </td>

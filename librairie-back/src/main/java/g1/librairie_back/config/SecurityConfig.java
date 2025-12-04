@@ -25,10 +25,12 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http, JwtHeaderFilter jwtFilter) throws Exception {
         // Configurer ici les accès généraux
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/api/compte/**").anonymous();
-            auth.requestMatchers("/api/papeterie/**").authenticated();
+            auth.requestMatchers("/api/compte/**").permitAll();
+            auth.requestMatchers("/api/papeterie/**").permitAll();
             auth.requestMatchers("/api/livre").hasAnyRole("CLIENT","ADMIN");
             auth.requestMatchers("/api/client").hasRole("ADMIN");
+            auth.requestMatchers("/api/auteur/**").permitAll();
+            auth.requestMatchers("/api/achat/**").permitAll();
         });
 
         // Désactiver la protection CSRF
@@ -52,8 +54,8 @@ public class SecurityConfig {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
         corsConfiguration.setAllowedHeaders(List.of("*"));
-        corsConfiguration.setAllowedMethods(List.of("*"));
-        corsConfiguration.setAllowedOrigins(List.of("*"));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        corsConfiguration.setAllowedOrigins(List.of("http://localhost:4200"));
 
         corsSource.registerCorsConfiguration("/**", corsConfiguration);
 

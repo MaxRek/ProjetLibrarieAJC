@@ -6,12 +6,11 @@ import { Observable } from 'rxjs';
 import { LivreDto } from '../../../dto/livre-dto';
 import { LivreService } from '../../../service/livre-service';
 
-import { ArticleDto } from '../../../dto/article-dto';
-import { ArticleService } from '../../../service/article-service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'livre',
-  imports: [ CommonModule,  ReactiveFormsModule],
+  imports: [ CommonModule,  ReactiveFormsModule,RouterModule],
   templateUrl: './livre.html',
   styleUrl: '../admin.css',
 })
@@ -22,6 +21,9 @@ export class Livre implements OnInit {
 
   protected showForm: boolean = false
   protected livreForm!: FormGroup;
+  protected libelleCtrl!: FormControl;
+  protected prixCtrl!: FormControl
+  protected stockCtrl!: FormControl;
   protected anneeCtrl!: FormControl;
   protected auteurIdCtrl!: FormControl
   protected genreIdCtrl!: FormControl;
@@ -32,10 +34,18 @@ export class Livre implements OnInit {
 
   ngOnInit(): void {
     this.livre$ = this.livreService.findAll();
+    //this.auteur$ = this.livreService.findAllAuteurs();
+    //this.genre$ = this.livreService.findAllGenres();
+    this.libelleCtrl = this.formBuilder.control('');
+    this.prixCtrl = this.formBuilder.control(0);
+    this.stockCtrl = this.formBuilder.control(0);
     this.anneeCtrl = this.formBuilder.control(0);
     this.auteurIdCtrl = this.formBuilder.control(0);
     this.genreIdCtrl = this.formBuilder.control(0);
     this.livreForm = this.formBuilder.group({
+      libelle: this.libelleCtrl,
+      prix: this.prixCtrl,
+      stock: this.stockCtrl,
       annee: this.anneeCtrl,
       auteurId: this.auteurIdCtrl,
       genreId: this.genreIdCtrl
@@ -48,10 +58,27 @@ export class Livre implements OnInit {
 
   public creerOuModifier() {
     if (this.editingLivre) {
-      this.livreService.save(new LivreDto(this.editingLivre.id, this.editingLivre.stock, this.editingLivre.libelle, this.editingLivre.prix, this.anneeCtrl.value, this.auteurIdCtrl.value, this.genreIdCtrl.value));
+      this.livreService.save(
+        new LivreDto(
+          this.editingLivre.id, 
+          this.stockCtrl.value, 
+          this.libelleCtrl.value, 
+          this.prixCtrl.value,
+          this.anneeCtrl.value, 
+          this.auteurIdCtrl.value, 
+          this.genreIdCtrl.value
+        ));
     } else {
-      const newArticle = new ArticleDto(0, 0, '', 0);
-      this.livreService.save(new LivreDto(0, newArticle.stock, newArticle.libelle, newArticle.prix, this.anneeCtrl.value, this.auteurIdCtrl.value, this.genreIdCtrl.value));
+      this.livreService.save(
+        new LivreDto(
+          0, 
+          this.stockCtrl.value, 
+          this.libelleCtrl.value, 
+          this.prixCtrl.value,
+          this.anneeCtrl.value, 
+          this.auteurIdCtrl.value, 
+          this.genreIdCtrl.value
+        ));
     }
 
     this.showForm = false;
@@ -61,6 +88,9 @@ export class Livre implements OnInit {
 
   public editer (livre: LivreDto) {
     this.editingLivre = livre;
+    this.libelleCtrl.setValue(livre.libelle);
+    this.prixCtrl.setValue(livre.prix);
+    this.stockCtrl.setValue(livre.stock);
     this.anneeCtrl.setValue(livre.annee);
     this.auteurIdCtrl.setValue(livre.auteurId);
     this.genreIdCtrl.setValue(livre.genreId);

@@ -30,17 +30,18 @@ export class PapeterieService {
     return this.http.get<PapeterieDto>(`${this.apiUrl}/${id}`);
   }
 
-  public save(papeterieDto: PapeterieDto): Observable<PapeterieDto> {
+  public save(papeterieDto: PapeterieDto): void {
     const payload = papeterieDto.toJson();
 
     if (!papeterieDto.id) {
-      return this.http.post<PapeterieDto>(this.apiUrl, payload);
+      this.http.post<PapeterieDto>(this.apiUrl, payload).subscribe(() => this.refresh());
+      return ;
     }
 
-    return this.http.put<PapeterieDto>(`${this.apiUrl}/${papeterieDto.id}`, payload);
+    this.http.put<PapeterieDto>(`${this.apiUrl}/${papeterieDto.id}`, payload).subscribe(() => this.refresh());
   }
 
-  public deleteById(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  public deleteById(id: number): void {
+    this.http.delete<void>(`${this.apiUrl}/${id}`).subscribe(() => this.refresh());
   }
 }

@@ -23,6 +23,10 @@ export class Client implements OnInit {
 
   protected showForm: boolean = false;
   protected clientForm!: FormGroup;
+  protected nomCtrl!: FormControl;
+  protected prenomCtrl!: FormControl;
+  protected emailCtrl!: FormControl;
+  protected passwordCtrl!: FormControl;  
 
   protected editingClient!: ClientDto | null;
 
@@ -33,8 +37,16 @@ export class Client implements OnInit {
 
   ngOnInit(): void {
     this.client$ = this.clientService.findAll();
+    this.nomCtrl = this.formBuilder.control('');
+    this.prenomCtrl = this.formBuilder.control('');
+    this.emailCtrl = this.formBuilder.control('');
+    this.passwordCtrl = this.formBuilder.control('');
 
     this.clientForm = this.formBuilder.group({
+      nom: this.nomCtrl,
+      prenom: this.prenomCtrl,
+      email: this.emailCtrl,
+      password: this.passwordCtrl,
     
     });
   }
@@ -45,21 +57,22 @@ export class Client implements OnInit {
 
   public creerOuModifier() {
     if (this.editingClient) {
-      this.clientService.save(new ClientDto(
-        this.editingClient.id,
-        this.editingClient.nom,
-        this.editingClient.prenom,
-        this.editingClient.email,
-        this.editingClient.password
+      this.clientService.save(
+        new ClientDto(
+          this.editingClient.id,
+          this.nomCtrl.value,
+          this.prenomCtrl.value,
+          this.emailCtrl.value,
+          this.passwordCtrl.value
       ));
     } else {
-      const newCompte = this.clientForm.value;
-      this.clientService.save(new ClientDto(
-        0,
-        newCompte.nom,
-        newCompte.prenom,
-        newCompte.email,
-        newCompte.password
+      this.clientService.save(
+        new ClientDto(
+          0,
+          this.nomCtrl.value,
+          this.prenomCtrl.value,
+          this.emailCtrl.value,
+          this.passwordCtrl.value
       ));
     }
     this.showForm = false;
@@ -69,6 +82,10 @@ export class Client implements OnInit {
 
   public editer (client: ClientDto) {
     this.editingClient = client;
+    this.nomCtrl.setValue(client.nom);
+    this.prenomCtrl.setValue(client.prenom);
+    this.emailCtrl.setValue(client.email);
+    this.passwordCtrl.setValue(client.password);
     this.showForm = true;
   }
 

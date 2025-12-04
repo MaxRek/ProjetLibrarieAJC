@@ -15,7 +15,7 @@ import jakarta.persistence.ManyToOne;
 @DiscriminatorValue("Livre")
 public class Livre extends Article {
 
-	@Column(name = "annee", columnDefinition = "int default 4")
+	@Column(name = "annee")
 	@JsonView(Views.Common.class)
 	private int annee;
 

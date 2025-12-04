@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let genre of genre$ | async; traclBy: trackGenre" >
+                <tr *ngFor="let genre of genre$ | async; trackBy: trackGenre" >
                     <td>
                         {{ genre.libelle }}
                     </td>
@@ -51,6 +51,13 @@
 
         </form>
     </section>
+
+    <div id="responsive" style="display: none;">
+        <span>
+        <p>Cet écran ne respecte pas les standards d'affichages</p>
+        <button routerLink="home" routerLinkActive="active">Retour à l'accueil</button>
+        </span>
+    </div>
 
 </body>
 </html>

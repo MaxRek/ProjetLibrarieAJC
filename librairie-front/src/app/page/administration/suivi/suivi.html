@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let suivi of suivi$ | async; traclBy: trackSuivi" >
+                <tr *ngFor="let suivi of suivi$ | async; trackBy: trackSuivi" >
                     <td>{{ suivi.articleId }}</td>
                     <td>{{ suivi.clientId }}</td>
                     <td>

@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let panier of panier$ | async; traclBy: trackPanier" >
+                <tr *ngFor="let panier of panier$ | async; trackBy: trackPanier" >
                     <td>{{ panier.articleId }}</td>
                     <td>{{ panier.clientId }}</td>
                     <td>{{ panier.quantite }}</td>

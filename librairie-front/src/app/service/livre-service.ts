@@ -8,7 +8,7 @@ import { LivreDto } from '../dto/livre-dto';
   providedIn: 'root',
 })
 export class LivreService {
-  private apiUrl = '/livre';
+  private apiUrl = 'http://localhost:8080/api/livre';
   private refresh$: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) { }
@@ -30,13 +30,14 @@ export class LivreService {
     return this.http.get<LivreDto>(`${this.apiUrl}/${id}`);
   }
 
-  public save(livreDto: LivreDto): Observable<void> {
+  public save(livreDto: LivreDto): void {
     const payload = livreDto.toJson();
 
     if (!livreDto.id) {
-      return this.http.post<void>(this.apiUrl, payload);
+      this.http.post<void>(this.apiUrl, payload).subscribe(() => this.refresh());
+      return ;
     }
-    return this.http.put<void>(`${this.apiUrl}/${livreDto.id}`, payload);
+    this.http.put<void>(`${this.apiUrl}/${livreDto.id}`, payload).subscribe(() => this.refresh());
   }
 
   public deleteById(id: number): void {

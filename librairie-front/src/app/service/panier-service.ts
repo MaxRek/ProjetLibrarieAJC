@@ -9,7 +9,7 @@ import { PanierDto } from '../dto/panier-dto';
   providedIn: 'root',
 })
 export class PanierService {
-  private apiUrl = '/panier';
+  private apiUrl = 'http://localhost:8080/api/panier';
   private refresh$: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) { }

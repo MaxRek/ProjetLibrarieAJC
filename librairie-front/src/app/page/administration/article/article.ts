@@ -6,9 +6,10 @@ import { Observable } from 'rxjs';
 import { ArticleDto } from '../../../dto/article-dto';
 import { ArticleService } from '../../../service/article-service';
 
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'article',
-  imports: [ CommonModule,  ReactiveFormsModule],
+  imports: [ CommonModule,  ReactiveFormsModule,RouterModule],
   templateUrl: './article.html',
   styleUrl: '../admin.css',
 })

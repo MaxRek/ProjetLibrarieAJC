@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let livre of livre$ | async; traclBy: tracklivre" >
+                <tr *ngFor="let livre of livre$ | async; trackBy: trackLivre" >
                     <td>
                         {{ livre.libelle }}
                     </td>
@@ -110,6 +110,12 @@
             <button type="button" (click)="annulerEditer()">Annuler</button>
         </form>
     </section>
+    <div id="responsive" style="display: none;">
+        <span>
+        <p>Cet écran ne respecte pas les standards d'affichages</p>
+        <button routerLink="home" routerLinkActive="active">Retour à l'accueil</button>
+        </span>
+    </div>
 
 
 

@@ -41,7 +41,7 @@ export class ArticleDto {
     public toJson(): any {
         return {
             id: this.id,
-            Stock: this.stock,
+            stock: this.stock,
             libelle: this.libelle,
             prix: this.prix
         };
