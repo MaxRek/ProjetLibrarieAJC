@@ -55,4 +55,10 @@ export class AuthService {
         });
       })
     }
+
+    public unAuth():void {
+      sessionStorage.setItem("token", "");
+      sessionStorage.setItem("idClient", "");
+      sessionStorage.setItem("role", "");
+    }
   }

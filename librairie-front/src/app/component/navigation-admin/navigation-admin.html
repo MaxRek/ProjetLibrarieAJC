@@ -1,29 +1,44 @@
 <header>
   <nav>
-    <div>
-      <span>Utilisateur</span>
-      <button routerLink="home" routerLinkActive="active">Accueil</button>
-      <button routerLink="catalogue" routerLinkActive="active">Catalogue</button>
-      <button routerLink="user/panier" routerLinkActive="active">Mes paniers</button>
-      <button routerLink="user/achat" routerLinkActive="active">Mes achats</button>
-      <button routerLink="user/suivi" routerLinkActive="active">Mes suivis</button>
-      <button routerLink="user/review" routerLinkActive="active">Mes reviews</button>
-    </div>
-    <div>
-      <span>Administration</span>
-      
-      <!--<button routerLink="article" routerLinkActive="active">Articles</button>-->
-      <button routerLink="livre" routerLinkActive="active">Livres</button>
-      <button routerLink="auteur" routerLinkActive="active">Auteurs</button>
+    <div [ngSwitch]="role">
+      <div *ngSwitchDefault >
+        <span>Général</span>
+        <button routerLink="home" routerLinkActive="active">Accueil</button>
+        <button routerLink="catalogue" routerLinkActive="active">Catalogue</button>
+        <button routerLink="connexion" routerLinkActive="active">Se connecter</button>
 
-      <button routerLink="papeterie" routerLinkActive="active">Papeterie</button>
-      <button routerLink="client" routerLinkActive="active">Clients</button>
-      <button routerLink="administrateur" routerLinkActive="active">Administrateurs</button>
+      </div>
 
-      <button routerLink="panier" routerLinkActive="active">Paniers</button>
-      <button routerLink="suivi" routerLinkActive="active">Suivis</button>
-      <button routerLink="achat" routerLinkActive="active">Achats</button>
-      <button routerLink="review" routerLinkActive="active">Reviews</button>
+      <div *ngSwitchCase="'[ROLE_CLIENT]'">
+        <span>Utilisateur</span>
+        <button routerLink="home" routerLinkActive="active">Accueil</button>
+        <button routerLink="catalogue" routerLinkActive="active">Catalogue</button>
+        <button routerLink="user/panier" routerLinkActive="active">Mes paniers</button>
+        <button routerLink="user/achat" routerLinkActive="active">Mes achats</button>
+        <button routerLink="user/suivi" routerLinkActive="active">Mes suivis</button>
+        <button routerLink="user/review" routerLinkActive="active">Mes reviews</button>
+        <button routerLink="home" routerLinkActive="active" (click)="deconnecter()">Se déconnecter</button>
+
+      </div>
+
+      <div *ngSwitchCase="'[ROLE_ADMIN]'">
+        <span>Administration</span>
+        <button routerLink="home" routerLinkActive="active">Accueil</button>
+        <button routerLink="catalogue" routerLinkActive="active">Catalogue</button>
+
+        <button routerLink="livre" routerLinkActive="active">Livres</button>
+        <button routerLink="auteur" routerLinkActive="active">Auteurs</button>
+
+        <button routerLink="papeterie" routerLinkActive="active">Papeterie</button>
+        <button routerLink="client" routerLinkActive="active">Clients</button>
+        <button routerLink="administrateur" routerLinkActive="active">Administrateurs</button>
+
+        <button routerLink="panier" routerLinkActive="active">Paniers</button>
+        <button routerLink="suivi" routerLinkActive="active">Suivis</button>
+        <button routerLink="achat" routerLinkActive="active">Achats</button>
+        <button routerLink="review" routerLinkActive="active">Reviews</button>
+        <button routerLink="home" routerLinkActive="active" (click)="deconnecter()"> Se déconnecter</button>
+      </div>
     </div>
   </nav>
 </header>
