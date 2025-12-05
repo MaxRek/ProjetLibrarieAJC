@@ -5,6 +5,7 @@ import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SuiviDto } from '../../../dto/suivi-dto';
 import { SuiviService } from '../../../service/suivi-service';
+import { AuthService } from '../../../service/auth-service';
 
 @Component({
   selector: 'suivi-user',
@@ -15,12 +16,17 @@ import { SuiviService } from '../../../service/suivi-service';
 export class SuiviUser implements OnInit {
   protected suivi$!: Observable<SuiviDto[]>;
 
-  // Je mets un id pour l'instant mais après on devra réccupérer un vrai id grace au login
-  private clientId = 1;
+  private clientId!: number;
 
-  constructor(private suiviService: SuiviService) { }
+  constructor(private suiviService: SuiviService,
+      private authService: AuthService) { }
 
   ngOnInit(): void {
+    // Récupère l'id client comme STRING depuis l'auth
+    const idClientStr = this.authService.idClient;
+    // je mets en number c'est mieux
+    this.clientId = Number(idClientStr);
+
     this.suivi$ = this.suiviService.findByClient(this.clientId);
   }
 

@@ -1,0 +1,11 @@
+
+<div *ngIf="livre$ | async as livre">
+<h1>{{ livre.libelle }}</h1>
+
+<p>Auteur : {{ livre.auteur?.prenom }} {{ livre.auteur?.nom}}</p>
+<p>Prix : {{ livre.prix }} €</p>
+<p>Année : {{ livre.annee }}</p>
+<p>Genre : {{ livre.genre}}</p>
+</div>
+
+<button routerLink="catalogue" routerLinkActive="active">Retour</button>

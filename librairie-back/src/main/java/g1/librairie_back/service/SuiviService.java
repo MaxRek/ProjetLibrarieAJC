@@ -44,4 +44,19 @@ public class SuiviService {
     public void deleteById(Integer id) {
         daoSuivi.deleteById(id);
     }
+
+    public List<Suivi> getByClient(Integer clientId){
+
+        List<Suivi> all = daoSuivi.findAll();
+
+        System.out.println("DEBUG getByClient(" + clientId + ")");
+        all.forEach(s -> System.out.println(
+            " panier id=" + s.getId() +
+            " client=" + (s.getClient() != null ? s.getClient().getId() : null)
+        ));
+
+        return all.stream()
+            .filter(s -> s.getClient() != null && clientId.equals(s.getClient().getId()))
+            .toList();
+    }
 }

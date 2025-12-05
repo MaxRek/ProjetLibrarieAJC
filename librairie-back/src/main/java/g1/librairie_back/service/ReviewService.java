@@ -13,32 +13,43 @@ import g1.librairie_back.model.Review;
 @Service
 public class ReviewService {
 
-	@Autowired
-	IDAOReview daoReview;
-	
-	public List<Review> getAll()
-	{
-		return daoReview.findAll();
-	}
-	
-	public Review getById(Integer id)
-	{
-		Optional<Review> opt = daoReview.findById(id);
-		if(opt.isEmpty()) {return null;}
-		else {return opt.get();}
-	}
+    @Autowired
+    IDAOReview daoReview;
+    
+    public List<Review> getAll() {
+        return daoReview.findAll();
+    }
+    
+    public Review getById(Integer id) {
+        Optional<Review> opt = daoReview.findById(id);
+        return opt.orElse(null);
+    }
 
-	public Review create(Review review)
-	{
-		if(review.getId()!=null)
-		{
-			throw new RuntimeException("Création impossible - id déjà existant");
-		}
-		return daoReview.save(review);
-	}
+    public Review create(Review review) {
+        if (review.getId() != null) {
+            throw new RuntimeException("Création impossible - id déjà existant");
+        }
+        return daoReview.save(review);
+    }
 
-	public void deleteById(Integer id)
-	{
-		daoReview.deleteById(id);
-	}	
+ 	public List<Review> getByClient(Integer clientId) {
+        List<Review> all = daoReview.findAll();
+
+        System.out.println("DEBUG getByClient(" + clientId + ")");
+        all.forEach(r -> System.out.println(
+            "  review id=" + r.getId() +
+            " client=" + (r.getClient() != null ? r.getClient().getId() : null) +
+            " note=" + r.getNote() +
+            " texte=" + r.getReview()
+        ));
+
+        return all.stream()
+            .filter(r -> r.getClient() != null && clientId.equals(r.getClient().getId()))
+            .toList();
+    }
+
+    public void deleteById(Integer id) {
+        daoReview.deleteById(id);
+    }   
 }
+

@@ -31,6 +31,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/panier")
+@CrossOrigin("*")
 public class PanierRestController {
 	private static final Logger log = LoggerFactory.getLogger(PanierRestController.class);
 
@@ -67,6 +68,15 @@ public class PanierRestController {
 		return ResponseEntity.ok(r);
 	}
 
+	@JsonView(Views.Panier.class)
+	@GetMapping("/client/{idClient}")
+	public List<Panier> getPaniersByClient(@PathVariable Integer idClient) {
+
+		List<Panier> paniers = panierSrv.getByClient(idClient);
+
+		return paniers;
+	}
+
 	@PostMapping
 	public Integer ajoutPanier(@Valid @RequestBody CreatePanierRequest request) {
 		log.info("POST /api/Panier - ajoutPanier() called with request: {}", request);
@@ -93,7 +103,7 @@ public class PanierRestController {
 
 	
 	@PutMapping("/{id}")
-    @JsonView(Views.Common.class)
+    @JsonView(Views.Panier.class)
     public Panier update(@PathVariable Integer id, @RequestBody Panier panier) {
 		log.info("PUT /api/Panier/{} - modifierPanier() called with panier: {}", id, panier);
 

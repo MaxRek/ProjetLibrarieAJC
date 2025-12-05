@@ -55,6 +55,15 @@ public class AchatRestController {
         return AchatResponse.convert(achat);
     }
 
+    @JsonView(Views.Achat.class)
+	@GetMapping("/client/{idClient}")
+	public List<Achat> getPaniersByClient(@PathVariable Integer idClient) {
+
+		List<Achat> achats = achatSrv.getByClient(idClient);
+
+		return achats;
+	}
+
     @PostMapping
     @JsonView(Views.Achat.class)
     public AchatResponse create(@RequestBody CreateAchatRequest request) {

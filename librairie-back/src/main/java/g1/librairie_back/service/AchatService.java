@@ -44,6 +44,22 @@ public class AchatService {
         return daoAchat.findAll();
     }
 
+    public List<Achat> getByClient(Integer clientId) {
+        List<Achat> all = daoAchat.findAll();
+
+        System.out.println("DEBUG AchatService.getByClient(" + clientId + ")");
+        all.forEach(a -> System.out.println(
+            " achat id=" + a.getId() +
+            " client=" + (a.getClient() != null ? a.getClient().getId() : null) +
+            " article=" + (a.getArticle() != null ? a.getArticle().getId() : null) +
+            " quantite=" + a.getQuantiteAchat()
+        ));
+
+        return all.stream()
+            .filter(a -> a.getClient() != null && clientId.equals(a.getClient().getId()))
+            .toList();
+    }
+
     public Achat create(Achat achat) {
         if (achat.getId() != null) {
             throw new RuntimeException("Création impossible - id déjà existant");
@@ -96,7 +112,7 @@ public class AchatService {
     
     @Transactional
     public String achatPanier(Integer clientId) {
-    	List<Panier> panier = panierService.getPanierByIdClient(clientId);
+    	List<Panier> panier = panierService.getByClient(clientId);
 
         for (Panier p : panier) {
 

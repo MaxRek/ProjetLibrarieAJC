@@ -5,6 +5,7 @@ import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PanierDto } from '../../../dto/panier-dto';
 import { PanierService } from '../../../service/panier-service';
+import { AuthService } from '../../../service/auth-service';
 
 @Component({
   selector: 'panier-user',
@@ -15,8 +16,7 @@ import { PanierService } from '../../../service/panier-service';
 export class PanierUser implements OnInit {
   protected panier$!: Observable<PanierDto[]>;
 
-  // Je mets un id pour l'instant mais après on devra réccupérer un vrai id grace au login
-  private clientId = 1;
+  private clientId!: number;
 
   protected showForm: boolean = false;
 
@@ -26,9 +26,17 @@ export class PanierUser implements OnInit {
 
   protected editingPanier!: PanierDto | null;
 
-  constructor(private panierService: PanierService, private formBuilder: FormBuilder) { }
+  constructor(
+    private panierService: PanierService, 
+    private formBuilder: FormBuilder,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
+    // Récupère l'id client comme STRING depuis l'auth
+    const idClientStr = this.authService.idClient;
+    // je mets en number c'est mieux
+    this.clientId = Number(idClientStr);
+
     this.panier$ = this.panierService.findByClient(this.clientId);
     
     this.quantiteCtrl = this.formBuilder.control(1);

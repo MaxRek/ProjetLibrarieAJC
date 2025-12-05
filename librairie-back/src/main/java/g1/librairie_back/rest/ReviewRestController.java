@@ -1,6 +1,5 @@
 package g1.librairie_back.rest;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -92,6 +91,15 @@ public class ReviewRestController {
 
 	    log.info("POST /api/Review - ajoutReview() created review with id: {}", review.getId());
 	    return review.getId();
+	}
+
+	@JsonView(Views.Review.class)
+	@GetMapping("/client/{idClient}")
+	public List<Review> getReviewsByClient(@PathVariable Integer idClient) {
+
+		List<Review> reviews = reviewSrv.getByClient(idClient);
+
+		return reviews;
 	}
 
 

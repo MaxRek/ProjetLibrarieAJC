@@ -71,11 +71,13 @@ export class ReviewDto {
 
     public toJson(): any {
         return {
-            review: this.review,
-            note: this.note,
-            dateReview: this.dateReview,
             articleId: this.articleId,
-            clientId: this.clientId
+            clientId: this.clientId,
+            dateReview: this.dateReview,
+            note: this.note,
+            review: this.review,
         };
+        
+        
     }
 }

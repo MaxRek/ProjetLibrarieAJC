@@ -73,25 +73,28 @@ export class Review implements OnInit {
     return value.id;
   }
 
+
+
+  
   public creerOuModifier() {
     if (this.editingReview) {
       this.reviewService.save(new ReviewDto(
         this.editingReview.id, 
-        this.dateReviewCtrl.value, 
-        this.noteCtrl.value, 
         this.reviewCtrl.value,
+        this.noteCtrl.value, 
+        this.dateReviewCtrl.value, 
         this.articleIdCtrl.value,
-        this.clientIdCtrl.value
-    ));
+        this.clientIdCtrl.value,
+      ));
     } 
     else {
       this.reviewService.save(new ReviewDto(
         0, 
-        this.dateReviewCtrl.value, 
-        this.noteCtrl.value, 
         this.reviewCtrl.value,
+        this.noteCtrl.value, 
+        this.dateReviewCtrl.value, 
         this.articleIdCtrl.value,
-        this.clientIdCtrl.value
+        this.clientIdCtrl.value,
       ));
     }
     this.showForm = false;

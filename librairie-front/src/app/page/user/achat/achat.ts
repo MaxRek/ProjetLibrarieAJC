@@ -5,6 +5,7 @@ import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AchatDto } from '../../../dto/achat-dto';
 import { AchatService } from '../../../service/achat-service';
+import { AuthService } from '../../../service/auth-service';
 
 @Component({
   selector: 'achat-user',
@@ -15,12 +16,17 @@ import { AchatService } from '../../../service/achat-service';
 export class AchatUser implements OnInit {
   protected achat$!: Observable<AchatDto[]>;
 
-// Je mets un id pour l'instant mais après on devra réccupérer un vrai id grace au login
-  private clientId = 1;
+  private clientId!: number;
 
-  constructor(private achatService: AchatService) { }
+  constructor(private achatService: AchatService,
+      private authService: AuthService) { }
 
   ngOnInit(): void {
+    // Récupère l'id client comme STRING depuis l'auth
+    const idClientStr = this.authService.idClient;
+    // je mets en number c'est mieux
+    this.clientId = Number(idClientStr);
+    
     this.achat$ = this.achatService.findByClient(this.clientId);
   }
 

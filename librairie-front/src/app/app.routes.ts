@@ -17,6 +17,8 @@ import { ReviewUser } from './page/user/review/review';
 import { LoginPage } from './page/user/login/login';
 import { AuthAdminGuard } from './guard/auth-admin-guard';
 import { AuthClientGuard } from './guard/auth-client-guard';
+import { FicheLivre } from './page/user/fiche/fiche-livre/fiche-livre';
+import { FichePapeterie } from './page/user/fiche/fiche-papeterie/fiche-papeterie';
 
 export const routes: Routes = [
     { path: 'auteur', component: Auteur, canActivate: [AuthAdminGuard] },
@@ -35,6 +37,8 @@ export const routes: Routes = [
     { path: 'user/suivi', component: SuiviUser, canActivate: [AuthClientGuard]  },
     { path: 'user/review', component: ReviewUser, canActivate: [AuthClientGuard]  },
     { path: 'connexion', component: LoginPage },
+    { path: 'ficheLivre/:id', component: FicheLivre },
+    { path: 'fichePapeterie/:id', component: FichePapeterie},
     // Redirection par défaut vers la page d'accueil
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**', redirectTo: '/home' }

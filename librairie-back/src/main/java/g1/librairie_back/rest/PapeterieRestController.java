@@ -42,14 +42,11 @@ public class PapeterieRestController {
 
     @JsonView(Views.Papeterie.class)
     @GetMapping("/{id}")
-    public ResponseEntity<PapeterieResponse> getById(@PathVariable Integer id) {
+    public Papeterie getById(@PathVariable Integer id) {
 
         Papeterie papeterie = (Papeterie) articleService.getById(id);
 
-        if (papeterie == null)
-            return ResponseEntity.notFound().build();
-
-        return ResponseEntity.ok(PapeterieResponse.convert(papeterie));
+        return papeterie;
     }
 
     @PostMapping

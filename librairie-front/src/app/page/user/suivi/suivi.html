@@ -13,13 +13,17 @@
         <table>
             <thead>
                 <tr>
+                    <th>Article (id)</th>
                     <th>Article</th>
+                    <th>Stock</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let suivi of suivi$ | async; traclBy: trackSuivi" >
-                    <td>{{ suivi.articleId }}</td>
+                    <td>{{ suivi.article?.id }}</td>
+                    <td>{{ suivi.article?.libelle }}</td>
+                    <td>{{ suivi.article?.stock }}</td>
                 </tr>
             </tbody>
         </table>

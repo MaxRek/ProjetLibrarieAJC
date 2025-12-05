@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import g1.librairie_back.dto.request.CreateSuiviRequest;
 import g1.librairie_back.model.Article;
 import g1.librairie_back.model.Client;
+import g1.librairie_back.model.Panier;
 import g1.librairie_back.model.Suivi;
 import g1.librairie_back.service.ArticleService;
 import g1.librairie_back.service.CompteService;
@@ -70,6 +71,15 @@ public class SuiviRestController {
 
 		log.info("GET /api/suivi/{} - ficheSuivi() - suivi found", id);
 		return ResponseEntity.ok(s);
+	}
+
+	@JsonView(Views.Suivi.class)
+	@GetMapping("/client/{idClient}")
+	public List<Suivi> getSuivisByClient(@PathVariable Integer idClient) {
+
+		List<Suivi> suivis = suiviSrv.getByClient(idClient);
+
+		return suivis;
 	}
 
 	@PostMapping

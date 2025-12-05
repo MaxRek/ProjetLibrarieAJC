@@ -34,8 +34,20 @@ export class SuiviDto {
         this._clientId = value;
     }
 
+    public get ArticleId(): number {
+        return this.article?.id as number ?? 0;
+    }
+
     public get ArticleLibelle() : string {
         return this.article?.libelle as string ?? '';
+    }
+
+    public get ArticlePrix(): number {
+        return this.article?.prix as number ?? 0;
+    }
+
+    public get ArticleStock(): number {
+        return this.article?.stock as number ?? 0;
     }
 
     public get ClientNom() : string {
